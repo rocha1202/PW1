@@ -1,8 +1,8 @@
-# Projeto de PW1- Grupo ?!
+# VUE Project for PW1
 Beatriz Costa- 40220458 / Inês Rocha- 40220247 / Sérgio Alves- 40220400
 
-## Tema
-Eventos artísticos, como exposições de arte e mostras de cinema/fotografia, destacam a criatividade e a expressão cultural. A plataforma fornecerá recursos para a reserva de ingressos, tours virtuais, informações sobre artistas e interações ao vivo. Os organizadores poderão divulgar as suas exposições, promover workshops e criar um ambiente interativo para os visitantes, incentivando a apreciação das artes.
+## Theme: 
+The theme of this web application is "Immersive Art and Interactive Experience". This platform will serve as a central hub for a dynamic and multifaceted art show that brings together organizers, artists, and participants in a fully interactive and engaging experience. The app will cater to art enthusiasts and curious explorers who wish to connect with diverse forms of creative expression through this plataform.
 
 # General functional requirements:
 
@@ -25,7 +25,7 @@ The web application must have two types of users: **Organizers** and **Participa
 - Buy merchandise.
 - Sign up for the event as a volunteer.
 
-# Functional requirements
+# Mandatory functional requirements for the theme
 - Interactive profiles of artists with a gallery of samples of their works, video clips or audio, allowing visitors to have direct contact with each artist's work before the event.
 - Links to artists' social networks, portfolios and even exclusive interviews to deepen the
 knowledge about each breeder.
