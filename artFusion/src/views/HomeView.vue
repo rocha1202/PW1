@@ -1,9 +1,25 @@
-<script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+<template>
+  <div>
+    <Navbar />
+    <AllPrograms />
+  </div>
+</template>
+
+<script>
+import Navbar from "@/components/Navbar.vue";
+import AllPrograms from "@/components/allPrograms.vue";
+
+export default {
+  name: "Home",
+  components: {
+    Navbar,
+    AllPrograms,
+  },
+};
 </script>
 
-<template>
-  <main>
-    <TheWelcome />
-  </main>
-</template>
+<style scoped>
+div {
+  font-family: Arial, sans-serif;
+}
+</style>
