@@ -1,15 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/HomeView.vue";
-import CreateAcc from "@/views/CreateAcc.vue";
+import CreateAcc from "@/views/CreateView.vue";
 import Login from "@/views/LoginView.vue";
-import Theater from "@/views/Theater.vue";
-import Concerts from "@/views/Concerts.vue";
-import Museums from "@/views/Museums.vue";
-import Workshops from "@/views/Workshops.vue";
-import Tickets from "@/views/Tickets.vue";
-import InfoArtist from "@/views/InfoArtist.vue";
-import InfoTickets from "@/views/InfoTickets.vue";
-import StoreMerch from "@/views/StoreMerch.vue";
+import Theater from "@/views/TheaterView.vue";
+import Concerts from "@/views/ConcertsView.vue";
+import Museums from "@/views/MuseumsView.vue";
+import Workshops from "@/views/WorkshopsView.vue";
+import Tickets from "@/views/TicketsView.vue";
+import InfoArtist from "@/views/InfoArtistView.vue";
+import InfoTickets from "@/views/InfoTicketsView.vue";
+import StoreMerch from "@/views/StoreMerchView.vue";
 import { useUserStore } from "@/stores/users";
 
 
