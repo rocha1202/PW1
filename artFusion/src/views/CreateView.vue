@@ -1,5 +1,8 @@
 <template>
+
   <div>
+    <Navbar />
+
     <h3>Create Account</h3>
     <form @submit.prevent="handleCreateAccount">
       <div>
@@ -20,8 +23,13 @@
 </template>
 
 <script>
+import Navbar from "@/components/navbar.vue";
+
 export default {
   name: 'CreateAccount',
+  components: {
+    Navbar
+  },
   data() {
     return {
       email: '',

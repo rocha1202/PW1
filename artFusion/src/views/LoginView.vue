@@ -1,5 +1,8 @@
 <template>
+
   <div>
+    <Navbar />
+
     <h3>Login</h3>
     <form @submit.prevent="handleLogin">
       <div>
@@ -19,9 +22,14 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'; // Importação do Router
 import { useUserStore } from '@/stores/users';
+import Navbar from "@/components/navbar.vue";
+
 
 export default {
   name: "Login",
+  components: {
+    Navbar
+  },
   setup() {
     const userStore = useUserStore(); // Pinia store
     const email = ref('');           // Reativos para o formulário
