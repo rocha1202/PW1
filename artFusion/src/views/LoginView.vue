@@ -1,60 +1,147 @@
 <template>
-
-  <div>
+  <div class="page-container">
     <Navbar />
+    <div class="signup-container">
+      <div class="signup-box">
+        <h3 class="signup-title">Sign Up</h3>
+        <form @submit.prevent="handleSignUp">
+          <div class="form-group">
+            <label for="email" class="form-label">Email or phone number</label>
+            <input type="email" id="email" v-model="email" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" v-model="password" class="form-input" required />
+          </div>
+          <button type="submit" class="submit-button">Sign up</button>
+        </form>
+        <p class="signin-link">
+          Don't have an account? <router-link to="/create-account" class="button button-signin">Sign In</router-link>
+        </p>
+      </div>
+     
 
-    <h3>Login</h3>
-    <form @submit.prevent="handleLogin">
-      <div>
-        Email:
-        <input type="email" id="email" v-model="email" required />
-      </div>
-      <div>
-        Password:
-        <input type="password" id="password" v-model="password" required />
-      </div>
-      <button type="submit">Login</button>
-    </form>
+    </div>
+    <Footer />
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router'; // Importação do Router
-import { useUserStore } from '@/stores/users';
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import Navbar from "@/components/navbar.vue";
-
+import Footer from "@/components/footer.vue";
 
 export default {
-  name: "Login",
+  name: "SignUp",
   components: {
-    Navbar
+    Navbar,
+    Footer,
   },
   setup() {
-    const userStore = useUserStore(); // Pinia store
-    const email = ref('');           // Reativos para o formulário
-    const password = ref('');
-    const router = useRouter();      // Instância do router
+    const email = ref("");
+    const password = ref("");
 
-    const handleLogin = () => {
-      try {
-        // Chama a ação login da store
-        userStore.login(email.value, password.value);
-
-        // Redireciona após login bem-sucedido
-        router.push({ name: "Ticket" }); // Corrigido para usar router
-      } catch (error) {
-        alert("Erro no login. Verifique suas credenciais.");
-        email.value = '';
-        password.value = '';
-      }
-    };
 
     return {
       email,
       password,
-      handleLogin,
     };
   },
 };
 </script>
+
+<style scoped>
+/* Geral */
+body {
+  background-color: #0f0a30;
+  margin: 0;
+  color: #fff;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+}
+
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  background-color: #0f0a30;
+}
+
+.signup-box {
+  background-color: #f0f4f8;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 360px;
+}
+
+.signup-title {
+  text-align: left;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #0f0a30;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 14px;
+  color: #0f0a30;
+  margin-bottom: 5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #0f0a30;
+  box-shadow: 0 0 5px rgba(107, 107, 255, 0.5);
+}
+
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #0f0a30;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #1a1440;
+}
+
+.signin-link {
+  text-align: left;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #0f0a30;
+}
+
+.signin-link a {
+  color: #0f0a30;
+  text-decoration: none;
+}
+
+.signin-link a:hover {
+  text-decoration: underline;
+}
+</style>

@@ -1,12 +1,16 @@
 <template>
   <div>
     <Navbar />
-    <AllPrograms />
+    <div class="content">
+      <AllPrograms />
+    </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/navbar.vue";
+import Footer from "@/components/footer.vue";
 import AllPrograms from "@/components/allPrograms.vue";
 
 export default {
@@ -14,12 +18,15 @@ export default {
   components: {
     Navbar,
     AllPrograms,
+    Footer,
   },
 };
 </script>
 
 <style scoped>
-div {
-  font-family: Arial, sans-serif;
+
+
+.content {
+  margin-top: 100px;
 }
 </style>
