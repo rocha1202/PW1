@@ -60,36 +60,34 @@ export default {
 }
 
 .navbar-logo-item {
-  margin-right: auto; /* Alinha à esquerda */
+  margin-right: auto;
 }
 
 .navbar-center {
   display: flex;
-  gap: 20px; /* Espaçamento entre links centrais */
-  margin: 0 auto; /* Centraliza no meio */
+  gap: 20px; 
+  margin: 0 auto; 
 }
 
 .navbar-right {
   display: flex;
   gap: 15px;
-  margin-left: auto; /* Empurra para a direita */
+  margin-left: auto;
 }
 
 .navbar-item a {
-  color: #0F0A30; /* Cor dos links */
+  color: #0F0A30;
   font-weight: bold;
   text-decoration: none;
   font-size: 14px;
   transition: color 0.3s ease;
 }
 
-/* Estilo do logo */
 .navbar-logo {
   height: 40px;
   width: auto;
 }
 
-/* Botões Sign In e Sign Up */
 .button {
   display: inline-block;
   padding: 8px 16px;
@@ -101,16 +99,15 @@ export default {
   transition: all 0.3s ease;
 }
 
-/* Invertendo as cores */
 .button-signin {
-  background-color: transparent !important; /* Fundo transparente */
-  color: #0F0A30 !important; /* Texto escuro */
-  border: 2px solid #0F0A30 !important; /* Borda escura */
+  background-color: transparent !important; 
+  color: #0F0A30 !important; 
+  border: 2px solid #0F0A30 !important; 
 }
 
 .button-signup {
-  background-color: #0F0A30 !important; /* Fundo escuro */
-  color: #FFFFFF !important; /* Texto branco */
+  background-color: #0F0A30 !important; 
+  color: #F1F9FC !important;
   border: none !important;
 }
 
