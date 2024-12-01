@@ -30,8 +30,8 @@
         </p>
       </div>
     </div>
+    <Footer />
   </div>
-  <Footer />
 </template>
 
 <script>
@@ -42,7 +42,7 @@ export default {
   name: "CreateAccount",
   components: {
     Navbar,
-    Footer
+    Footer,
   },
   data() {
     return {
