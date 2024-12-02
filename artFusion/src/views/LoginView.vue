@@ -3,24 +3,22 @@
     <Navbar />
     <div class="signup-container">
       <div class="signup-box">
-        <h3 class="signup-title">Sign Up</h3>
+        <h3 class="signup-title">Sign In</h3>
         <form @submit.prevent="handleSignUp">
           <div class="form-group">
-            <label for="email" class="form-label">Email or phone number</label>
+            <label for="email" class="form-label">Email</label>
             <input type="email" id="email" v-model="email" class="form-input" required />
           </div>
           <div class="form-group">
             <label for="password" class="form-label">Password</label>
             <input type="password" id="password" v-model="password" class="form-input" required />
           </div>
-          <button type="submit" class="submit-button">Sign up</button>
+          <button type="submit" class="submit-button">Sign In</button>
         </form>
         <p class="signin-link">
-          Don't have an account? <router-link to="/create-account" class="button button-signin">Sign In</router-link>
+          Don't have an account? <router-link to="/create-account" class="button button-signin">Create Account</router-link>
         </p>
       </div>
-     
-
     </div>
     <Footer />
   </div>
@@ -29,6 +27,7 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/users.js";
 import Navbar from "@/components/navbar.vue";
 import Footer from "@/components/footer.vue";
 
@@ -41,11 +40,25 @@ export default {
   setup() {
     const email = ref("");
     const password = ref("");
+    const router = useRouter();
+    const accountStore = useUserStore();
 
+    const handleSignUp = async () => {
+      try {
+        // Executa o login e redireciona se bem-sucedido
+        await accountStore.login(email.value, password.value);
+        console.log("Login bem-sucedido");
+        router.push("/ticket");
+      } catch (error) {
+        console.error("Erro durante o login:", error.message);
+        alert(error.message);
+      }
+    };
 
     return {
       email,
       password,
+      handleSignUp,
     };
   },
 };

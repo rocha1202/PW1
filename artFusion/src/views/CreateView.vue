@@ -15,18 +15,12 @@
           </div>
           <div class="form-group">
             <label for="confirmPassword" class="form-label">Confirm Password</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              v-model="confirmPassword"
-              class="form-input"
-              required
-            />
+            <input type="password" id="confirmPassword" v-model="confirmPassword" class="form-input" required />
           </div>
           <button type="submit" class="submit-button">Create Account</button>
         </form>
         <p class="signin-link">
-          Have an account?  <router-link to="/login" class="button button-signin">Sign Up</router-link>
+          Have an account? <router-link to="/login" class="button button-signin">Sign Up</router-link>
         </p>
       </div>
     </div>
@@ -35,6 +29,9 @@
 </template>
 
 <script>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useUserStore } from '@/stores/users';
 import Navbar from "@/components/navbar.vue";
 import Footer from "@/components/footer.vue";
 
@@ -44,35 +41,41 @@ export default {
     Navbar,
     Footer,
   },
-  data() {
-    return {
-      email: "",
-      password: "",
-      confirmPassword: "",
-    };
-  },
-  methods: {
-    handleCreateAccount() {
-      if (this.password === this.confirmPassword) {
-        // Armazenar os dados no localStorage
-        localStorage.setItem(
-          "account",
-          JSON.stringify({
-            email: this.email,
-            password: this.password, // Evite armazenar senhas diretamente em sistemas reais.
-          })
-        );
-        console.log("Conta criada com:", this.email);
+  setup() {
+    const email = ref("");
+    const password = ref("");
+    const confirmPassword = ref("");
+    const router = useRouter();
+    const accountStore = useUserStore();
+
+    const handleCreateAccount = () => {
+      if (password.value === confirmPassword.value) {
+        try {
+          accountStore.createAccount(email.value, password.value);
+          console.log("Conta criada com sucesso:", email.value);
+          router.push("/login"); // Redireciona para a página de login após o registro
+        } catch (error) {
+          console.error(error.message);
+          alert(error.message); // Mostra o erro ao usuário
+        }
       } else {
         console.log("As senhas não coincidem");
+        alert("As senhas devem coincidir.");
       }
-    },
+    };
+
+    return {
+      email,
+      password,
+      confirmPassword,
+      handleCreateAccount,
+    };
   },
 };
 </script>
 
 <style scoped>
-/* Geral */
+/* Estilos (mesmos do código original) */
 body {
   background-color: #0f0a30;
   margin: 0;
@@ -90,7 +93,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1; /* Ocupa o espaço restante entre Navbar e Footer */
+  flex: 1;
   background-color: #0f0a30;
 }
 
@@ -149,6 +152,7 @@ body {
 .submit-button:hover {
   background-color: #1a1440;
 }
+
 .signin-link {
   text-align: left;
   margin-top: 20px;
