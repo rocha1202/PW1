@@ -7,41 +7,76 @@
           <img src="../assets/logo.png" alt="Home" class="navbar-logo" />
         </router-link>
       </li>
-      
+
       <!-- Links centrais -->
       <div class="navbar-center">
         <li class="navbar-item"><router-link to="/theater">Theater</router-link></li>
         <li class="navbar-item"><router-link to="/concerts">Concerts</router-link></li>
         <li class="navbar-item"><router-link to="/museums">Museums</router-link></li>
         <li class="navbar-item"><router-link to="/workshops">Workshops</router-link></li>
+        <li class="navbar-item"><router-link to="/ticket">Tickets</router-link></li>
+
       </div>
-      
-      <!-- Sign In e Sign Up à direita -->
+
+      <!-- Sign In e Sign Up à direita, ou avatar se logado -->
       <div class="navbar-right">
-        <li class="navbar-item">
-          <router-link to="/create-account" class="button button-signin">Sign In</router-link>
-        </li>
-        <li class="navbar-item">
-          <router-link to="/login" class="button button-signup">Sign Up</router-link>
-        </li>
+        <template v-if="!isAuthenticated">
+          <li class="navbar-item">
+            <router-link to="/login" class="button button-signin">Sign In</router-link>
+          </li>
+          <li class="navbar-item">
+            <router-link to="/create-account" class="button button-signup">Sign Up</router-link>
+          </li>
+        </template>
+        <template v-else>
+          <li class="navbar-item">
+            <router-link to="/profile">
+              <img src="../assets/Account.png" alt="Profile" class="navbar-avatar" />
+            </router-link>
+          </li>
+          <li class="navbar-item">
+            <button @click="logout" class="button button-signin">Logout</button>
+          </li>
+        </template>
       </div>
     </ul>
   </nav>
 </template>
 
 <script>
+import { computed } from "vue";
+import { useUserStore } from "@/stores/users.js"; // Importe a store
+
 export default {
-  name: 'Navbar',
+  name: "Navbar",
+  setup() {
+    const userStore = useUserStore();
+
+    // Computed property para acessar o estado de autenticação
+    const isAuthenticated = computed(() => userStore.isUserAuthenticated);
+
+    // Função para logar
+    const logout = () => {
+      userStore.logout();
+    };
+
+    return {
+      isAuthenticated,
+      logout
+    };
+  }
 };
 </script>
 
 <style scoped>
+/* O estilo permanece o mesmo */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #F1F9FC; /* Cor de fundo clara */
+  background-color: #F1F9FC;
+  /* Cor de fundo clara */
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -65,8 +100,8 @@ export default {
 
 .navbar-center {
   display: flex;
-  gap: 20px; 
-  margin: 0 auto; 
+  gap: 20px;
+  margin: 0 auto;
 }
 
 .navbar-right {
@@ -88,6 +123,11 @@ export default {
   width: auto;
 }
 
+.navbar-avatar {
+  height: 45px;
+  width: 45px;
+}
+
 .button {
   display: inline-block;
   padding: 8px 16px;
@@ -100,16 +140,14 @@ export default {
 }
 
 .button-signin {
-  background-color: transparent !important; 
-  color: #0F0A30 !important; 
-  border: 2px solid #0F0A30 !important; 
+  background-color: transparent !important;
+  color: #0F0A30 !important;
+  border: 2px solid #0F0A30 !important;
 }
 
 .button-signup {
-  background-color: #0F0A30 !important; 
+  background-color: #0F0A30 !important;
   color: #F1F9FC !important;
   border: none !important;
 }
-
-
 </style>

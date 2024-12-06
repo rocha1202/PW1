@@ -23,7 +23,6 @@
     <Footer />
   </div>
 </template>
-
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
@@ -48,7 +47,7 @@ export default {
         // Executa o login e redireciona se bem-sucedido
         await accountStore.login(email.value, password.value);
         console.log("Login bem-sucedido");
-        router.push("/ticket");
+        router.push("/");
       } catch (error) {
         console.error("Erro durante o login:", error.message);
         alert(error.message);
@@ -63,6 +62,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 /* Geral */

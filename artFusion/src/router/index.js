@@ -10,6 +10,7 @@ import Tickets from "@/views/TicketsView.vue";
 import InfoArtist from "@/views/InfoArtistView.vue";
 import InfoTickets from "@/views/InfoTicketsView.vue";
 import StoreMerch from "@/views/StoreMerchView.vue";
+import Profile from "@/views/ProfileView.vue";
 import { useUserStore } from "@/stores/users";
 
 
@@ -28,6 +29,7 @@ const router = createRouter({
     { path: "/info-tickets", name: "InfoTickets", component: InfoTickets,  meta: { requiresAuth: true} },
     { path: "/info-artist", name: "InfoArtist", component: InfoArtist,  meta: { requiresAuth: true} },
     { path: "/storeMerch", name: "StoreMerch", component: StoreMerch, meta: { requiresAuth: true } },
+    { path: "/profile", name: "Profile", component: Profile, meta: { requiresAuth: true } },
   ]
 })
 

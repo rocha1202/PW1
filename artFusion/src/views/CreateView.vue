@@ -3,7 +3,7 @@
     <Navbar />
     <div class="signup-container">
       <div class="signup-box">
-        <h3 class="signup-title">Sign In</h3>
+        <h3 class="signup-title">Sign Up</h3>
         <form @submit.prevent="handleCreateAccount">
           <div class="form-group">
             <label for="email" class="form-label">Email</label>
@@ -20,7 +20,7 @@
           <button type="submit" class="submit-button">Create Account</button>
         </form>
         <p class="signin-link">
-          Have an account? <router-link to="/login" class="button button-signin">Sign Up</router-link>
+          Have an account? <router-link to="/login" class="button button-signin">Sign In</router-link>
         </p>
       </div>
     </div>
