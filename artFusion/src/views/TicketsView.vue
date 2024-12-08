@@ -1,17 +1,28 @@
 <template>
-    <div>
-      <h3>Tickets</h3>
-      <ul>
-      <li><router-link to="/">Home</router-link></li>
-      <li><router-link to="/info-ticket">Info-Ticket</router-link></li>
-      <li><router-link to="/info-artist">Info-Artist</router-link></li>
-      <li><router-link to="/storeMerch">Store Mearchandising</router-link></li>
-    </ul>
+  <div>
+    <NavbarTicket />
+    <div class="content">
+      <AllPrograms />
     </div>
-  </template>
-  
-  <script>
+    <Footer />
+  </div>
+</template>
+
+<script>
+import NavbarTicket from "@/components/navbarTicket.vue";
+import Footer from "@/components/footer.vue";
+
   export default {
-    name: 'Tickets',
+    name: 'TicketsPage',
+    components: {
+      NavbarTicket,
+      Footer,
+    },
   };
   </script>
+
+<style scoped>
+.content {
+  margin-top: 100px;
+}
+</style>
