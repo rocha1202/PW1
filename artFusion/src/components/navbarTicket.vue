@@ -11,7 +11,7 @@
         <!-- Links centrais -->
         <div class="navbar-center">
           <li class="navbar-item"><router-link to="/">Home</router-link></li>
-          <li class="navbar-item"><router-link to="/info-ticket">Info-Ticket</router-link></li>
+          <li class="navbar-item"><router-link to="/info-tickets">Info-Ticket</router-link></li>
           <li class="navbar-item"><router-link to="/info-artist">Info-Artist</router-link></li>
           <li class="navbar-item"><router-link to="/storeMerch">Store Mearchandising</router-link></li>
         </div>
