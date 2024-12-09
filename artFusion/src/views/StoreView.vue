@@ -1,22 +1,22 @@
 <template>
   <div>
-    <navbarTicket />
+    <Navbar />
     <br>
     <br>
     <br>
     <br>
-    <h1>info-artist</h1>
+    <h1>Store</h1>
     <Footer />
   </div>   
 </template>
 
 <script>
-import NavbarTicket from '@/components/navbarTicket.vue';
+import Navbar from "@/components/navbar.vue";
 import Footer from '@/components/footer.vue';
 export default {
   name: 'InfoArtist',
   components: {
-    NavbarTicket,
+    Navbar,
     Footer,
   }
 };

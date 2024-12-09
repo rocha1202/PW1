@@ -2,6 +2,9 @@
   <div>
     <Navbar />
     <div class="content">
+      <h1>Workshops</h1>
+    </div>
+    <div class="content">
       <Carousel :slideCount="3">
       <!-- First Slide -->
       <div class="slide">
@@ -47,27 +50,21 @@
 <script>
 import Navbar from "@/components/navbar.vue";
 import Footer from "@/components/footer.vue";
-
 import Carousel from "@/components/Carousel.vue";
 
-export default {
-  name: "Museums",
-  components: {
-    Navbar,
-    Footer,
-    Carousel,
-  },
-};
+  export default {
+      components: {
+  Navbar,
+  Footer,
+  Carousel,
+},
+  }
 </script>
 
 <style scoped>
-
 
 .content {
   margin-top: 100px;
 }
 
-
 </style>
-
- 

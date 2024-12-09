@@ -10,19 +10,25 @@
 
       <!-- Links centrais -->
       <div class="navbar-center">
-        <li class="navbar-item"><router-link to="/theater">Theater</router-link></li>
-        <li class="navbar-item"><router-link to="/concerts">Concerts</router-link></li>
-        <li class="navbar-item"><router-link to="/museums">Museums</router-link></li>
-        <li class="navbar-item"><router-link to="/workshops">Workshops</router-link></li>
-        <li class="navbar-item"><router-link to="/ticket">Tickets</router-link></li>
-
+        <li class="navbar-item">
+          <router-link to="/museum">Museu</router-link>
+        </li>
+        <li class="navbar-item">
+          <router-link to="/workshop">Workshops</router-link>
+        </li>
+        <li class="navbar-item">
+          <router-link to="/store">Loja/Merch</router-link>
+        </li>
+        <li :class="{ hidden: !showTickets }" class="navbar-item">
+          <router-link to="/tickets">Tickets</router-link>
+        </li>
       </div>
 
       <!-- Sign In e Sign Up à direita, ou avatar se logado -->
       <div class="navbar-right">
         <template v-if="!isAuthenticated">
           <li class="navbar-item">
-            <router-link to="/login" class="button button-signin">Sign In</router-link>
+            <router-link to="/login" class="button button-signin">Log In</router-link>
           </li>
           <li class="navbar-item">
             <router-link to="/create-account" class="button button-signup">Sign Up</router-link>
@@ -55,9 +61,13 @@ export default {
     // Computed property para acessar o estado de autenticação
     const isAuthenticated = computed(() => userStore.isUserAuthenticated);
 
+    // Controle da visibilidade do link de Tickets
+    const showTickets = computed(() => isAuthenticated.value);
+
     // Função para logar
     const logout = () => {
       userStore.logout();
+      router.push("/"); // Redireciona para a página "Home"
     };
 
     return {
@@ -140,14 +150,18 @@ export default {
 }
 
 .button-signin {
+  background-color: #0F0A30 !important;
+  color: #F1F9FC !important;
+  border: none !important;
+}
+
+.button-signup {
   background-color: transparent !important;
   color: #0F0A30 !important;
   border: 2px solid #0F0A30 !important;
 }
 
-.button-signup {
-  background-color: #0F0A30 !important;
-  color: #F1F9FC !important;
-  border: none !important;
+.hidden {
+  visibility: hidden;
 }
 </style>

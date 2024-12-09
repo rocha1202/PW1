@@ -2,18 +2,12 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/HomeView.vue";
 import CreateAcc from "@/views/CreateView.vue";
 import Login from "@/views/LoginView.vue";
-import Theater from "@/views/TheaterView.vue";
-import Concerts from "@/views/ConcertsView.vue";
-import Museums from "@/views/MuseumsView.vue";
-import Workshops from "@/views/WorkshopsView.vue";
-import Tickets from "@/views/TicketsView.vue";
-import InfoArtist from "@/views/InfoArtistView.vue";
-import InfoTickets from "@/views/InfoTicketsView.vue";
-import StoreMerch from "@/views/StoreMerchView.vue";
+import MuseumView from "@/views/MuseumView.vue";
+import WorkShopView from "@/views/WorkShopView.vue";
+import TicketInfoView from "@/views/TicketInfoView.vue";
+import StoreView from "@/views/StoreView.vue";
 import Profile from "@/views/ProfileView.vue";
 import { useUserStore } from "@/stores/users";
-
-
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,17 +15,23 @@ const router = createRouter({
     { path: "/", name: "Home", component: Home },
     { path: "/create-account", name: "CreateAcc", component: CreateAcc },
     { path: "/login", name: "Login", component: Login },
-    { path: "/theater", name: "Theater", component: Theater },
-    { path: "/concerts", name: "Concerts", component: Concerts },
-    { path: "/museums", name: "Museums", component: Museums },
-    { path: "/workshops", name: "Workshops", component: Workshops },
-    { path: "/ticket", name: "Ticket", component: Tickets,  meta: { requiresAuth: true} },
-    { path: "/info-tickets", name: "InfoTickets", component: InfoTickets,  meta: { requiresAuth: true} },
-    { path: "/info-artist", name: "InfoArtist", component: InfoArtist,  meta: { requiresAuth: true} },
-    { path: "/storeMerch", name: "StoreMerch", component: StoreMerch, meta: { requiresAuth: true } },
-    { path: "/profile", name: "Profile", component: Profile, meta: { requiresAuth: true } },
-  ]
-})
+    { path: "/museum", name: "Museum", component: MuseumView },
+    { path: "/workshop", name: "Workshop", component: WorkShopView },
+    { path: "/store", name: "Store", component: StoreView },
+    {
+      path: "/tickets",
+      name: "TicketInfo",
+      component: TicketInfoView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/profile",
+      name: "Profile",
+      component: Profile,
+      meta: { requiresAuth: true },
+    },
+  ],
+});
 
 router.beforeEach((to, from) => {
   if (to.meta.requiresAuth && !useUserStore().isUser) {
@@ -42,4 +42,4 @@ router.beforeEach((to, from) => {
   }
 });
 
-export default router
+export default router;
