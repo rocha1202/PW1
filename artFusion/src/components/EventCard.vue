@@ -50,7 +50,7 @@ export default {
 .card {
   position: relative;
   width: 280px;
-  height: 400px;
+  height: 350px;
   display: flex;
   flex-direction: column;
   border-radius: 8px;
@@ -63,6 +63,7 @@ export default {
 
 .card:hover {
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  background-color: #e7e6e6;
 }
 
 .card-image {
@@ -95,11 +96,12 @@ export default {
 
 .favorite-icon {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
+  bottom: 10px; /* Ajuste para o canto inferior */
+  right: 10px;  /* Mantém o alinhamento à direita */
+  font-size: 24px;
   cursor: pointer;
 }
+
 
 .favorite-icon span {
   color: #ccc;

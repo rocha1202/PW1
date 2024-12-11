@@ -138,7 +138,7 @@ export default {
 }
 
 .image-container {
-  flex: 1; /* Left 50% */
+  flex: 3; /* Left 80% */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -152,7 +152,7 @@ export default {
 }
 
 .content-container {
-  flex: 1; /* Right 50% */
+  flex: 2; /* Right 20% */
   padding: 20px;
   display: flex;
   flex-direction: column;
