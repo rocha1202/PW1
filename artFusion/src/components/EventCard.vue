@@ -1,22 +1,17 @@
 <template>
-  <div class="card">
+  <div class="card" @click="navigateToDetails">
     <img :src="imageSrc" alt="Card image" class="card-image" />
     <div class="card-content">
       <h2 class="card-title">{{ title }}</h2>
-    </div>
-    <div class="card-hover-content">
-      <slot name="info">
-        <p class="card-info">{{ info }}</p>
-      </slot>
-      <slot name="button">
-        <button class="buy-ticket-button">{{ buttonText }}</button>
-      </slot>
+      <p class="card-date">{{ date }}</p>
+      <div class="favorite-icon" @click.stop="toggleFavorite">
+        <span :class="{'is-favorite': isFavorite}">★</span>
+      </div>
     </div>
   </div>
 </template>
-  
 
-  <script>
+<script>
 export default {
   name: "EventCard",
   props: {
@@ -28,111 +23,101 @@ export default {
       type: String,
       required: true,
     },
-    info: {
+    date: {
       type: String,
       required: true,
     },
-    buttonText: {
-      type: String,
-      default: "Buy Ticket",
+  },
+  data() {
+    return {
+      isFavorite: false,
+    };
+  },
+  methods: {
+    toggleFavorite() {
+      this.isFavorite = !this.isFavorite;
+      this.$emit('toggleFavorite', this.isFavorite);
+    },
+    navigateToDetails() {
+      // Navegação para outra página (não implementada ainda)
+      console.log("Navigate to details page");
     },
   },
 };
 </script>
-  
-  <style scoped>
-.card-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f4f4f4;
-}
 
+<style scoped>
 .card {
   position: relative;
-  width: 320px;
-  height: 200px;
-  border-radius: 12px;
+  width: 280px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  background-color: #fff;
 }
 
 .card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .card-image {
   width: 100%;
-  height: 100%;
+  height: 60%;
   object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.card:hover .card-image {
-  transform: scale(1.1);
 }
 
 .card-content {
-  position: absolute;
-  bottom: 10px;
-  left: 15px;
-  z-index: 2;
+  flex: 1;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
 }
 
 .card-title {
   margin: 0;
-  font-size: 22px;
-  color: white;
+  font-size: 20px;
   font-weight: bold;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: #333;
 }
 
-.card-hover-content {
+.card-date {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #777;
+}
+
+.favorite-icon {
   position: absolute;
-  bottom: -100%;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-  border-radius: 12px;
-  opacity: 0;
-  transition: all 0.5s ease;
-}
-
-.card:hover .card-hover-content {
-  bottom: 0;
-  opacity: 1;
-}
-
-.card-info {
-  margin: 0 0 10px;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-.buy-ticket-button {
-  padding: 10px 20px;
-  background: #ff6f61;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 6px;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.buy-ticket-button:hover {
-  background: #e64a45;
+.favorite-icon span {
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+
+.favorite-icon span.is-favorite {
+  color: #ffcc00;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 100%;
+    height: auto;
+  }
+
+  .card-image {
+    height: 200px;
+  }
 }
 </style>
