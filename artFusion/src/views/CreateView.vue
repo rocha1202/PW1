@@ -31,7 +31,7 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useUserStore } from '@/stores/users';
+import { useUserStore } from '@/stores/userStore';
 import Navbar from "@/components/navbar.vue";
 import Footer from "@/components/footer.vue";
 

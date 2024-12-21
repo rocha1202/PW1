@@ -51,7 +51,7 @@
 
 <script>
 import { computed } from "vue";
-import { useUserStore } from "@/stores/users.js"; // Importe a store
+import { useUserStore } from "@/stores/userStore.js"; // Importe a store
 
 export default {
   name: "Navbar",

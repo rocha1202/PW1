@@ -7,7 +7,7 @@ import WorkShopView from "@/views/WorkShopView.vue";
 import TicketInfoView from "@/views/TicketInfoView.vue";
 import StoreView from "@/views/StoreView.vue";
 import Profile from "@/views/ProfileView.vue";
-import { useUserStore } from "@/stores/users";
+import { useUserStore } from "@/stores/userStore";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

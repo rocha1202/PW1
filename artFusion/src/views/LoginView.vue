@@ -26,7 +26,7 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useUserStore } from "@/stores/users.js";
+import { useUserStore } from "@/stores/userStore.js";
 import Navbar from "@/components/navbar.vue";
 import Footer from "@/components/footer.vue";
 
@@ -74,6 +74,7 @@ body {
 
 .page-container {
   display: flex;
+  width: 100%;
   flex-direction: column;
   height: 90vh;
 }
@@ -157,4 +158,12 @@ body {
 .signin-link a:hover {
   text-decoration: underline;
 }
+
+footer {
+  position: relative; /* Mantém o footer posicionado na página */
+  width: 100vw; /* Garante que o footer ocupe toda a largura da viewport */
+  left: 0; /* Alinha à esquerda */
+  margin: 0; /* Remove margens externas */
+}
+
 </style>
