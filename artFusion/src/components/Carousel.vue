@@ -69,8 +69,9 @@ export default {
 .carousel {
   position: relative;
   overflow: hidden;
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
+  margin-left: 10%;
 }
 
 .carousel-wrapper {

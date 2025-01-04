@@ -18,7 +18,7 @@
         <h1>Evento temático</h1>
         <div class="pagination">
           <button @click="prevPage" :disabled="currentPage === 1">Anterior</button>
-          <span>Página {{ currentPage }} de {{ totalPages }}</span>
+          <p>Página {{ currentPage }} de {{ totalPages }}</p>
           <button @click="nextPage" :disabled="currentPage === totalPages">Próxima</button>
         </div>
       </div>
@@ -146,7 +146,7 @@ export default {
 
 <style scoped>
 .content {
-  margin-top: 180px;
+  margin-top: 130px;
   margin-bottom: 180px;
 }
 
@@ -216,4 +216,5 @@ export default {
   font-weight: bold;
   color: #555;
 }
+
 </style>
