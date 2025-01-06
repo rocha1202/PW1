@@ -19,7 +19,8 @@
         <li class="navbar-item">
           <router-link to="/store">Loja/Merch</router-link>
         </li>
-        <li :class="{ hidden: !showTickets }" class="navbar-item">
+        <!-- Condição para mostrar o link de Tickets -->
+        <li v-if="showTickets" class="navbar-item">
           <router-link to="/tickets">Tickets</router-link>
         </li>
       </div>
@@ -72,6 +73,7 @@ export default {
 
     return {
       isAuthenticated,
+      showTickets,  // Adicionei a variável showTickets
       logout
     };
   }
@@ -165,3 +167,4 @@ export default {
   visibility: hidden;
 }
 </style>
+
