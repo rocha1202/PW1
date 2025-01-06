@@ -253,26 +253,26 @@ h1 {
 }
 
 .artist-button {
-  background-color: #4caf50; /* Cor base */
-  color: white; /* Cor do texto */
-  border: none; /* Sem bordas */
-  border-radius: 8px; /* Bordas arredondadas */
-  padding: 10px 15px; /* Espaçamento interno */
-  font-size: 16px; /* Tamanho da fonte */
-  font-weight: bold; /* Texto em negrito */
-  cursor: pointer; /* Mãozinha ao passar o cursor */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra */
-  transition: all 0.3s ease; /* Suavizar efeitos */
+  background-color: #4caf50; 
+  color: white; 
+  border: none; 
+  border-radius: 8px; 
+  padding: 10px 15px; 
+  font-size: 16px; 
+  font-weight: bold; 
+  cursor: pointer; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+  transition: all 0.3s ease; 
 }
 
 .artist-button:hover {
-  background-color: #45a098; /* Cor ao passar o mouse */
-  transform: scale(1.05); /* Aumentar ligeiramente o botão */
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Sombra mais intensa */
+  background-color: #45a098; 
+  transform: scale(1.05); 
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); 
 }
 
 .artist-button:active {
-  transform: scale(0.95); /* Efeito de clique */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra reduzida */
+  transform: scale(0.95); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
 }
 </style>

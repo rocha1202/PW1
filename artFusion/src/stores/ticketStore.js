@@ -63,9 +63,12 @@ export const useTicketStore = defineStore("Ticket", {
         return ticket.artistIds
           .map((artistId) => {
             const artist = artistStore.getArtistById(artistId); // Chama a função getArtistById
-            console.log(`Buscando artista com ID ${artistId}:`, artist);
+            console.log(`Artista com ID ${artistId}:`, artist);
             if (artist) {
-              return artist.title; // Alterando de 'name' para 'title'
+              return {
+                id: artist.id,
+                title: artist.title,
+              };
             }
             return null; // Retorna null se o artista não existir
           })

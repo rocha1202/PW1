@@ -6,7 +6,6 @@
         <p><strong>Data de Nascimento:</strong> {{ artist.birth_date }}</p>
         <p v-if="artist.death_date"><strong>Data de Falecimento:</strong> {{ artist.death_date }}</p>
         <p v-else><strong>Data de Falecimento:</strong> Ainda vivo</p>
-      <!-- Botão para voltar -->
     <button class="back-button" @click="goBack">Voltar para a Loja</button>
   </div>
       <div v-else>
@@ -45,7 +44,7 @@
     },
     methods: {
     goBack() {
-      this.$router.push({ name: 'StoreView' }); // Nome da rota da StoreView
+      this.$router.push({ name: 'StoreView' }); 
     },
   },
 };
@@ -53,27 +52,27 @@
 
   <style scoped>
   .back-button {
-  background-color: #f44336; /* Vermelho */
-  color: white; /* Cor do texto */
-  border: none; /* Sem borda */
-  border-radius: 8px; /* Bordas arredondadas */
-  padding: 10px 15px; /* Espaçamento interno */
-  font-size: 16px; /* Tamanho da fonte */
-  font-weight: bold; /* Texto em negrito */
-  cursor: pointer; /* Mãozinha ao passar o mouse */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra */
-  transition: all 0.3s ease; /* Suavização */
+  background-color: #f44336; 
+  color: white; 
+  border: none; 
+  border-radius: 8px; 
+  padding: 10px 15px; 
+  font-size: 16px; 
+  font-weight: bold; 
+  cursor: pointer; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+  transition: all 0.3s ease; 
 }
 
 .back-button:hover {
-  background-color: #e53935; /* Cor mais escura ao passar o mouse */
-  transform: scale(1.05); /* Efeito de hover */
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Sombra mais intensa */
+  background-color: #e53935; 
+  transform: scale(1.05); 
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); 
 }
 
 .back-button:active {
-  transform: scale(0.95); /* Efeito de clique */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra reduzida */
+  transform: scale(0.95); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
 }
   </style>
   
