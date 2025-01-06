@@ -92,6 +92,10 @@
         <p>Artistas:</p>
         <div v-for="artistName in artists[ticket.id]" :key="artistName">
           <span>{{ artistName }}</span>
+          <p>
+          <!-- Botão para conhecer o artista -->
+          <button class="artist-button" @click="goToArtistDetails(artist.id)">Conhecer Artista</button>
+          </p>
         </div>
       </div>
       <div v-else>
@@ -123,7 +127,6 @@ export default {
     Footer,
   },
   setup() {
-    const artistStore = useArtistStore(); // Acessa a store de artistas
     const feedbackStore = useFeedbackStore(); // Acessa a store de feedbacks
     const merchStore = useMerchStore(); // Acessa a store de merchandising
     const notificationStore = useNotificationStore(); // Acessa a store de notificações
@@ -191,6 +194,10 @@ export default {
       // Atualiza o estado de artists
       this.artists = artistsForTickets;
     },
+    goToArtistDetails(artistId) {
+    // Redireciona para a página de detalhes do artista
+    this.$router.push({ name: "ArtistaDetails", params: { id: artistId } });
+  },
   },
 };
 </script>
@@ -243,5 +250,29 @@ h1 {
 
 .artist-card p {
   font-size: 1em;
+}
+
+.artist-button {
+  background-color: #4caf50; /* Cor base */
+  color: white; /* Cor do texto */
+  border: none; /* Sem bordas */
+  border-radius: 8px; /* Bordas arredondadas */
+  padding: 10px 15px; /* Espaçamento interno */
+  font-size: 16px; /* Tamanho da fonte */
+  font-weight: bold; /* Texto em negrito */
+  cursor: pointer; /* Mãozinha ao passar o cursor */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra */
+  transition: all 0.3s ease; /* Suavizar efeitos */
+}
+
+.artist-button:hover {
+  background-color: #45a098; /* Cor ao passar o mouse */
+  transform: scale(1.05); /* Aumentar ligeiramente o botão */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Sombra mais intensa */
+}
+
+.artist-button:active {
+  transform: scale(0.95); /* Efeito de clique */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra reduzida */
 }
 </style>

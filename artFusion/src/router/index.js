@@ -7,6 +7,7 @@ import WorkShopView from "@/views/WorkShopView.vue";
 import TicketInfoView from "@/views/TicketInfoView.vue";
 import StoreView from "@/views/StoreView.vue";
 import Profile from "@/views/ProfileView.vue";
+import ArtistDetails from "@/views/ArtistDetails.vue";
 import { useUserStore } from "@/stores/userStore";
 
 const router = createRouter({
@@ -29,6 +30,11 @@ const router = createRouter({
       name: "Profile",
       component: Profile,
       meta: { requiresAuth: true },
+    },
+    {
+      path: "/artist/:id",
+      name: "ArtistDetails",
+      component: ArtistDetails,
     },
   ],
 });
