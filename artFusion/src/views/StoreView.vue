@@ -17,7 +17,7 @@
       <p>{{ merch.nome }}</p>
       <p>{{ merch.descricao }}</p>
       <p>Preço: {{ merch.preco }}€</p>
-      <img :src="`/path/to/images/${merch.imagem}`" :alt="merch.nome" />
+      <img :src="`@/assets/${merch.imagem}`" :alt="merch.nome" />
     </div>
     <br>
     <!-- Exibindo os eventos do organizador -->
@@ -87,14 +87,13 @@
       <p><strong>Oradores:</strong> {{ ticket.details.speakers.join(", ") }}</p>
       <p><strong>Programa:</strong> {{ ticket.details.program }}</p>
 
-      <!-- Exibindo os artistas relacionados a um bilhete -->
       <div v-if="artists[ticket.id] && artists[ticket.id].length">
         <p>Artistas:</p>
         <div v-for="artistName in artists[ticket.id]" :key="artistName">
-          <span>{{ artistName }}</span>
+          <span>{{ artist.title }}</span>
           <p>
-          <!-- Botão para conhecer o artista -->
-          <button class="artist-button" @click="goToArtistDetails(artist.id)">Conhecer Artista</button>
+          
+          <button class="artist-button" @click="goToArtistDetails(artist?.id)" v-if="artist?.id">Conhecer Artista</button>
           </p>
         </div>
       </div>
@@ -195,9 +194,12 @@ export default {
       this.artists = artistsForTickets;
     },
     goToArtistDetails(artistId) {
-    // Redireciona para a página de detalhes do artista
-    this.$router.push({ name: "ArtistaDetails", params: { id: artistId } });
-  },
+      if (artistId) {
+        this.$router.push({ name: 'ArtistDetails', params: { id: artistId } });
+      } else {
+        console.error("Erro: ID do artista não encontrado.");
+      }
+    },
   },
 };
 </script>
