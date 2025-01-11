@@ -9,10 +9,10 @@
         <div class="hero-text">
           <h1>Contemporary Art Festival 2025</h1>
           <p>Explore, get inspired and celebrate creativity.</p>
-          <button @click="navigateTo('program')">See workshops</button>
+          <button> <router-link to="/workshop">See workshops</router-link></button>
         </div>
         <div class="hero-image">
-          <img src="https://via.placeholder.com/600x400" alt="Arte Contemporânea" />
+          <img src="../assets/event2.jpg" alt="Arte Contemporânea" />
         </div>
       </div>
 
@@ -35,10 +35,10 @@
             in a celebration that transcends cultural and aesthetic boundaries.
             Enjoy exhibitions, live performances, workshops and more.
           </p>
-          <button @click="navigateTo('about')">Learn More</button>
+          <button> <router-link to="/about">Learn More</router-link></button>
         </div>
         <div class="about-image">
-          <img src="https://via.placeholder.com/600x400" alt="Sobre o Festival" />
+          <img src="../assets/event2.jpg" alt="Sobre o Festival" />
         </div>
       </div>
 
@@ -93,7 +93,7 @@ body {
 
 .content {
   margin-top: 100px;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 }
 
 .hero {

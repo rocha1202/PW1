@@ -8,6 +8,7 @@ import TicketInfoView from "@/views/TicketInfoView.vue";
 import StoreView from "@/views/StoreView.vue";
 import Profile from "@/views/ProfileView.vue";
 import ArtistDetails from "@/views/ArtistDetails.vue";
+import AboutView from "@/views/LearnMoreView.vue";
 import { useUserStore } from "@/stores/userStore";
 
 const router = createRouter({
@@ -19,6 +20,7 @@ const router = createRouter({
     { path: "/museum", name: "Museum", component: MuseumView },
     { path: "/workshop", name: "Workshop", component: WorkShopView },
     { path: "/store", name: "Store", component: StoreView },
+    { path: "/about", name: "About", component: AboutView },
     {
       path: "/tickets",
       name: "TicketInfo",
