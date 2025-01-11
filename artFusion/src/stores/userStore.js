@@ -1,5 +1,8 @@
 import { defineStore } from 'pinia';
 
+// Caminho para a imagem do avatar padrão
+import defaultAvatar from '@/assets/Account.png';
+
 export const useUserStore = defineStore('user', {
   state: () => ({
     isAuthenticated: false,
@@ -7,18 +10,28 @@ export const useUserStore = defineStore('user', {
     token: null,
     userRole: null,
     accounts: [
-      { id: 1, email: 'beatriz@email.com', password: '1234', role: 'organizer' },
-      { id: 2, email: 'ines@email.com', password: '1234', role: 'participant' },
-      { id: 3, email: 'sergio@email.com', password: '1234', role: 'volunteer' },
+      { id: 1, email: 'beatriz@email.com', password: '1234', role: 'organizer', name: 'Beatriz', birthdate: '2000-01-01', avatar: defaultAvatar },
+      { id: 2, email: 'ines@email.com', password: '1234', role: 'participant', name: 'Ines', birthdate: '2000-01-01', avatar: defaultAvatar },
+      { id: 3, email: 'sergio@email.com', password: '1234', role: 'volunteer', name: 'Sergio', birthdate: '2000-01-01', avatar: defaultAvatar },
     ],
+    profile: {
+      name: '',
+      email: '',
+      birthdate: '',
+      password: '',
+      avatar: defaultAvatar, // Avatar padrão
+    },
   }),
+  
   getters: {
     getUser: (state) => state.user,
     getUserRole: (state) => state.userRole,
     getAccounts: (state) => state.accounts,
     isUserAuthenticated: (state) => state.isAuthenticated,
     getUserById: (state) => (id) => state.accounts.find((user) => user.id === id),
+    getProfile: (state) => state.profile,
   },
+
   actions: {
     login(email, password) {
       const user = this.accounts.find(
@@ -31,12 +44,24 @@ export const useUserStore = defineStore('user', {
         this.user = user;
         this.userRole = user.role;
         this.token = token;
+        this.profile = { ...user }; // Preenche o perfil do usuário com os dados da conta
         return true; // Login bem-sucedido
       } else {
         throw new Error('Email ou senha inválidos.');
       }
     },
-    createAccount(email, password, role) {
+
+    updateProfile(newProfile) {
+      const { email, name, birthdate, password, avatar } = newProfile;
+      
+      if (this.user) {
+        // Atualiza o perfil do usuário
+        this.user = { ...this.user, email, name, birthdate, password, avatar };
+        this.profile = { email, name, birthdate, password, avatar }; // Atualiza o estado do perfil
+      }
+    },
+
+    createAccount(email, password, role, name, birthdate, avatar) {
       const emailExists = this.accounts.some((account) => account.email === email);
       if (emailExists) {
         throw new Error('O email já está em uso. Tente outro.');
@@ -46,15 +71,20 @@ export const useUserStore = defineStore('user', {
         email,
         password,
         role,
+        name,
+        birthdate,
+        avatar: avatar || defaultAvatar, // Se avatar não for passado, usa o avatar padrão
       };
       this.accounts.push(newAccount);
       console.log('Conta criada:', newAccount);
     },
+
     logout() {
       this.isAuthenticated = false;
       this.user = null;
       this.token = null;
       this.userRole = null;
+      this.profile = { name: '', email: '', birthdate: '', password: '', avatar: defaultAvatar };
     },
   },
 });

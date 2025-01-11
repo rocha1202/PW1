@@ -1,208 +1,124 @@
 <template>
-  <div>
+  <v-app style="background-color: #0f0a30; color:#F1F9FC;">
     <!-- Navbar -->
     <Navbar />
-    <div class="content">
+    <v-main>
+      <v-container class="mt-12">
+        <!-- Hero Section -->
+        <v-row>
+          <v-col cols="12" md="6" class="d-flex flex-column justify-center">
+            <h1 class="display-1">Contemporary Art Festival 2025</h1>
+            <p class="subheading mb-4">Explore, get inspired and celebrate creativity.</p>
+            <v-btn color="primary" :to="'/workshop'">See workshops</v-btn>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-img :src="event2" alt="Arte Contemporânea" class="rounded-lg" contain></v-img>
+          </v-col>
+        </v-row>
 
-      <!-- Hero Section -->
-      <div class="hero">
-        <div class="hero-text">
-          <h1>Contemporary Art Festival 2025</h1>
-          <p>Explore, get inspired and celebrate creativity.</p>
-          <button> <router-link to="/workshop">See workshops</router-link></button>
-        </div>
-        <div class="hero-image">
-          <img src="../assets/event2.jpg" alt="Arte Contemporânea" />
-        </div>
-      </div>
+        <!-- Carousel Section -->
+        <h1 class="display-1" style="color: #F1F9FC;">Principais Artistas</h1>
+        <v-row class="values-section py-12" justify="center" align="center">
+          <v-col cols="12" md="4" align="center">
+            <v-icon color="primary" large>mdi-palette</v-icon>
+            <v-img :src="Patrocinador2" alt="Patrocinador 2" max-width="200" class="mx-4" contain />
+          </v-col>
+          <v-col cols="12" md="4" align="center">
+            <v-icon color="primary" large>mdi-palette</v-icon>
+            <v-img :src="Patrocinador1" alt="Patrocinador 1" max-width="200" class="mx-4" contain />
+          </v-col> <v-col cols="12" md="4" align="center">
+            <v-icon color="primary" large>mdi-palette</v-icon>
+            <v-img :src="Patrocinador3" alt="Patrocinador 3" max-width="200" class="mx-4" contain />
+          </v-col>
+        </v-row>
 
-      <!-- Carousel Section -->
-      <div class="carousel-section">
-        <h1>Principais Artistas</h1>
-        <div class="sponsors-logos">
-          <img src="../assets/Sponsors2.png" alt="Patrocinador 2" />
-          <img src="../assets/Sponsors1.png" alt="Patrocinador 1" />
-          <img src="../assets/Sponsors3.png" alt="Patrocinador 3" />
-        </div>
-      </div>
+        <!-- About Section -->
+        <v-row class="my-6" align="center">
+          <v-col cols="12" md="6">
+            <v-img :src="event2" alt="Arte Contemporânea" class="rounded-lg" contain></v-img>
+          </v-col>
+          <v-col cols="12" md="6" class="d-flex flex-column justify-center">
+            <h1 class="display-1"style="color: #F1F9FC;">About the Event</h1>
+            <p class="subheading">
+              The Contemporary Art Festival brings together renowned and emerging artists
+              in a celebration that transcends cultural and aesthetic boundaries.
+              Enjoy exhibitions, live performances, workshops and more.
+            </p>
+            <v-btn color="primary" :to="'/about'">Learn More</v-btn>
+          </v-col>
 
-      <!-- About Section -->
-      <div class="about-section">
-        <div class="about-content">
-          <h1>About the Event</h1>
-          <p>
-            The Contemporary Art Festival brings together renowned and emerging artists
-            in a celebration that transcends cultural and aesthetic boundaries.
-            Enjoy exhibitions, live performances, workshops and more.
-          </p>
-          <button> <router-link to="/about">Learn More</router-link></button>
-        </div>
-        <div class="about-image">
-          <img src="../assets/event2.jpg" alt="Sobre o Festival" />
-        </div>
-      </div>
+        </v-row>
 
-
-      <!-- Sponsors Section -->
-      <div class="sponsors-section">
-        <h1>Support and Sponsors</h1>
-        <div class="sponsors-logos">
-          <img src="../assets/Sponsors2.png" alt="Patrocinador 2" />
-          <img src="../assets/Sponsors1.png" alt="Patrocinador 1" />
-          <img src="../assets/Sponsors3.png" alt="Patrocinador 3" />
-        </div>
-      </div>
-    </div>
-
+        <!-- Sponsors Section -->
+        <h1 class="display-1"style="color: #F1F9FC;">Support and Sponsors</h1>
+        <v-row class="values-section py-12" justify="center" align="center">
+          <v-col cols="12" md="4" align="center">
+            <v-icon color="primary" large>mdi-palette</v-icon>
+            <v-img :src="Patrocinador2" alt="Patrocinador 2" max-width="200" class="mx-4" contain />
+          </v-col>
+          <v-col cols="12" md="4" align="center">
+            <v-icon color="primary" large>mdi-palette</v-icon>
+            <v-img :src="Patrocinador1" alt="Patrocinador 1" max-width="200" class="mx-4" contain />
+          </v-col> <v-col cols="12" md="4" align="center">
+            <v-icon color="primary" large>mdi-palette</v-icon>
+            <v-img :src="Patrocinador3" alt="Patrocinador 3" max-width="200" class="mx-4" contain />
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
     <!-- Footer -->
     <Footer />
-  </div>
+  </v-app>
 </template>
 
 <script>
 import Navbar from "@/components/navbar.vue";
 import Footer from "@/components/footer.vue";
-import Carousel from "@/components/Carousel.vue";
-import AllPrograms from "@/components/allPrograms.vue";
+import event2 from "@/assets/event2.jpg";
+import Patrocinador1 from "@/assets/Sponsors1.png";
+import Patrocinador2 from "@/assets/Sponsors2.png";
+import Patrocinador3 from "@/assets/Sponsors3.png";
+
 
 export default {
   name: "Home",
   components: {
     Navbar,
-    AllPrograms,
-    Carousel,
     Footer,
   },
-  methods: {
-    navigateTo(section) {
-      // Função de navegação para rolar até uma seção específica
-      const element = document.getElementById(section);
-      element.scrollIntoView({ behavior: "smooth" });
-    },
+  data() {
+    return {
+      event2,
+      Patrocinador1,
+      Patrocinador2,
+      Patrocinador3,
+
+    };
   },
 };
 </script>
 
 <style scoped>
-/* Estilo Geral */
-body {
-  font-family: "Arial", sans-serif;
-  margin: 0;
-  padding: 0;
+.v-main {
+  margin-top: 70px;
 }
 
-.content {
-  margin-top: 100px;
-  margin-bottom: 10px;
-}
-
-.hero {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 60px 80px;
-}
-
-
-.hero-text p {
-  margin: 20px 0;
-}
-
-.hero-text button {
-  padding: 10px 20px;
-  background-color: #F1F9FC;
-  color: #0F0A30;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-.hero-image img {
-  max-width: 500px;
+.v-img {
   border-radius: 10px;
 }
 
-/* Carousel Section */
-.carousel-section {
-  background-color: #fff;
-  padding: 40px 80px;
-  text-align: center;
-}
-
-.carousel-section h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #222;
-}
-
-/* About Section */
-.about-section {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 60px 80px;
-}
-
-.about-content h1 {
-  font-size: 2.5rem;
-  color: #F1F9FC;
-}
-
-.about-content p {
-  margin: 20px 0;
-  line-height: 1.6;
-  font-size: 1.2rem;
-}
-
-.about-content button {
-  padding: 10px 20px;
+.bg-light {
   background-color: #F1F9FC;
-  color: #0F0A30;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
 }
 
-.about-image img {
-  max-width: 400px;
-  border-radius: 10px;
+.text-primary {
+ color: #F1F9FC;
+}
+.values-section {
+    text-align: center;
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: nowrap; 
 }
 
-
-/* Sponsors Section */
-.sponsors-section {
-  background-color: #F1F9FC;
-  padding: 40px 80px;
-  text-align: center;
-}
-
-.sponsors-section h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #0F0A30
-}
-
-.sponsors-logos {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-}
-
-.sponsors-logos img {
-  max-width: 200px;
-  opacity: 0.8;
-}
-
-.sponsors-logos img:hover {
-  opacity: 1;
-}
-
-/* Footer */
-footer {
-  background-color: #0F0A30;
-  color: #F1F9FC;
-  text-align: center;
-  padding: 20px;
-}
 </style>

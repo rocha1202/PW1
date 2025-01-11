@@ -1,9 +1,9 @@
 <template>
   <v-app style="background-color: #0f0a30; color:#F1F9FC;">
     <Navbar />
-    <v-main>
+    <v-container class="fill-height d-flex align-center justify-center">
 
-    </v-main>
+    </v-container>
     <Footer/>
   </v-app>
 </template>
