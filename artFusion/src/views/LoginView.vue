@@ -1,28 +1,28 @@
 <template>
-  <div class="page-container">
+  <v-app style="background-color: #0f0a30;">
     <Navbar />
-    <div class="signup-container">
-      <div class="signup-box">
-        <h3 class="signup-title">Sign In</h3>
-        <form @submit.prevent="handleSignUp">
-          <div class="form-group">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" id="email" v-model="email" class="form-input" required />
-          </div>
-          <div class="form-group">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" id="password" v-model="password" class="form-input" required />
-          </div>
-          <button type="submit" class="submit-button">Sign In</button>
-        </form>
-        <p class="signin-link">
-          Don't have an account? <router-link to="/create-account" class="button button-signin">Create Account</router-link>
-        </p>
-      </div>
-    </div>
+    <v-container class="fill-height d-flex align-center justify-center">
+      <v-card class="pa-5" width="430" height="430">
+        <v-card-title class="text-h5 text-center">Sign In</v-card-title>
+        <v-form @submit.prevent="handleSignUp" ref="form">
+          <v-text-field v-model="email" label="Email" type="email" required outlined dense class="mb-4" />
+          <v-text-field v-model="password" label="Password" type="password" required outlined dense class="mb-4" />
+          <v-btn type="submit" block color="primary" class="mb-2">
+            Sign In
+          </v-btn>
+        </v-form>
+        <v-row justify="center" align="center" class="mt-3">
+          <span>Don't have an account?</span>
+          <router-link to="/create-account" class="text-decoration-none">
+            Create Account
+          </router-link>
+        </v-row>
+      </v-card>
+    </v-container>
     <Footer />
-  </div>
+  </v-app>
 </template>
+
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
@@ -63,107 +63,46 @@ export default {
 };
 </script>
 
-
 <style scoped>
-/* Geral */
-body {
-  background-color: #0f0a30;
-  margin: 0;
-  color: #fff;
+.fill-height {
+  height: calc(100vh - 64px);
+  /* Adjust for header/footer */
 }
 
-.page-container {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  height: 90vh;
+.text-decoration-none {
+  text-decoration: none;
+  color: #1976d2;
 }
 
-.signup-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  background-color: #0f0a30;
+.text-decoration-none:hover {
+  text-decoration: underline;
 }
 
-.signup-box {
+.v-card {
   background-color: #f0f4f8;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  width: 360px;
 }
 
-.signup-title {
+.v-card-title {
   text-align: left;
   margin-bottom: 20px;
   font-size: 24px;
   color: #0f0a30;
 }
 
-.form-group {
-  margin-bottom: 20px;
+.v-text-field {
+  width: 100%;
 }
 
-.form-label {
-  display: block;
-  font-size: 14px;
-  color: #0f0a30;
-  margin-bottom: 5px;
-}
-
-.form-input {
+.v-btn {
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-sizing: border-box;
 }
 
-.form-input:focus {
-  outline: none;
-  border-color: #0f0a30;
-  box-shadow: 0 0 5px rgba(107, 107, 255, 0.5);
-}
-
-.submit-button {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  background-color: #0f0a30;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.submit-button:hover {
+.v-btn:hover {
   background-color: #1a1440;
 }
-
-.signin-link {
-  text-align: left;
-  margin-top: 20px;
-  font-size: 14px;
-  color: #0f0a30;
-}
-
-.signin-link a {
-  color: #0f0a30;
-  text-decoration: none;
-}
-
-.signin-link a:hover {
-  text-decoration: underline;
-}
-
-footer {
-  position: relative; /* Mantém o footer posicionado na página */
-  width: 100vw; /* Garante que o footer ocupe toda a largura da viewport */
-  left: 0; /* Alinha à esquerda */
-  margin: 0; /* Remove margens externas */
-}
-
 </style>
