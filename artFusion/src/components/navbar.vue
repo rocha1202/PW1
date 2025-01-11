@@ -53,11 +53,13 @@
 <script>
 import { computed } from "vue";
 import { useUserStore } from "@/stores/userStore.js"; // Importe a store
+import { useRouter } from "vue-router"; // Importando o router
 
 export default {
   name: "Navbar",
   setup() {
     const userStore = useUserStore();
+    const router = useRouter(); // Instanciando o router
 
     // Computed property para acessar o estado de autenticação
     const isAuthenticated = computed(() => userStore.isUserAuthenticated);
@@ -68,12 +70,12 @@ export default {
     // Função para logar
     const logout = () => {
       userStore.logout();
-      router.push("/"); // Redireciona para a página "Home"
+      router.push("/login"); // Redireciona para a página de login após logout
     };
 
     return {
       isAuthenticated,
-      showTickets,  // Adicionei a variável showTickets
+      showTickets,
       logout
     };
   }
@@ -88,7 +90,6 @@ export default {
   left: 0;
   width: 100%;
   background-color: #F1F9FC;
-  /* Cor de fundo clara */
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -167,4 +168,3 @@ export default {
   visibility: hidden;
 }
 </style>
-
