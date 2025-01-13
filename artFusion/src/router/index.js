@@ -39,6 +39,10 @@ const router = createRouter({
       component: ArtistDetails,
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    // Sempre rola para o topo
+    return { top: 0 };
+  },
 });
 
 router.beforeEach((to, from) => {

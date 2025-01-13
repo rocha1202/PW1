@@ -25,7 +25,7 @@
         </li>
       </div>
 
-      <!-- Sign In e Sign Up à direita, ou avatar se logado -->
+      <!-- Sign In e Sign Up à direita, ou avatar e notificações se logado -->
       <div class="navbar-right">
         <template v-if="!isAuthenticated">
           <li class="navbar-item">
@@ -36,13 +36,22 @@
           </li>
         </template>
         <template v-else>
+          <!-- Notificações -->
           <li class="navbar-item">
-            <router-link to="/profile">
-              <img src="../assets/Account.png" alt="Profile" class="navbar-avatar" />
-            </router-link>
+            <img src="../assets/notification.png" alt="Notifications" class="navbar-icon" />
           </li>
-          <li class="navbar-item">
-            <button @click="logout" class="button button-signin">Logout</button>
+
+          <!-- Avatar com dropdown -->
+          <li class="navbar-item dropdown" ref="dropdownRef">
+            <img src="../assets/Account.png" alt="Profile" class="navbar-avatar" @click="toggleDropdown" />
+            <ul v-if="dropdownOpen" class="dropdown-menu">
+              <li>
+                <router-link to="/profile">Profile</router-link>
+              </li>
+              <li>
+                <button @click="logout">Logout</button>
+              </li>
+            </ul>
           </li>
         </template>
       </div>
@@ -51,7 +60,7 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, ref, onMounted, onBeforeUnmount } from "vue";
 import { useUserStore } from "@/stores/userStore.js"; // Importe a store
 import { useRouter } from "vue-router"; // Importando o router
 
@@ -67,23 +76,52 @@ export default {
     // Controle da visibilidade do link de Tickets
     const showTickets = computed(() => isAuthenticated.value);
 
-    // Função para logar
+    // Estado do dropdown
+    const dropdownOpen = ref(false);
+    const dropdownRef = ref(null);
+
+    // Função para alternar o estado do dropdown
+    const toggleDropdown = () => {
+      dropdownOpen.value = !dropdownOpen.value;
+    };
+
+    // Fechar dropdown ao clicar fora
+    const handleClickOutside = (event) => {
+      if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
+        dropdownOpen.value = false;
+      }
+    };
+
+    // Adiciona e remove o evento de clique no documento
+    onMounted(() => {
+      document.addEventListener("click", handleClickOutside);
+    });
+
+    onBeforeUnmount(() => {
+      document.removeEventListener("click", handleClickOutside);
+    });
+
+    // Função para logout
     const logout = () => {
       userStore.logout();
       router.push("/login"); // Redireciona para a página de login após logout
+      dropdownOpen.value = false; // Fecha o dropdown
     };
 
     return {
       isAuthenticated,
       showTickets,
-      logout
+      dropdownOpen,
+      toggleDropdown,
+      logout,
+      dropdownRef,
     };
-  }
+  },
 };
 </script>
 
 <style scoped>
-/* O estilo permanece o mesmo */
+/* O estilo permanece o mesmo, com adições para dropdown */
 .navbar {
   position: fixed;
   top: 0;
@@ -139,6 +177,13 @@ export default {
 .navbar-avatar {
   height: 45px;
   width: 45px;
+  cursor: pointer;
+}
+
+.navbar-icon {
+  height: 35px;
+  width: 35px;
+  cursor: pointer;
 }
 
 .button {
@@ -164,7 +209,34 @@ export default {
   border: 2px solid #0F0A30 !important;
 }
 
-.hidden {
-  visibility: hidden;
+/* Dropdown menu */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  background-color: #F1F9FC;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  z-index: 1001;
+}
+
+.dropdown-menu li {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #0F0A30;
+  cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+  background-color: #E1EFF7;
 }
 </style>
