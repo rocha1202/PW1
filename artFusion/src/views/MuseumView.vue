@@ -1,226 +1,133 @@
 <template>
   <div>
     <Navbar />
+
     <div class="content">
-      <Carousel :slideCount="carouselSlides.length">
-        <div class="slide" v-for="slide in carouselSlides" :key="slide.id">
-          <div class="image-container">
-            <img :src="slide.imageSrc" :alt="slide.title" />
+      <h1>Tickets</h1>
+
+      <!-- Carrossel com 3/4 dos tickets -->
+      <div class="carousel-container">
+        <Carousel :slideCount="3">
+          <!-- Usamos os 3/4 primeiros tickets para o carrossel -->
+          <div v-for="(ticket, index) in tickets.slice(0, 3)" :key="ticket.id" class="slide">
+            <div class="image-container">
+              <img :src="ticket.image" :alt="ticket.name" />
+            </div>
+            <div class="content-container">
+              <h2>{{ ticket.name }}</h2>
+              <p>{{ ticket.description }}</p>
+              <p><strong>Price:</strong> ${{ ticket.price }}</p>
+              <p><strong>Artist:</strong> {{ ticket.artist }}</p>
+            </div>
           </div>
-          <div class="content-container">
-            <h2>{{ slide.title }}</h2>
-            <p>{{ slide.description }}</p>
-            <button>{{ slide.buttonText }}</button>
-          </div>
-        </div>
-      </Carousel>
-      <div class="title-section">
-        <h1>Evento temático</h1>
-        <div class="pagination">
-          <button @click="prevPage" :disabled="currentPage === 1">Anterior</button>
-          <p>Página {{ currentPage }} de {{ totalPages }}</p>
-          <button @click="nextPage" :disabled="currentPage === totalPages">Próxima</button>
-        </div>
+        </Carousel>
       </div>
-      <div class="event-list">
-        <EventCard
-          v-for="event in paginatedEvents"
-          :key="event.id"
-          :imageSrc="event.imageSrc"
-          :title="event.title"
-          :artist="event.artist"
-          @toggleFavorite="handleFavorite(event)"
-        />
+
+      <!-- Todos os tickets em uma grid de 4 colunas -->
+      <div class="tickets-container">
+        <div v-for="ticket in tickets.slice(3)" :key="ticket.id" class="ticket-card">
+          <img :src="ticket.image" :alt="ticket.name" class="ticket-image" />
+          <div class="ticket-info">
+            <h2>{{ ticket.name }}</h2>
+            <p>{{ ticket.description }}</p>
+            <p><strong>Price:</strong> ${{ ticket.price }}</p>
+            <p><strong>Artist:</strong> {{ ticket.artist }}</p>
+            <p><strong>Quantity:</strong> {{ ticket.quantity }}</p>
+          </div>
+        </div>
       </div>
     </div>
+
     <Footer />
   </div>
 </template>
 
 <script>
-import { useApiStore } from "../stores/apiStore";  
 import Navbar from "@/components/navbar.vue";
 import Footer from "@/components/footer.vue";
 import Carousel from "@/components/Carousel.vue";
-import EventCard from "@/components/EventCard.vue";
-
-// Importando imagens
-import event1 from "@/assets/event1.jpg";
-import event2 from "@/assets/event2.jpg";
 
 export default {
   components: {
     Navbar,
     Footer,
     Carousel,
-    EventCard,
   },
   data() {
     return {
-      carouselSlides: [
-        {
-          id: 1,
-          imageSrc: event1,
-          title: "Art it's not just existing. It's more than that",
-          description: "Slide 1 description goes here. You can write a longer description to explain the content.",
-          buttonText: "More info",
-        },
-        {
-          id: 2,
-          imageSrc: event2,
-          title: "See with your own eyes",
-          description: "Slide 2 description goes here. This is where you add unique content for each slide.",
-          buttonText: "More info",
-        },
-      ],
-      events: [], 
-      currentPage: 1,
-      itemsPerPage: 5,
+      tickets: [], // Inicializa o array para os dados dos tickets
     };
   },
-  computed: {
-    paginatedEvents() {
-      const start = (this.currentPage - 1) * this.itemsPerPage;
-      return this.events.slice(start, start + this.itemsPerPage);
-    },
-    totalPages() {
-      return Math.ceil(this.events.length / this.itemsPerPage);
-    },
+  async mounted() {
+    await this.fetchTickets(); // Chama a função para carregar os tickets ao montar o componente
   },
   methods: {
-    // Função para carregar os eventos e atualizar o nome do artista
-    async fetchEvents() {
+    async fetchTickets() {
       try {
-        // Substitua a URL pela sua API de eventos
-        const response = await fetch("URL_DA_API_EVENTS");  
+        const response = await fetch("/api/tickets.json"); // Carregar os dados do arquivo JSON
         if (!response.ok) {
-          throw new Error(`Falha na requisição de eventos: ${response.status}`);
+          throw new Error(`Falha ao buscar os tickets: ${response.status}`);
         }
-
-        const eventsData = await response.json();
-
-        // Agora, para cada evento, vamos buscar os detalhes do artista
-        const updatedEvents = await Promise.all(eventsData.map(async (event) => {
-          // Suponha que cada evento tenha um artistId
-          const artistId = event.artistId;  // Substitua pelo nome correto de onde vem o ID do artista
-
-          // Busca os dados do artista com o id
-          const artistResponse = await fetch(`https://api.artic.edu/api/v1/agents/${artistId}`);
-          
-          if (!artistResponse.ok) {
-            throw new Error(`Falha ao buscar o artista para o evento: ${event.id}`);
-          }
-
-          const artistData = await artistResponse.json();
-          const artistTitle = artistData.data.title;  // Acessando o título do artista
-
-          // Atualiza os dados do evento com o nome do artista
-          return {
-            ...event,
-            artist: artistTitle,  // Atualiza o nome do artista
-          };
-        }));
-
-        // Atualiza os eventos no estado do componente
-        this.events = updatedEvents;
-
+        const ticketsData = await response.json();
+        this.tickets = ticketsData; // Preenche o array de tickets com os dados carregados
       } catch (error) {
-        console.error("Erro ao carregar os eventos:", error.message);
+        console.error("Erro ao carregar os tickets:", error.message);
       }
     },
-
-    nextPage() {
-      if (this.currentPage < this.totalPages) this.currentPage++;
-    },
-
-    prevPage() {
-      if (this.currentPage > 1) this.currentPage--;
-    },
-
-    handleFavorite(event) {
-      console.log(`Toggled favorite for: ${event.title}`);
-    },
-  },
-  mounted() {
-    // Chama a função para carregar os eventos assim que o componente for montado
-    this.fetchEvents();
   },
 };
 </script>
 
-
-
 <style scoped>
 .content {
-  margin-top: 130px;
-  margin-bottom: 180px;
+  margin-top: 100px;
+  padding: 20px;
+  text-align: center; /* Centraliza o texto */
 }
 
-.event-list {
+/* Estilo do carrossel */
+.carousel-container {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center; /* Centraliza o carrossel horizontalmente */
+}
+
+/* Estilo da grid com todos os tickets */
+.tickets-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 colunas */
+  gap: 20px;
+  justify-content: center; /* Centraliza a grid horizontalmente */
+}
+
+.ticket-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Centraliza o conteúdo do card */
+}
+
+.ticket-image {
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  /* Permite múltiplas linhas */
-  justify-content: flex-start;
-  /* Alinha os cards ao início da linha */
-  padding-bottom: 16px;
-  padding-top: 16px;
-  gap: 12px;
-  /* Espaçamento dinâmico entre os cards */
+  height: auto;
+  object-fit: cover;
 }
 
-.event-list>div {
-  flex: 1 0 calc(20% - 10px);
-  /* Cada card ocupa 20% do espaço disponível */
-  max-width: calc(20% - 10px);
-  /* Mantém o tamanho proporcional */
-  box-sizing: border-box;
-  /* Inclui padding e border no tamanho total */
+.ticket-info {
+  padding: 10px;
+  background-color: #f8f9fa;
 }
 
-.event-list>div:nth-last-child(-n+5) {
-  flex: 1 0 calc(20% - 10px);
-  /* Mesmo comportamento para menos de 5 cards */
+.ticket-info h2 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  color: #003366; /* Azul escuro */
 }
 
-.title-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-left: 4px solid #E4E3E6FF;
-  padding-left: 10px;
-  margin-top: 20px;
+.ticket-info p {
+  font-size: 1em;
+  margin: 5px 0;
+  color: #003366; /* Azul escuro */
 }
-
-.pagination {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 10px;
-}
-
-.pagination button {
-  padding: 8px 12px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.pagination button:hover:not(:disabled) {
-  background-color: #0056b3;
-}
-
-.pagination button:disabled {
-  background-color: #d6d6d6;
-  cursor: not-allowed;
-}
-
-.pagination span {
-  font-weight: bold;
-  color: #555;
-}
-
 </style>
