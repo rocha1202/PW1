@@ -115,8 +115,6 @@ import { useArtistStore } from '../stores/artistStore'; // Importe a store de ar
 import { useFeedbackStore } from '@/stores/feedbackStore'; // Importando a store de feedbacks
 import { useMerchStore } from '@/stores/merchStore'; // Importando a store de merchandising
 import { useNotificationStore } from '@/stores/notificationStore'; // Importando a store de notificações
-import { useOrganizersStore } from '@/stores/organizersStore'; // Importando a store de organizadores
-import { useParticipantsStore } from '@/stores/participantStore'; // Importando a store de participantes
 import { useTicketStore } from '@/stores/ticketStore'; // Importando a store de bilhetes
 
 export default {
