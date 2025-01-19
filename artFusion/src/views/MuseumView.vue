@@ -23,8 +23,14 @@
         </div>
       </div>
       <div class="event-list">
-        <EventCard v-for="event in paginatedEvents" :key="event.id" :imageSrc="event.imageSrc" :title="event.title"
-          :date="event.date" @toggleFavorite="handleFavorite(event)" />
+        <EventCard
+          v-for="event in paginatedEvents"
+          :key="event.id"
+          :imageSrc="event.imageSrc"
+          :title="event.title"
+          :artist="event.artist"
+          @toggleFavorite="handleFavorite(event)"
+        />
       </div>
     </div>
     <Footer />
@@ -32,12 +38,13 @@
 </template>
 
 <script>
+import { useApiStore } from "../stores/apiStore";  
 import Navbar from "@/components/navbar.vue";
 import Footer from "@/components/footer.vue";
 import Carousel from "@/components/Carousel.vue";
 import EventCard from "@/components/EventCard.vue";
 
-//importing images
+// Importando imagens
 import event1 from "@/assets/event1.jpg";
 import event2 from "@/assets/event2.jpg";
 
@@ -65,58 +72,8 @@ export default {
           description: "Slide 2 description goes here. This is where you add unique content for each slide.",
           buttonText: "More info",
         },
-        {
-          id: 3,
-          imageSrc: "https://via.placeholder.com/600x400",
-          title: "Slide 3 Title",
-          description: "Slide 3 description goes here. Make your call-to-action compelling!",
-          buttonText: "More info",
-        },
       ],
-      events: [
-        { 
-          id: 1,
-          imageSrc: event1,
-          title: "Art it's not just existing. It's more than that",
-          date: "30 jan 2025"
-        },
-        {
-          id: 2,
-          imageSrc: event2,
-          title: "See with your own eyes",
-          date: "2024-12-20"
-        },
-        {
-          id: 3,
-          imageSrc: "event3.jpg",
-          title: "Event 3", date:
-          "2024-12-25"
-        },
-        {
-          id: 4,
-          imageSrc: "event4.jpg",
-          title: "Event 4",
-          date: "2025-01-05"
-        },
-        {
-          id: 5,
-          imageSrc: "event5.jpg",
-          title: "Event 5",
-          date: "2025-01-15"
-        },
-        {
-          id: 6,
-          imageSrc: "event6.jpg",
-          title: "Event 6",
-          date: "2025-01-20"
-        },
-        {
-          id: 7,
-          imageSrc: "event7.jpg",
-          title: "Event 7",
-          date: "2025-01-25"
-        },
-      ],
+      events: [], 
       currentPage: 1,
       itemsPerPage: 5,
     };
@@ -131,18 +88,67 @@ export default {
     },
   },
   methods: {
+    // Função para carregar os eventos e atualizar o nome do artista
+    async fetchEvents() {
+      try {
+        // Substitua a URL pela sua API de eventos
+        const response = await fetch("URL_DA_API_EVENTS");  
+        if (!response.ok) {
+          throw new Error(`Falha na requisição de eventos: ${response.status}`);
+        }
+
+        const eventsData = await response.json();
+
+        // Agora, para cada evento, vamos buscar os detalhes do artista
+        const updatedEvents = await Promise.all(eventsData.map(async (event) => {
+          // Suponha que cada evento tenha um artistId
+          const artistId = event.artistId;  // Substitua pelo nome correto de onde vem o ID do artista
+
+          // Busca os dados do artista com o id
+          const artistResponse = await fetch(`https://api.artic.edu/api/v1/agents/${artistId}`);
+          
+          if (!artistResponse.ok) {
+            throw new Error(`Falha ao buscar o artista para o evento: ${event.id}`);
+          }
+
+          const artistData = await artistResponse.json();
+          const artistTitle = artistData.data.title;  // Acessando o título do artista
+
+          // Atualiza os dados do evento com o nome do artista
+          return {
+            ...event,
+            artist: artistTitle,  // Atualiza o nome do artista
+          };
+        }));
+
+        // Atualiza os eventos no estado do componente
+        this.events = updatedEvents;
+
+      } catch (error) {
+        console.error("Erro ao carregar os eventos:", error.message);
+      }
+    },
+
     nextPage() {
       if (this.currentPage < this.totalPages) this.currentPage++;
     },
+
     prevPage() {
       if (this.currentPage > 1) this.currentPage--;
     },
+
     handleFavorite(event) {
       console.log(`Toggled favorite for: ${event.title}`);
     },
   },
+  mounted() {
+    // Chama a função para carregar os eventos assim que o componente for montado
+    this.fetchEvents();
+  },
 };
 </script>
+
+
 
 <style scoped>
 .content {
