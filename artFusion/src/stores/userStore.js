@@ -11,8 +11,8 @@ export const useUserStore = defineStore('user', {
     userRole: null,
     accounts: [
       { id: 1, email: 'beatriz@email.com', password: '1234', role: 'organizer', name: 'Beatriz', birthdate: '2000-01-01', avatar: defaultAvatar },
-      { id: 2, email: 'ines@email.com', password: '1234', role: 'participant', name: 'Ines', birthdate: '2000-01-01', avatar: defaultAvatar },
-      { id: 3, email: 'sergio@email.com', password: '1234', role: 'volunteer', name: 'Sergio', birthdate: '2000-01-01', avatar: defaultAvatar },
+      { id: 2, email: 'ines@email.com', password: '1234', role: 'admin', name: 'Ines', birthdate: '2000-01-01', avatar: defaultAvatar },
+      { id: 3, email: 'sergio@email.com', password: '1234', role: 'admin', name: 'Sergio', birthdate: '2000-01-01', avatar: defaultAvatar },
     ],
     profile: {
       name: '',
