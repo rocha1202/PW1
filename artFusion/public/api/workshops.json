@@ -1,0 +1,162 @@
+[
+    {
+        "id": 1,
+        "name": "Art is about colors",
+        "description": "Talking about art, is like using a color to define what state of mind you are in",
+        "price": 10,
+        "quantity": 10,
+        "artist": "Artist 1"
+    },
+    {
+        "id": 2,
+        "name": "Ticket 2",
+        "description": "Description 2",
+        "price": 20,
+        "quantity": 20,
+        "artist": "Artist 2"
+    },
+    {
+        "id": 3,
+        "name": "Anime visual and artistic expression",
+        "description": "Description 3",
+        "price": 30,
+        "quantity": 30,
+        "artist": "Artist 3"
+    },
+    {
+        "id": 4,
+        "name": "Ticket 4",
+        "description": "Description 4",
+        "price": 40,
+        "quantity": 40,
+        "artist": "Artist 4"
+    },
+    {
+        "id": 5,
+        "name": "Ticket 5",
+        "description": "Description 5",
+        "price": 50,
+        "quantity": 50,
+        "artist": "Artist 5"
+    },
+    {
+        "id": 6,
+        "name": "Ticket 6",
+        "description": "Description 6",
+        "price": 60,
+        "quantity": 60,
+        "artist": "Artist 6"
+    },
+    {
+        "id": 7,
+        "name": "Ticket 7",
+        "description": "Description 7",
+        "price": 70,
+        "quantity": 70,
+        "artist": "Artist 7"
+    },
+    {
+        "id": 8,
+        "name": "Ticket 8",
+        "description": "Description 8",
+        "price": 80,
+        "quantity": 80,
+        "artist": "Artist 8"
+    },
+    {
+        "id": 9,
+        "name": "Ticket 9",
+        "description": "Description 9",
+        "price": 90,
+        "quantity": 90,
+        "artist": "Artist 9"
+    },
+    {
+        "id": 10,
+        "name": "Ticket 10",
+        "description": "Description 10",
+        "price": 100,
+        "quantity": 100,
+        "artist": "Artist 10"
+    },
+    {
+        "id": 11,
+        "name": "Ticket 11",
+        "description": "Description 11",
+        "price": 110,
+        "quantity": 110,
+        "artist": "Artist 11"
+    },
+    {
+        "id": 12,
+        "name": "Ticket 12",
+        "description": "Description 12",
+        "price": 120,
+        "quantity": 120,
+        "artist": "Artist 12"
+    },
+    {
+        "id": 13,
+        "name": "Ticket 13",
+        "description": "Description 13",
+        "price": 130,
+        "quantity": 130,
+        "artist": "Artist 13"
+    },
+    {
+        "id": 14,
+        "name": "Ticket 14",
+        "description": "Description 14",
+        "price": 140,
+        "quantity": 140,
+        "artist": "Artist 14"
+    },
+    {
+        "id": 15,
+        "name": "Ticket 15",
+        "description": "Description 15",
+        "price": 150,
+        "quantity": 150,
+        "artist": "Artist 15"
+    },
+    { 
+        "id": 16,
+        "name": "Ticket 16",
+        "description": "Description 16",
+        "price": 160,
+        "quantity": 160,
+        "artist": "Artist 16"
+    },
+    {
+        "id": 17,
+        "name": "Ticket 17",
+        "description": "Description 17",
+        "price": 170,
+        "quantity": 170,
+        "artist": "Artist 17"
+    },
+    {
+        "id": 18,
+        "name": "Ticket 18",
+        "description": "Description 18",
+        "price": 180,
+        "quantity": 180,
+        "artist": "Artist 18"
+    },
+    {
+        "id": 19,
+        "name": "Ticket 19",
+        "description": "Description 19",
+        "price": 190,
+        "quantity": 190,
+        "artist": "Artist 19"
+    },
+    {
+        "id": 20,
+        "name": "Ticket 20",
+        "description": "Description 20",
+        "price": 200,
+        "quantity": 200,
+        "artist": "Artist 20"
+    }
+]
