@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory, createMemoryHistory } from "vue-router";
 import Home from "@/views/HomeView.vue";
 import CreateAcc from "@/views/CreateView.vue";
 import Login from "@/views/LoginView.vue";
@@ -13,8 +13,10 @@ import LojaView from "@/views/lojaView.vue";
 
 import { useUserStore } from "@/stores/userStore";
 
+const history = import.meta.env.MODE === "test" ? createMemoryHistory() : createWebHistory(import.meta.env.BASE_URL);
+
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history,
   routes: [
     { path: "/", name: "Home", component: Home },
     { path: "/create-account", name: "CreateAcc", component: CreateAcc },
