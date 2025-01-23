@@ -1,28 +1,31 @@
 <template>
-  <div class="store-view">
+  <div>
     <!-- Navbar -->
     <Navbar />
-    
-    <!-- Conteúdo principal com os cards de tickets à esquerda -->
-    <div class="store-content">
-      <h1>Bem Vindo a Loja</h1>
-    </div>
+
+    <!-- Store Content -->
+    <div class="store-container">
       <div class="store-grid">
-        <!-- Cards de tickets -->
-        <div v-for="ticket in tickets" :key="ticket.id" class="ticket-card">
-          <div class="ticket-info">
-            <h3>{{ ticket.name }}</h3>
-            <p>{{ ticket.artist }}</p>
-            <p>{{ ticket.price }} €</p>
-            <button v-if="isUserAuthenticated && !isAdmin" @click="buyTicket(ticket)" class="buy-button">Comprar</button>
-          </div>
+        <div v-for="item in items" :key="item.id" class="store-item">
+          <img :src="item.photo" :alt="item.name" class="item-photo" />
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.description }}</p>
+          <p><strong>Price:</strong> ${{ item.price }}</p>
+          <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+          <button v-if="isUserAuthenticated && !isAdmin" @click="buyTicket(ticket)" class="buy-button">Comprar</button>
         </div>
       </div>
-    
 
-    <!-- Cart fixado à direita -->
-    <div class="cart-container">
-      <Cart />
+      <!-- Cart Sidebar -->
+      <div class="cart-container">
+        <h3>Your Cart</h3>
+        <ul>
+          <li v-for="item in cartItems" :key="item.id">
+            {{ item.name }} - ${{ item.price }}
+          </li>
+        </ul>
+        <p v-if="cartItems.length === 0">Your cart is empty</p>
+      </div>
     </div>
 
     <!-- Footer -->
@@ -33,132 +36,115 @@
 <script>
 import Navbar from "@/components/navbar.vue";
 import Footer from "@/components/footer.vue";
-import Cart from "@/components/cart.vue";
-import { useUserStore } from "@/stores/userStore";
 import { useCartStore } from "@/stores/cart";
+import { useMerchStore } from "@/stores/merchStore";
 
 export default {
   name: "StoreView",
   components: {
     Navbar,
     Footer,
-    Cart,
   },
   data() {
     return {
-      tickets: [], // Vai armazenar os dados dos tickets
+      items: [], // Os itens carregados da API
     };
   },
   computed: {
-    // Computed properties para verificar se o usuário está autenticado e se é admin
-    isUserAuthenticated() {
-      const userStore = useUserStore();
-      return userStore.isAuthenticated;
-    },
-    isAdmin() {
-      const userStore = useUserStore();
-      return userStore.userRole === "admin";
+    cartItems() {
+      const cartStore = useCartStore();
+      return cartStore.cartItems;
     },
   },
   methods: {
-    async fetchTickets() {
+    async fetchItems() {
       try {
-        const response = await fetch("/api/tickets.json");
-        const data = await response.json();
-        this.tickets = data; // Armazena os tickets no array tickets
+        const merchStore = useMerchStore();
+        await merchStore.fetchMerch();
+        this.items = merchStore.items;
       } catch (error) {
-        console.error("Erro ao carregar os tickets:", error);
+        console.error("Erro ao buscar os itens:", error);
       }
     },
-    buyTicket(ticket) {
-      if (this.isUserAuthenticated && !this.isAdmin) {
-    const cartStore = useCartStore();  // Chama o store diretamente aqui
-    cartStore.addToCart(ticket); // Adiciona o bilhete ao carrinho
-    console.log(`Comprando o ticket: ${ticket.name}`);
-  } else {
-    console.log("Usuário não autorizado para comprar este ticket.");
-  }
-}
+    addToCart(item) {
+      const cartStore = useCartStore();
+      cartStore.addToCart(item);
+      //alert(`${item.name} adicionado ao carrinho!`);
+    },
   },
   mounted() {
-    // Carregar os tickets assim que o componente for montado
-    this.fetchTickets();
+    this.fetchItems();
   },
 };
 </script>
 
-<style scoped>
-.store-view {
+<style>
+/* Container para alinhar loja e carrinho */
+.store-container {
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
   gap: 20px;
-}
-
-.store-content {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  padding: 20px;
   margin-top: 80px;
 }
 
+/* Grid para exibir os itens da loja */
 .store-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  flex-grow: 1;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  flex: 1;
 }
 
-.ticket-card {
-  background-color: #f5f5f5;
+/* Estilos para os cards */
+.store-item {
+  border: 1px solid #ccc;
   border-radius: 10px;
-  padding: 15px;
+  padding: 10px;
   text-align: center;
+  background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #000; /* Texto dos cards em preto */
+  font-size: 14px;
 }
 
-.ticket-image {
-  width: 100%;
-  border-radius: 8px;
+.store-item img {
+  max-width: 100%;
   height: auto;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
 
-.ticket-info h3 {
-  font-size: 18px;
-  color: #333;
-}
-
-.ticket-info p {
-  color: #777;
-}
-
-.buy-button {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 15px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 10px;
-}
-
-.buy-button:hover {
-  background-color: #45a098;
-  transform: scale(1.05);
-}
-
+/* Sidebar para o carrinho */
 .cart-container {
-  position: fixed;
-  top: 100px;
-  right: 20px;
-  width: 300px;
-  height: auto;
+  position: sticky;
+  top: 20px;
+  width: 250px;
   max-height: 80vh;
+  padding: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   background-color: #fff;
   border-radius: 10px;
-  z-index: 1000;
+  overflow-y: auto;
+  color: #000;
+}
+
+.cart-container h3 {
+  margin-bottom: 10px;
+}
+
+.cart-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-container li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.cart-container li:last-child {
+  border-bottom: none;
 }
 </style>
