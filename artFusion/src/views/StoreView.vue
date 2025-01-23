@@ -1,278 +1,164 @@
 <template>
-  <div>
+  <div class="store-view">
+    <!-- Navbar -->
     <Navbar />
-    <br><br><br><br>
-    <h1>Store</h1>
-
-    <br>
-    <h2>Feedbacks</h2>
-    <div v-for="(feedback, index) in feedbackStore.getFeedbacks" :key="index">
-      <p>{{ feedback }}</p>
+    
+    <!-- Conteúdo principal com os cards de tickets à esquerda -->
+    <div class="store-content">
+      <h1>Bem Vindo a Loja</h1>
     </div>
-    <br>
-    <br>
-    <!-- Exibindo os itens de merchandising -->
-    <h2>Itens de Merchandising</h2>
-    <div v-for="merch in merchStore.getAllMerchandise" :key="merch.id">
-      <p>{{ merch.nome }}</p>
-      <p>{{ merch.descricao }}</p>
-      <p>Preço: {{ merch.preco }}€</p>
-      <img :src="`@/assets/${merch.imagem}`" :alt="merch.nome" />
-    </div>
-    <br>
-    <!-- Exibindo os eventos do organizador -->
-    <h2>Eventos</h2>
-    <div v-for="event in organizersStore.getEvents" :key="event.id">
-      <p>{{ event.nome }}</p>
-      <p>{{ event.data }}</p>
-    </div>
-    <br>
-    <!-- Exibindo as notificações do organizador -->
-    <h2>Notificações</h2>
-    <div v-for="notification in organizersStore.getNotifications" :key="notification.id">
-      <div :class="notification.visto ? 'read' : 'unread'">
-        <h3>{{ notification.titulo }}</h3>
-        <p>{{ notification.mensagem }}</p>
-        <p>Data: {{ notification.data }}</p>
-      </div>
-    </div>
-    <br>
-    <!-- Exibindo os voluntários -->
-    <h2>Voluntários</h2>
-    <div v-for="volunteer in organizersStore.getVolunteers" :key="volunteer.id">
-      <p>{{ volunteer.nome }}</p>
-      <p>{{ volunteer.email }}</p>
-    </div>
-    <br>
-    <!-- Exibindo os participantes -->
-    <h2>Participantes</h2>
-    <div v-for="participant in participantsStore.getParticipants" :key="participant.id">
-      <p>{{ participant.nome }}</p>
-      <p>{{ participant.email }}</p>
-    </div>
-    <br>
-    <!-- Exibindo o progresso dos participantes -->
-    <h2>Progresso dos Participantes</h2>
-    <div v-for="(progress, challengeId) in participantsStore.progress" :key="challengeId">
-      <p><strong>Desafio {{ challengeId }}: </strong>{{ progress }}</p>
-    </div>
-    <br>
-    <!-- Exibindo as notificações dos participantes -->
-    <h2>Notificações dos Participantes</h2>
-    <div v-for="notification in participantsStore.getNotifications" :key="notification.id">
-      <div :class="notification.visto ? 'read' : 'unread'">
-        <h3>{{ notification.titulo }}</h3>
-        <p>{{ notification.mensagem }}</p>
-        <p>Data: {{ notification.data }}</p>
-      </div>
-    </div>
-    <br>
-    <!-- Exibindo os eventos registrados pelos participantes -->
-    <h2>Eventos Registrados</h2>
-    <div v-for="eventId in participantsStore.getEventRegistrations" :key="eventId">
-      <p>Evento ID: {{ eventId }}</p>
-    </div>
-    <br>
-    <!-- Exibindo os bilhetes -->
-    <h2>Bilhetes</h2>
-    <div v-for="ticket in ticketStore.allTickets" :key="ticket.id">
-      <p>{{ ticket.name }}</p>
-      <p>{{ ticket.description }}</p>
-      <p>Preço: {{ ticket.price }}€</p>
-      <p>Data: {{ ticket.date }}</p>
-      <p>Localização: {{ ticket.location }}</p>
-      <img :src="ticket.image" :alt="ticket.name" />
-      <p>Categoria: {{ ticket.category }}</p>
-      <p>Quantidade disponível: {{ ticket.quantity }}</p>
-      <p><strong>Oradores:</strong> {{ ticket.details.speakers.join(", ") }}</p>
-      <p><strong>Programa:</strong> {{ ticket.details.program }}</p>
-
-      <div v-if="artists[ticket.id] && artists[ticket.id].length">
-        <p>Artistas:</p>
-        <div v-for="artistName in artists[ticket.id]" :key="artistName">
-          <span>{{ artist.title }}</span>
-          <p>
-          
-          <button class="artist-button" @click="goToArtistDetails(artist?.id)" v-if="artist?.id">Conhecer Artista</button>
-          </p>
+      <div class="store-grid">
+        <!-- Cards de tickets -->
+        <div v-for="ticket in tickets" :key="ticket.id" class="ticket-card">
+          <div class="ticket-info">
+            <h3>{{ ticket.name }}</h3>
+            <p>{{ ticket.artist }}</p>
+            <p>{{ ticket.price }} €</p>
+            <button v-if="isUserAuthenticated && !isAdmin" @click="buyTicket(ticket)" class="buy-button">Comprar</button>
+          </div>
         </div>
       </div>
-      <div v-else>
-        <p>A carregar Artista ou sem Artista definido.</p>
-      </div>
+    
 
-      <br>nop
+    <!-- Cart fixado à direita -->
+    <div class="cart-container">
+      <Cart />
     </div>
 
+    <!-- Footer -->
     <Footer />
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/navbar.vue";
-import Footer from '@/components/footer.vue';
-import { useArtistStore } from '../stores/artistStore'; // Importe a store de artistas // Importando a store de artistas
-import { useFeedbackStore } from '@/stores/feedbackStore'; // Importando a store de feedbacks
-import { useMerchStore } from '@/stores/merchStore'; // Importando a store de merchandising
-import { useNotificationStore } from '@/stores/notificationStore'; // Importando a store de notificações
-import { useTicketStore } from '@/stores/ticketStore'; // Importando a store de bilhetes
+import Footer from "@/components/footer.vue";
+import Cart from "@/components/cart.vue";
+import { useUserStore } from "@/stores/userStore";
+import { useCartStore } from "@/stores/cart";
 
 export default {
-  name: 'StoreView',
+  name: "StoreView",
   components: {
     Navbar,
     Footer,
-  },
-  setup() {
-    const feedbackStore = useFeedbackStore(); // Acessa a store de feedbacks
-    const merchStore = useMerchStore(); // Acessa a store de merchandising
-    const notificationStore = useNotificationStore(); // Acessa a store de notificações
-    const organizersStore = useOrganizersStore(); // Acessa a store de organizadores
-    const participantsStore = useParticipantsStore(); // Acessa a store de participantes
-    const ticketStore = useTicketStore(); // Acessa a store de bilhetes
-
-    // Carrega os dados de artistas ao montar o componente
-    //artistStore.fetchArtists();
-
-    return {  
-      feedbackStore, 
-      merchStore, 
-      notificationStore, 
-      organizersStore, 
-      participantsStore, 
-      ticketStore
-    }; // Disponibiliza as stores no template
+    Cart,
   },
   data() {
     return {
-      artists: {}, // Armazenar os nomes dos artistas por ticket
+      tickets: [], // Vai armazenar os dados dos tickets
     };
   },
   computed: {
-    ticketStore() {
-      return useTicketStore();
+    // Computed properties para verificar se o usuário está autenticado e se é admin
+    isUserAuthenticated() {
+      const userStore = useUserStore();
+      return userStore.isAuthenticated;
     },
-    tickets() {
-      return this.ticketStore.allTickets;
-    }
-  },
-  async mounted() {
-    // Carrega todos os artistas se não estiverem carregados
-    const artistStore = useArtistStore();
-    if (artistStore.artists.length === 0) {
-      console.log("Carregando artistas...");
-      await artistStore.fetchArtists(1, 12);
-    }
-   else {
-    console.log("Artistas já carregados.");
-  }
-
-  console.log("Estado de carregamento:", artistStore.loading);
-  console.log("Erro ao carregar artistas:", artistStore.error);
-  console.log("Artistas carregados:", artistStore.artists);
-
-    // Popula os artistas relacionados a cada ticket
-    await this.loadArtistsForTickets();
+    isAdmin() {
+      const userStore = useUserStore();
+      return userStore.userRole === "admin";
+    },
   },
   methods: {
-    async loadArtistsForTickets() {
-      const ticketStore = this.ticketStore;
-      const artistsForTickets = {};
-
-      // Log para depuração dentro do loop
-      for (const ticket of ticketStore.allTickets) {
-        const artistNames = await ticketStore.getArtistsForTicket(ticket.id);
-        artistsForTickets[ticket.id] = artistNames;
-
-        // Log para depuração
-        console.log(`Artistas para o bilhete ${ticket.id}:`, artistNames);
-      }
-
-      // Atualiza o estado de artists
-      this.artists = artistsForTickets;
-    },
-    goToArtistDetails(artistId) {
-      if (artistId) {
-        this.$router.push({ name: 'ArtistDetails', params: { id: artistId } });
-      } else {
-        console.error("Erro: ID do artista não encontrado.");
+    async fetchTickets() {
+      try {
+        const response = await fetch("/api/tickets.json");
+        const data = await response.json();
+        this.tickets = data; // Armazena os tickets no array tickets
+      } catch (error) {
+        console.error("Erro ao carregar os tickets:", error);
       }
     },
+    buyTicket(ticket) {
+      if (this.isUserAuthenticated && !this.isAdmin) {
+    const cartStore = useCartStore();  // Chama o store diretamente aqui
+    cartStore.addToCart(ticket); // Adiciona o bilhete ao carrinho
+    console.log(`Comprando o ticket: ${ticket.name}`);
+  } else {
+    console.log("Usuário não autorizado para comprar este ticket.");
+  }
+}
+  },
+  mounted() {
+    // Carregar os tickets assim que o componente for montado
+    this.fetchTickets();
   },
 };
 </script>
 
 <style scoped>
-.read {
-  background-color: #f0f0f0;
-  opacity: 0.6;
-}
-.unread {
-  background-color: #ffeeba;
-  font-weight: bold;
-}
 .store-view {
-  font-family: Arial, sans-serif;
-}
-
-h1 {
-  text-align: center;
-}
-
-.error-message {
-  color: red;
-  text-align: center;
-}
-
-.loading {
-  text-align: center;
-}
-
-.artists-list {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.artist-card {
-  background-color: #0e59fa;
+.store-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 80px;
+}
+
+.store-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  flex-grow: 1;
+}
+
+.ticket-card {
+  background-color: #f5f5f5;
+  border-radius: 10px;
   padding: 15px;
-  margin: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ticket-image {
+  width: 100%;
   border-radius: 8px;
-  width: 250px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: auto;
 }
 
-.artist-card h2 {
-  font-size: 1.2em;
-  margin-bottom: 10px;
+.ticket-info h3 {
+  font-size: 18px;
+  color: #333;
 }
 
-.artist-card p {
-  font-size: 1em;
+.ticket-info p {
+  color: #777;
 }
 
-.artist-button {
-  background-color: #4caf50; 
-  color: white; 
-  border: none; 
-  border-radius: 8px; 
-  padding: 10px 15px; 
-  font-size: 16px; 
-  font-weight: bold; 
-  cursor: pointer; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
-  transition: all 0.3s ease; 
+.buy-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
 }
 
-.artist-button:hover {
-  background-color: #45a098; 
-  transform: scale(1.05); 
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); 
+.buy-button:hover {
+  background-color: #45a098;
+  transform: scale(1.05);
 }
 
-.artist-button:active {
-  transform: scale(0.95); 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+.cart-container {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  width: 300px;
+  height: auto;
+  max-height: 80vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  border-radius: 10px;
+  z-index: 1000;
 }
 </style>

@@ -28,7 +28,7 @@
 import Navbar from "@/components/navbar.vue";
 import Footer from "@/components/footer.vue";
 import ProductCard from "@/views/ProductCard.vue";
-import Cart from "@/views/Cart.vue";
+import Cart from "@/components/cart.vue";
 import eventImage from "@/assets/event1.jpg";
 import { useCartStore } from "@/stores/cart";
 

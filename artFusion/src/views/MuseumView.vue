@@ -38,7 +38,6 @@
 
             <!-- Botão de apagar visível apenas para admins ou organizers -->
             <button v-if="canDeleteTicket" @click="deleteTicket(ticket.id)">Delete</button>
-            <button v-if="isUserAuthenticated && !isAdmin" @click="buyTicket(ticket)" class="buy-button">Comprar</button>
           </div>
         </div>
       </div>
