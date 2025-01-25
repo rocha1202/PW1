@@ -19,13 +19,12 @@
         <li class="navbar-item">
           <router-link to="/store">Loja/Merch</router-link>
         </li>
-        <!-- Condição para mostrar o link de Tickets -->
         <li v-if="showTickets" class="navbar-item">
           <router-link to="/tickets">Tickets</router-link>
         </li>
       </div>
 
-      <!-- Sign In e Sign Up à direita, ou avatar e notificações se logado -->
+      <!-- Sign In e Sign Up à direita, ou avatar e notificações/usuários se logado -->
       <div class="navbar-right">
         <template v-if="!isAuthenticated">
           <li class="navbar-item">
@@ -36,11 +35,12 @@
           </li>
         </template>
         <template v-else>
-          <!-- Notificações -->
-          <li class="navbar-item">
+          <li class="navbar-item" v-if="isAdmin">
+            <router-link to="/users" class="button">Users</router-link>
+          </li>
+          <li v-else class="navbar-item">
             <img src="../assets/notification.png" alt="Notifications" class="navbar-icon" />
           </li>
-
           <!-- Avatar com dropdown -->
           <li class="navbar-item dropdown" ref="dropdownRef">
             <img src="../assets/Account.png" alt="Profile" class="navbar-avatar" @click="toggleDropdown" />
@@ -61,38 +61,32 @@
 
 <script>
 import { computed, ref, onMounted, onBeforeUnmount } from "vue";
-import { useUserStore } from "@/stores/userStore.js"; // Importe a store
-import { useRouter } from "vue-router"; // Importando o router
+import { useUserStore } from "@/stores/userStore.js";
+import { useRouter } from "vue-router";
 
 export default {
   name: "Navbar",
   setup() {
     const userStore = useUserStore();
-    const router = useRouter(); // Instanciando o router
+    const router = useRouter();
 
-    // Computed property para acessar o estado de autenticação
     const isAuthenticated = computed(() => userStore.isUserAuthenticated);
-
-    // Controle da visibilidade do link de Tickets
     const showTickets = computed(() => isAuthenticated.value);
+    const isAdmin = computed(() => userStore.getUserRole === "admin"); // Nova propriedade
 
-    // Estado do dropdown
     const dropdownOpen = ref(false);
     const dropdownRef = ref(null);
 
-    // Função para alternar o estado do dropdown
     const toggleDropdown = () => {
       dropdownOpen.value = !dropdownOpen.value;
     };
 
-    // Fechar dropdown ao clicar fora
     const handleClickOutside = (event) => {
       if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
         dropdownOpen.value = false;
       }
     };
 
-    // Adiciona e remove o evento de clique no documento
     onMounted(() => {
       document.addEventListener("click", handleClickOutside);
     });
@@ -101,16 +95,16 @@ export default {
       document.removeEventListener("click", handleClickOutside);
     });
 
-    // Função para logout
     const logout = () => {
       userStore.logout();
-      router.push("/login"); // Redireciona para a página de login após logout
-      dropdownOpen.value = false; // Fecha o dropdown
+      router.push("/login");
+      dropdownOpen.value = false;
     };
 
     return {
       isAuthenticated,
       showTickets,
+      isAdmin,
       dropdownOpen,
       toggleDropdown,
       logout,
@@ -118,6 +112,7 @@ export default {
     };
   },
 };
+
 </script>
 
 <style scoped>

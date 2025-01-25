@@ -10,10 +10,14 @@ import Profile from "@/views/ProfileView.vue";
 import ArtistDetails from "@/views/ArtistDetails.vue";
 import AboutView from "@/views/LearnMoreView.vue";
 import LojaView from "@/views/lojaView.vue";
+import Users from "@/views/usersView.vue";
 
 import { useUserStore } from "@/stores/userStore";
 
-const history = import.meta.env.MODE === "test" ? createMemoryHistory() : createWebHistory(import.meta.env.BASE_URL);
+const history =
+  import.meta.env.MODE === "test"
+    ? createMemoryHistory()
+    : createWebHistory(import.meta.env.BASE_URL);
 
 const router = createRouter({
   history,
@@ -43,6 +47,12 @@ const router = createRouter({
       name: "ArtistDetails",
       component: ArtistDetails,
     },
+    {
+      path: "/users",
+      name: "Users",
+      component: Users,
+      meta: { admin: true },
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     // Sempre rola para o topo
@@ -51,7 +61,16 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from) => {
-  if (to.meta.requiresAuth && !useUserStore().isUserAuthenticated) {
+  const userStore = useUserStore();
+
+  // Obtém se o usuário está autenticado
+  const isAuthenticated = userStore.isUserAuthenticated;
+
+  // Verifica se o usuário é admin
+  const isAdmin = userStore.getUserRole === "admin";
+
+  // Regras de autenticação e autorização
+  if ((to.meta.requiresAuth && !isAuthenticated) || (to.meta.admin && !isAdmin)) {
     return {
       path: "/login",
       query: { redirect: to.fullPath },
