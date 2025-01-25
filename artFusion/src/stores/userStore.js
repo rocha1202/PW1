@@ -12,6 +12,8 @@ export const useUserStore = defineStore('user', {
       { id: 1, email: 'beatriz@email.com', password: '1234', role: 'organizer', name: 'Beatriz', birthdate: '2000-01-01', avatar: defaultAvatar, isBlocked: false },
       { id: 2, email: 'ines@email.com', password: '1234', role: 'admin', name: 'Ines', birthdate: '2000-01-01', avatar: defaultAvatar, isBlocked: false },
       { id: 3, email: 'sergio@email.com', password: '1234', role: 'admin', name: 'Sergio', birthdate: '2000-01-01', avatar: defaultAvatar, isBlocked: false },
+      { id: 4, email: 'joanalmeida@gmail.com', password: 'teste1', role: 'user', name: "Joana", birthdate: '2000-01-01', avatar: defaultAvatar, isBlocked: false },
+    
     ],
     profile: {
       name: '',
@@ -51,7 +53,7 @@ export const useUserStore = defineStore('user', {
       this.userRole = user.role;
       this.token = token;
       this.profile = { ...user }; // Preenche o perfil 
-      return true; 
+      return true;
     },
 
     updateProfile(newProfile) {

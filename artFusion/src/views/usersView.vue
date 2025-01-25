@@ -8,18 +8,42 @@
                 <v-divider></v-divider>
                 <v-card-text>
                     <v-data-table :items="users" :headers="headers" item-value="id" class="elevation-1" :search="search"
-                        fixed-header height="400px">
+                        show-select :footer-props="{ itemsPerPageText: '', showCurrentPage: false, itemsPerPage: 0 }">
                         <template v-slot:top>
                             <v-text-field v-model="search" label="Search for users" class="mx-4" clearable
                                 prepend-icon="mdi-magnify"></v-text-field>
                         </template>
                         <template v-slot:item.actions="{ item }">
-                            <v-btn icon @click="editUser(item)">Edit </v-btn>
-                            <v-btn icon color="red" @click="deleteUser(item.id)">Delete </v-btn>
-                            <v-btn icon :color="item.isBlocked ? 'green' : 'orange'" @click="blockUser(item.id)">Block
-                            </v-btn>
+                            <span class="action-text" @click="editUser(item)" @mouseover="hoveredAction = 'edit'"
+                                @mouseleave="hoveredAction = null"
+                                :style="{ color: hoveredAction === 'edit' ? '#2196f3' : '#000' }">
+                                Edit
+                            </span>
+                            |
+                            <span class="action-text" @click="deleteUser(item.id)" @mouseover="hoveredAction = 'delete'"
+                                @mouseleave="hoveredAction = null"
+                                :style="{ color: hoveredAction === 'delete' ? 'red' : '#000' }">
+                                Delete
+                            </span>
+                            |
+                            <span class="action-text" @click="blockUser(item.id)" @mouseover="hoveredAction = 'block'"
+                                @mouseleave="hoveredAction = null" :style="{
+                                    color: item.isBlocked
+                                        ? hoveredAction === 'block'
+                                            ? 'darkgreen'
+                                            : 'green'
+                                        : hoveredAction === 'block'
+                                            ? 'darkorange'
+                                            : 'orange'
+                                }">
+                                {{ item.isBlocked ? "Unblock" : "Block" }}
+                            </span>
                         </template>
                     </v-data-table>
+
+                    <!-- Controles de paginação -->
+                    <v-pagination v-model="page" :length="pageCount" total-visible="5" color="primary"
+                        class="mt-4"></v-pagination>
                 </v-card-text>
             </v-card>
 
@@ -62,31 +86,40 @@ export default {
         return {
             search: "",
             dialog: false,
-            editedUser: {}, // Usuário sendo editado
+            hoveredAction: null,
+            editedUser: {},
             headers: [
                 { text: "ID", value: "id" },
-                { text: "Nome", value: "name" },
+                { text: "Name", value: "name" },
                 { text: "E-mail", value: "email" },
-                { text: "Papel", value: "role" },
-                { text: "Ações", value: "actions", sortable: false },
+                { text: "Role", value: "role" },
+                { text: "Actions", value: "actions", sortable: false },
             ],
-            roles: ["user", "organizer", "admin"], // Papéis disponíveis
+            roles: ["user", "organizer", "admin"],
+            itemsPerPage: 5, // Número de itens por página
+            page: 1, // Página atual
         };
     },
     computed: {
         users() {
             const userStore = useUserStore();
-            return userStore.getAccounts;
+            const startIndex = (this.page - 1) * this.itemsPerPage;
+            const endIndex = this.page * this.itemsPerPage;
+            return userStore.getAccounts.slice(startIndex, endIndex); // Dividir os dados em páginas
+        },
+        pageCount() {
+            const userStore = useUserStore();
+            return Math.ceil(userStore.getAccounts.length / this.itemsPerPage); // Calcula o número total de páginas
         },
     },
     methods: {
         editUser(user) {
-            this.editedUser = { ...user }; // Clona o usuário para edição
+            this.editedUser = { ...user };
             this.dialog = true;
         },
         saveUser() {
             const userStore = useUserStore();
-            userStore.updateProfile(this.editedUser); // Atualiza o usuário na store
+            userStore.updateProfile(this.editedUser);
             this.dialog = false;
         },
         deleteUser(userId) {
@@ -94,7 +127,7 @@ export default {
             const user = userStore.getUserById(userId);
             if (user) {
                 if (confirm(`Are you sure you want to delete the user ${user.name}?`)) {
-                    userStore.deleteUser(userId); // Remove da store
+                    userStore.deleteUser(userId);
                 }
             }
         },
@@ -102,7 +135,7 @@ export default {
             const userStore = useUserStore();
             const user = userStore.getUserById(userId);
             if (user) {
-                userStore.blockUser(userId); // Alterna o estado da store
+                userStore.blockUser(userId);
                 alert(
                     `User ${user.name} was ${user.isBlocked ? "blocked" : "unblocked"}.`
                 );
@@ -123,5 +156,10 @@ export default {
 
 .v-card {
     margin-bottom: 20px;
+}
+
+.action-text {
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
 }
 </style>
