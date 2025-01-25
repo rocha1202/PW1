@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 
-// Caminho para a imagem do avatar padrão
 import defaultAvatar from '@/assets/Account.png';
 
 export const useUserStore = defineStore('user', {
@@ -10,19 +9,21 @@ export const useUserStore = defineStore('user', {
     token: null,
     userRole: null,
     accounts: [
-      { id: 1, email: 'beatriz@email.com', password: '1234', role: 'organizer', name: 'Beatriz', birthdate: '2000-01-01', avatar: defaultAvatar },
-      { id: 2, email: 'ines@email.com', password: '1234', role: 'admin', name: 'Ines', birthdate: '2000-01-01', avatar: defaultAvatar },
-      { id: 3, email: 'sergio@email.com', password: '1234', role: 'admin', name: 'Sergio', birthdate: '2000-01-01', avatar: defaultAvatar },
+      { id: 1, email: 'beatriz@email.com', password: '1234', role: 'organizer', name: 'Beatriz', birthdate: '2000-01-01', avatar: defaultAvatar, isBlocked: false },
+      { id: 2, email: 'ines@email.com', password: '1234', role: 'admin', name: 'Ines', birthdate: '2000-01-01', avatar: defaultAvatar, isBlocked: false },
+      { id: 3, email: 'sergio@email.com', password: '1234', role: 'admin', name: 'Sergio', birthdate: '2000-01-01', avatar: defaultAvatar, isBlocked: false },
+      { id: 4, email: 'joanalmeida@gmail.com', password: 'teste1', role: 'user', name: "Joana", birthdate: '2000-01-01', avatar: defaultAvatar, isBlocked: false },
+    
     ],
     profile: {
       name: '',
       email: '',
       birthdate: '',
       password: '',
-      avatar: defaultAvatar, // Avatar padrão
+      avatar: defaultAvatar,
     },
   }),
-  
+
   getters: {
     getUser: (state) => state.user,
     getUserRole: (state) => state.userRole,
@@ -38,45 +39,40 @@ export const useUserStore = defineStore('user', {
         (account) => account.email === email && account.password === password
       );
 
-      if (user) {
-        const token = `mock-token-${user.id}`; // Simula um token gerado
-        this.isAuthenticated = true;
-        this.user = user;
-        this.userRole = user.role;
-        this.token = token;
-        this.profile = { ...user }; // Preenche o perfil do usuário com os dados da conta
-        return true; // Login bem-sucedido
-      } else {
-        throw new Error('Email ou senha inválidos.');
+      if (!user) {
+        throw new Error('Invalid email or password.');
       }
+
+      if (user.isBlocked) {
+        throw new Error('This user is blocked and cannot access the system. \n Contact your administrator.');
+      }
+
+      const token = `mock-token-${user.id}`; // Simula um token gerado
+      this.isAuthenticated = true;
+      this.user = user;
+      this.userRole = user.role;
+      this.token = token;
+      this.profile = { ...user }; // Preenche o perfil 
+      return true;
     },
 
     updateProfile(newProfile) {
       const { email, name, birthdate, password, avatar } = newProfile;
-      
       if (this.user) {
-        // Atualiza o perfil do usuário
         this.user = { ...this.user, email, name, birthdate, password, avatar };
-        this.profile = { email, name, birthdate, password, avatar }; // Atualiza o estado do perfil
+        this.profile = { email, name, birthdate, password, avatar };
       }
     },
 
-    createAccount(email, password, role, name, birthdate, avatar) {
-      const emailExists = this.accounts.some((account) => account.email === email);
-      if (emailExists) {
-        throw new Error('O email já está em uso. Tente outro.');
+    deleteUser(userId) {
+      this.accounts = this.accounts.filter((u) => u.id !== userId);
+    },
+
+    blockUser(userId) {
+      const user = this.getUserById(userId);
+      if (user) {
+        user.isBlocked = !user.isBlocked;
       }
-      const newAccount = {
-        id: this.accounts.length + 1,
-        email,
-        password,
-        role,
-        name,
-        birthdate,
-        avatar: avatar || defaultAvatar, // Se avatar não for passado, usa o avatar padrão
-      };
-      this.accounts.push(newAccount);
-      console.log('Conta criada:', newAccount);
     },
 
     logout() {
@@ -88,3 +84,4 @@ export const useUserStore = defineStore('user', {
     },
   },
 });
+
