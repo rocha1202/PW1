@@ -9,8 +9,8 @@ import StoreView from "@/views/StoreView.vue";
 import Profile from "@/views/ProfileView.vue";
 import ArtistDetails from "@/views/ArtistDetails.vue";
 import AboutView from "@/views/LearnMoreView.vue";
-import LojaView from "@/views/lojaView.vue";
 import Users from "@/views/usersView.vue";
+import NotFoundView from "@/views/NotFoundView.vue";  // Importando a página de erro 404
 
 import { useUserStore } from "@/stores/userStore";
 
@@ -29,7 +29,6 @@ const router = createRouter({
     { path: "/workshop", name: "Workshop", component: WorkShopView },
     { path: "/store", name: "Store", component: StoreView },
     { path: "/about", name: "About", component: AboutView },
-    { path: "/loja", name: "Loja", component: LojaView },
     {
       path: "/tickets",
       name: "TicketInfo",
@@ -53,6 +52,8 @@ const router = createRouter({
       component: Users,
       meta: { admin: true },
     },
+    // Rota para a página 404
+    { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFoundView },
   ],
   scrollBehavior(to, from, savedPosition) {
     // Sempre rola para o topo
