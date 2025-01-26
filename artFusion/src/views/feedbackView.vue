@@ -2,120 +2,100 @@
     <v-app style="background-color: #0f0a30; color: #f1f9fc;">
         <Navbar />
         <v-container class="fill-height d-flex flex-column align-center py-16">
-            <h1 class="text-center text-h4 font-weight-bold mb-8">Deixe seu Feedback</h1>
+            <div class="form-container">
+                <h1 class="text-center text-h4 font-weight-bold mb-6">Your Feedback goes here</h1>
 
-            <v-form ref="feedbackForm" v-model="formValid" class="feedback-form">
-                <v-textarea
-                    v-model="feedback.comment"
-                    label="Sua opinião"
-                    outlined
-                    dense
-                    rows="4"
-                    required
-                    :rules="[rules.required]"
-                    class="mb-4 feedback-input"
-                ></v-textarea>
+                <v-form ref="feedbackForm" v-model="formValid" class="feedback-form">
+                    <v-text-field
+                        v-model="feedback.ticket"
+                        label="Reference ticket/workshop"
+                        outlined
+                        class="mb-4 feedback-input"
+                        :rules="[rules.required]"
+                        placeholder="Inform us about the ticket/workshop you're referring to..."
+                    ></v-text-field>
 
-                <v-text-field
-                    v-model="feedback.ticket"
-                    label="Ticket que foi ver"
-                    outlined
-                    dense
-                    required
-                    :rules="[rules.required]"
-                    class="mb-4 feedback-input"
-                ></v-text-field>
+                    <v-textarea
+                        v-model="feedback.comment"
+                        label="Share your opinion"
+                        outlined
+                        rows="3"
+                        class="mb-4 feedback-input"
+                        :rules="[rules.required]"
+                        placeholder="Write here your opinion about the ticket/workshop..."
+                    ></v-textarea>
 
-                <v-radio-group
-    v-model="feedback.recommend"
-    label="Você voltaria a repetir a experiência?"
-    row
-    class="mb-4 feedback-radio-group"
->
-    <v-radio class="feedback-radio" value="Sim">
-        <template v-slot:default>
-            Sim
-        </template>
-    </v-radio>
-    <v-radio class="feedback-radio" value="Não">
-        <template v-slot:default>
-            Não
-        </template>
-    </v-radio>
-</v-radio-group>
+                    <div class="recommendation-container mb-4">
+                        <label class="recommendation-label">Would you do it again?</label>
+                        <v-btn-toggle v-model="feedback.recommend" class="recommendation-buttons" dense>
+                            <v-btn value="Sim" color="success">Yes</v-btn>
+                            <v-btn value="Não" color="error">No</v-btn>
+                        </v-btn-toggle>
+                    </div>
 
+                    <v-file-input
+                        v-model="feedback.files"
+                        label="Share your photos, videos or files"
+                        outlined
+                        multiple
+                        show-size
+                        class="mb-4 feedback-input"
+                    ></v-file-input>
 
-                <v-file-input
-                    v-model="feedback.files"
-                    label="Carregar arquivos (imagens ou vídeos)"
-                    outlined
-                    dense
-                    multiple
-                    show-size
-                    truncate-length="30"
-                    class="mb-4 feedback-file-input"
-                ></v-file-input>
-
-                <div class="rating-container mb-4">
-                    <span class="rating-label">Avaliação:</span>
-                    <v-rating
-                        v-model="feedback.rating"
-                        color="yellow"
-                        background-color="#4a4a4a"
-                        empty-icon="mdi-star-outline"
-                        full-icon="mdi-star"
-                        half-icon="mdi-star-half"
-                        length="5"
-                        large
-                        class="ml-2 feedback-rating"
-                    ></v-rating>
-                </div>
-
-                <v-btn 
-                    color="primary" 
-                    @click="submitFeedback" 
-                    :disabled="!formValid"
-                    class="mt-4"
-                    block
-                >
-                    Submeter
-                </v-btn>
-            </v-form>
+                    <v-btn 
+                        color="primary" 
+                        block
+                        class="submit-btn"
+                        :disabled="!formValid"
+                        @click="submitFeedback"
+                    >
+                        Submit Feedback
+                    </v-btn>
+                </v-form>
+            </div>
 
             <v-divider class="my-12"></v-divider>
 
-            <h2 class="text-center text-h5 font-weight-medium mb-6">Feedbacks Submetidos</h2>
-
-            <v-row>
-                <v-col
-                    v-for="(item, index) in feedbackList"
-                    :key="index"
-                    cols="12" md="6" lg="4"
-                >
-                    <v-card class="feedback-card">
-                        <v-card-title class="text-h6 font-weight-bold">{{ item.ticket }}</v-card-title>
-                        <v-card-subtitle class="text-subtitle-2 text-grey">{{ item.recommend }}</v-card-subtitle>
-                        <v-card-text>
-                            <p class="text-body-2">{{ item.comment }}</p>
-                            <v-rating
-                                :value="item.rating"
-                                color="yellow"
-                                background-color="#4a4a4a"
-                                empty-icon="mdi-star-outline"
-                                full-icon="mdi-star"
-                                half-icon="mdi-star-half"
-                                length="5"
-                                readonly
-                                dense
-                                class="mt-2"
-                            ></v-rating>
-                            <p v-if="item.files.length > 0" class="mt-2 text-body-2">
-                                <strong>Arquivos:</strong> {{ item.files.map(file => file.name).join(', ') }}
-                            </p>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
-            </v-row>
+            <div class="submitted-feedbacks">
+                <h2 class="text-center text-h5 font-weight-medium mb-6">Feedback received</h2>
+                <v-row dense>
+                    <v-col
+                        v-for="(item, index) in feedbackList"
+                        :key="index"
+                        cols="12" md="6" lg="4"
+                    >
+                        <v-card class="feedback-card">
+                            <v-card-title>
+                                <span class="ticket-label">Reference:</span>
+                                <span>{{ item.ticket }}</span>
+                            </v-card-title>
+                            <v-card-text>
+                                <p><strong>opinion:</strong> {{ item.comment }}</p>
+                                <p>
+                                    <strong>Recomendation:</strong> 
+                                    <span class="recommendation" :class="{'recommend-yes': item.recommend === 'Yes', 'recommend-no': item.recommend === 'No'}">
+                                        {{ item.recommend }}
+                                    </span>
+                                </p>
+                                <div v-if="item.files.length > 0" class="files-list mt-2">
+                                    <strong>Files:</strong>
+                                    <div v-for="file in item.files" :key="file.name" class="file-item">
+                                        <template v-if="file.type.startsWith('image')">
+                                            <img :src="file.content" :alt="file.name" class="file-image" />
+                                        </template>
+                                        <template v-else-if="file.type.startsWith('video')">
+                                            <video :src="file.content" controls class="file-video"></video>
+                                        </template>
+                                        <template v-else>
+                                            <span>{{ file.name }}</span>
+                                        </template>
+                                    </div>
+                                </div>
+                            </v-card-text>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </div>
         </v-container>
         <Footer />
     </v-app>
@@ -137,21 +117,41 @@ export default {
                 ticket: "",
                 recommend: "",
                 files: [],
-                rating: 0,
             },
             feedbackList: [],
             formValid: false,
             rules: {
-                required: (value) => !!value || "Este campo é obrigatório.",
+                required: (value) => !!value || "Campo obrigatório.",
             },
         };
     },
     methods: {
-        submitFeedback() {
+        async submitFeedback() {
             if (this.$refs.feedbackForm.validate()) {
-                this.feedbackList.push({ ...this.feedback });
+                const processedFiles = await Promise.all(
+                    this.feedback.files.map(async (file) => {
+                        const content = await this.readFileContent(file);
+                        return {
+                            name: file.name,
+                            type: file.type,
+                            content,
+                        };
+                    })
+                );
+
+                this.feedbackList.push({
+                    ...this.feedback,
+                    files: processedFiles,
+                });
                 this.resetForm();
             }
+        },
+        readFileContent(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => resolve(e.target.result);
+                reader.readAsDataURL(file);
+            });
         },
         resetForm() {
             this.feedback = {
@@ -159,7 +159,6 @@ export default {
                 ticket: "",
                 recommend: "",
                 files: [],
-                rating: 0,
             };
             this.$refs.feedbackForm.resetValidation();
         },
@@ -168,87 +167,101 @@ export default {
 </script>
 
 <style scoped>
-.feedback-form {
-    max-width: 600px;
+.form-container {
+    margin-top: 24px;
+    max-width: 700px;
     width: 100%;
-    padding: 20px;
     background-color: #1a1736;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .feedback-input {
     background-color: #2a2650;
     border-radius: 8px;
+    padding: 12px;
 }
 
-.feedback-radio-group {
+.recommendation-container {
     display: flex;
-    align-items: center;
-    gap: 16px;
-    background-color: #2a2650;
-    border-radius: 8px;
-    padding: 10px;
-    border: 1px solid #f1f9fc;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.feedback-radio {
-    display: flex;
-    align-items: center;
+.recommendation-label {
     color: #f1f9fc;
+    font-weight: bold;
 }
 
-.feedback-radio input {
-    margin-right: 8px;
-    accent-color: #ffd700;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #f1f9fc;
-    border-radius: 50%;
-    background-color: transparent;
-    outline: none;
-}
-
-.feedback-radio:hover input {
-    border-color: #ffd700;
-    box-shadow: 0 0 6px #ffd700;
-}
-
-.feedback-radio input:focus-visible {
-    outline: 2px solid #ffd700;
-    outline-offset: 2px;
-}
-
-
-.feedback-file-input {
-    background-color: #2a2650;
+.recommendation-buttons .v-btn {
+    color: #032D3DFF;
+    text-transform: none;
+    padding: 6px 12px;
     border-radius: 8px;
-    padding: 10px;
+}
+
+.recommendation-buttons {
+    display: flex;
+    gap: 8px; 
+}
+
+.submit-btn {
+    margin-top: 16px;
+}
+
+.submitted-feedbacks {
+    margin-top: 32px;
+    width: 100%;
 }
 
 .feedback-card {
     background-color: #1e1b3b;
     color: #f1f9fc;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.feedback-card .v-card-title {
+.feedback-card .ticket-label {
+    font-weight: bold;
+    color: #ffd700;
+    margin-right: 8px;
+}
+
+.recommendation {
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.recommend-yes {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.recommend-no {
+    background-color: #f44336;
+    color: #fff;
+}
+
+.files-list .file-item {
+    display: block;
     margin-bottom: 8px;
+    background-color: #2a2650;
+    padding: 4px 8px;
+    border-radius: 4px;
 }
 
-.rating-container {
-    display: flex;
-    align-items: center;
+.file-image {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 8px;
 }
 
-.feedback-rating {
-    --v-rating-size: 32px;
-}
-
-.rating-label {
-    font-size: 1rem;
-    color: #f1f9fc;
+.file-video {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 8px;
 }
 </style>
