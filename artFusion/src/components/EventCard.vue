@@ -3,8 +3,8 @@
     <img :src="imageSrc" alt="Card image" class="card-image" />
     <div class="card-content">
       <h2 class="card-title">{{ title }}</h2>
-      <p class="card-date">Data: {{ formatDate(date) }}</p>
-      <p class="card-artist">Artista: {{ artist }}</p>
+      <p class="card-date">Date: {{ formatDate(date) }}</p>
+      <p class="card-artist">Artist: {{ artist }}</p>
       <div class="favorite-icon" @click.stop="toggleFavorite">
         <span :class="{'is-favorite': isFavorite}">★</span>
       </div>

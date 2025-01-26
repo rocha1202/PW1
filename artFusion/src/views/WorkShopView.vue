@@ -1,136 +1,184 @@
 <template>
-  <div>
+  <v-app style="background-color: #0f0a30; color: #f1f9fc;">
     <Navbar />
-    <div class="content">
-      <h1>Workshops</h1>
-    </div>
-    <div class="content">
-      <Carousel :slideCount="3">
-      <!-- First Slide -->
-      <div class="slide">
-        <div class="image-container">
-          <img src="https://via.placeholder.com/600x400" alt="Placeholder Image" />
-        </div>
-        <div class="content-container">
-          <h2>Slide 1 Title</h2>
-          <p>Slide 1 description goes here. You can write a longer description to explain the content.</p>
-          <button>Learn More</button>
-        </div>
-      </div>
+    <v-container class="fill-height d-flex align-center justify-center py-16">
+      <div class="content">
+        <h1 class="text-center mb-2">Workshops</h1>
 
-      <!-- Second Slide -->
-      <div class="slide">
-        <div class="image-container">
-          <img src="https://via.placeholder.com/600x400" alt="Placeholder Image" />
-        </div>
-        <div class="content-container">
-          <h2>Slide 2 Title</h2>
-          <p>Slide 2 description goes here. This is where you add unique content for each slide.</p>
-          <button>Discover</button>
-        </div>
-      </div>
+        <!-- Carousel com slides de Workshops -->
+        <v-row dense>
+          <v-col v-for="(workshop, index) in workshops.slice(0, 3)" :key="index" cols="12" md="6" lg="4">
+            <v-card class="elevation-2 card-size">
+              <v-card-title class="text-h6">{{ workshop.name }}</v-card-title>
+              <v-card-subtitle>{{ workshop.artist }}</v-card-subtitle>
+              <v-card-text>
+                <p><strong>Price:</strong> ${{ workshop.price }}</p>
+                <p><strong>Quantity:</strong> {{ workshop.quantity }}</p>
+                <p><strong>Date:</strong> {{ formatDate(workshop.date) }}</p> <!-- Adicionando a data -->
+              </v-card-text>
+              <v-card-actions>
+                <v-btn color="error" v-if="canDeleteWorkshop" @click="deleteWorkshop(workshop.id)">
+                  Delete
+                </v-btn>
+                <!-- Botão de Compra só aparece se a data for posterior à data atual -->
+                <v-btn color="success" @click="handleBuyTicket(workshop)" v-if="isFutureWorkshop(workshop.date)">
+                  Buy Tickets
+                </v-btn>
+                <v-btn color="primary" @click="openDialog(workshop)">
+                  Learn More
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
 
-      <!-- Third Slide -->
-      <div class="slide">
-        <div class="image-container">
-          <img src="https://via.placeholder.com/600x400" alt="Placeholder Image" />
-        </div>
-        <div class="content-container">
-          <h2>Slide 3 Title</h2>
-          <p>Slide 3 description goes here. Make your call-to-action compelling!</p>
-          <button>Read More</button>
-        </div>
+        <!-- Dialog para detalhes do workshop -->
+        <v-dialog v-model="dialog" max-width="600px">
+          <v-card>
+            <v-card-title class="text-h5">{{ selectedWorkshop?.name }}</v-card-title>
+            <v-card-subtitle>{{ selectedWorkshop?.artist }}</v-card-subtitle>
+            <v-card-text>
+              <p><strong>Date:</strong> {{ formatDate(selectedWorkshop?.date) }}</p>
+              <p><strong>Price:</strong> ${{ selectedWorkshop?.price }}</p>
+              <p><strong>Quantity:</strong> {{ selectedWorkshop?.quantity }}</p>
+              <p><strong>Description:</strong> {{ selectedWorkshop?.description }}</p>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn color="primary" text @click="dialog = false">Close</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
+        <!-- Workshops restantes em uma grid de 4 colunas -->
+        <v-row dense>
+          <v-col v-for="(workshop, index) in workshops.slice(3)" :key="index" cols="12" md="6" lg="4">
+            <v-card class="elevation-2 card-size">
+              <v-card-title class="text-h6">{{ workshop.name }}</v-card-title>
+              <v-card-subtitle>{{ workshop.artist }}</v-card-subtitle>
+              <v-card-text>
+                <p><strong>Price:</strong> ${{ workshop.price }}</p>
+                <p><strong>Quantity:</strong> {{ workshop.quantity }}</p>
+                <p><strong>Date:</strong> {{ formatDate(workshop.date) }}</p>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn color="error" v-if="canDeleteWorkshop" @click="deleteWorkshop(workshop.id)">
+                  Delete
+                </v-btn>
+                <!-- Botão de Compra só aparece se a data for posterior à data atual -->
+                <v-btn color="success" @click="handleBuyTicket(workshop)" v-if="isFutureWorkshop(workshop.date)">
+                  Buy Ticket
+                </v-btn>
+                <v-btn color="primary" @click="openDialog(workshop)">
+                  Learn More
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
       </div>
-    </Carousel>
-     <!-- Todos os tickets em uma grid de 4 colunas -->
-      <div class="workshops-container">
-        <div v-for="workshop in workshops.slice(4)" :key="workshop.id" class="workshop-card">
-          <div class="workshop-info">
-            <h2>{{ workshop.name }}</h2>
-            <p>{{ workshop.description }}</p>
-            <p><strong>Price:</strong> ${{ workshop.price }}</p>
-            <p><strong>Artist:</strong> {{ workshop.artist }}</p>
-            <p><strong>Quantity:</strong> {{ workshop.quantity }}</p>
-            <button class="buy-button" @click="handleBuyWorkshop(workshop)"> Comprar </button>
-            <!-- Botão de apagar visível apenas para admins ou organizers -->
-            <button v-if="canDeleteWrokshop" @click="deleteWorkshop(workshop.id)">Delete</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    </v-container>
     <Footer />
-  </div>
+  </v-app>
 </template>
 
 <script>
 import Navbar from "@/components/navbar.vue";
 import Footer from "@/components/footer.vue";
-import Carousel from "@/components/Carousel.vue";
-import { useUserStore } from "@/stores/userStore"; // Importar a store do usuário
+import { useUserStore } from "@/stores/userStore";
 
 export default {
   components: {
     Navbar,
     Footer,
-    Carousel,
   },
   data() {
     return {
-      workshops: [], // Inicializa o array para os dados dos tickets
+      dialog: false,
+      selectedWorkshop: null,
+      workshops: [], // Lista de workshops
     };
   },
   computed: {
-    // Computed property para verificar se o usuário está autenticado
-    isUserAuthenticated() {
-      const userStore = useUserStore();
-      return userStore.isAuthenticated;
-    },
-    // Verificar se o usuário tem permissão para deletar tickets
     canDeleteWorkshop() {
       const userStore = useUserStore();
       return userStore.userRole === "admin" || userStore.userRole === "organizer";
     },
-    // Verificar se o usuário é admin
-    isAdmin() {
-      const userStore = useUserStore();
-      return userStore.userRole === "admin";
-    },
   },
   async mounted() {
-    await this.fetchWorkshops(); // Chama a função para carregar os tickets ao montar o componente
+    await this.fetchWorkshops(); // Carrega os dados dos workshops ao montar o componente
   },
   methods: {
-    async fetchWorkshopss() {
+    async fetchWorkshops() {
       try {
-        const response = await fetch("/api/workshops.json"); // Carregar os dados do arquivo JSON
+        const response = await fetch("/api/workshops.json"); // Chama a API para obter os workshops
         if (!response.ok) {
-          throw new Error(`Falha ao buscar os workshops: ${response.status}`);
+          throw new Error(`Failed to fetch workshops: ${response.status}`);
         }
         const workshopsData = await response.json();
-        this.workshops = workshopsData; // Preenche o array de tickets com os dados carregados
+        this.workshops = workshopsData; // Preenche a lista de workshops
       } catch (error) {
-        console.error("Erro ao carregar os tickets:", error.message);
+        console.error("Error loading workshops:", error.message);
       }
     },
 
-    // Método para excluir um ticket
+
+
     deleteWorkshop(workshopId) {
       this.workshops = this.workshops.filter((workshop) => workshop.id !== workshopId);
-      console.log(`Workshop ${workshopId} apagado com sucesso!`);
+      console.log(`Workshop ${workshopId} deleted successfully!`);
     },
+    openDialog(workshop) {
+      this.selectedWorkshop = workshop; // Define o workshop selecionado
+      this.dialog = true; // Abre o dialog de detalhes
+    },
+    formatDate(dateString) {
+      // Caso a data seja uma string do formato 'DD-MM-YYYY', converta corretamente
+      const [day, month, year] = dateString.split('-');
 
-    // Método para simular a compra de um ticket
-    buyTicket(workshop) {
-      alert(`Você comprou o workshop: ${workshop.name}`);
-      // Lógica adicional para a compra do ticket pode ser implementada aqui
+      // Se a data não estiver no formato correto, retorna uma string de erro
+      if (!day || !month || !year) {
+        return 'Invalid Date';
+      }
+
+      // Recria a data no formato 'YYYY-MM-DD' para garantir a interpretação correta
+      const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+
+      // Cria o objeto Date com a data formatada
+      const date = new Date(formattedDate);
+
+      // Verifica se a data é válida
+      if (isNaN(date)) {
+        return 'Invalid Date';  // Caso seja inválida, retorna uma mensagem
+      }
+
+      // Formata a data para o formato 'MM/DD/YYYY'
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return date.toLocaleDateString('en-US', options); // Retorna a data formatada
     },
-    handleBuyWorkshop(workshop) {
+    isFutureWorkshop(workshopDate) {
+      const [day, month, year] = workshopDate.split('-');
+
+      // Se a data não estiver no formato correto, retorna false
+      if (!day || !month || !year) {
+        return false;
+      }
+
+      const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+      const workshopDateObj = new Date(formattedDate);
+      const currentDate = new Date();
+
+      // Verifica se a data do workshop é posterior à data atual
+      return workshopDateObj > currentDate;
+    },
+    // Método para tratar a compra de um ticket
+    handleBuyTicket(ticket) {
       const userStore = useUserStore();
       try {
-        userStore.buyWorkshop(workshop);
-        alert(`Bilhete "${workshop.name}" comprado com sucesso!`);
+        userStore.buyTicket(ticket); // Chama o método de compra do usuário
+        alert(`Bilhete "${ticket.name}" comprado com sucesso!`);
       } catch (error) {
-        alert(error.message);
+        alert(error.message); // Em caso de erro, exibe a mensagem
       }
     },
   },
@@ -138,184 +186,65 @@ export default {
 </script>
 
 <style scoped>
-/* Estilo para o conteúdo geral */
-.content {
-  margin-top: 100px;
-  padding: 20px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
+.v-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Estilo para o carrossel */
-.carousel-container {
-  margin-bottom: 30px;
-  display: flex;
-  justify-content: center;
-}
-
-.carousel-container .slide {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.carousel-container .image-container {
-  width: 100%;
-  max-width: 600px;
-  overflow: hidden;
-  border-radius: 8px;
-}
-
-.carousel-container img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-.carousel-container .content-container {
-  text-align: center;
-  margin-top: 15px;
-}
-
-.carousel-container .content-container h2 {
-  font-size: 1.5em;
-  color: #003366;
-}
-
-.carousel-container .content-container p {
-  font-size: 1em;
-  color: #555;
-  margin: 10px 0;
-}
-
-.carousel-container .content-container button {
-  padding: 10px 20px;
-  background-color: green;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
-  margin-top: 10px;
-}
-
-.carousel-container .content-container button:hover {
-  background-color: darkgreen;
-}
-
-/* Estilo para os workshops */
-.workshops-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  justify-content: center;
-  margin-top: 50px;
-}
-
-.workshop-card {
-  width: 100%;
-  max-width: 240px;
-  height: auto;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: center;
-  background-color: #fff;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.workshop-card:hover {
+.v-card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilos para a imagem do workshop */
-.workshop-card img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
+.v-img {
+  border-radius: 8px;
 }
 
-/* Informações do workshop */
-.workshop-info {
+.v-btn {
+  font-size: 16px;
+  margin: 10px;
+}
+
+.v-btn:hover {
+  background-color: #00695c;
+}
+
+/* Grid de workshops */
+.v-row {
+  margin-top: 30px;
+}
+
+.v-col {
   padding: 15px;
 }
 
-.workshop-info h2 {
-  font-size: 1.2em;
-  margin-bottom: 10px;
+.v-card-title {
   color: #003366;
 }
 
-.workshop-info p {
-  font-size: 1em;
-  color: #333;
-  margin: 5px 0;
-}
-
-.workshop-info strong {
-  font-weight: bold;
+.v-card-subtitle {
   color: #555;
 }
 
-/* Estilos para os botões */
-.workshop-info .buy-button {
-  background-color: green;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
-  margin-top: 10px;
+.v-card-text {
+  color: #333;
 }
 
-.workshop-info .buy-button:hover {
-  background-color: darkgreen;
+.v-card-actions {
+  display: flex;
+  justify-content: space-between;
 }
 
-.workshop-info .delete-button {
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
-  margin-top: 10px;
+.card-size {
+  height: 250px;
+  /* Altura fixa para os cards */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.workshop-info .delete-button:hover {
-  background-color: darkred;
-}
-
-/* Responsividade */
-@media (max-width: 1024px) {
-  .workshops-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .workshops-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .workshops-container {
-    grid-template-columns: 1fr;
-  }
-
-  .workshop-card {
-    width: 100%;
-  }
+.card-size .v-card-text {
+  flex-grow: 1;
+  /* Faz o conteúdo do card ocupar o máximo de espaço disponível */
 }
 </style>

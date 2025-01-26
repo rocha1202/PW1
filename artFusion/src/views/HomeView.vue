@@ -17,7 +17,7 @@
         </v-row>
 
         <!-- Carousel Section -->
-        <h1 class="display-1" style="color: #F1F9FC;">Principais Artistas</h1>
+        <h1 class="display-1" style="color: #F1F9FC;">Main Artists</h1>
         <v-row class="values-section py-12" justify="center" align="center">
           <v-col cols="12" md="4" align="center">
             <v-icon color="primary" large>mdi-palette</v-icon>

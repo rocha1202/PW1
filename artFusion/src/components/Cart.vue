@@ -1,27 +1,27 @@
 <template>
   <v-card class="cart" outlined>
-    <v-card-title>Seu Carrinho</v-card-title>
+    <v-card-title>Your Cart</v-card-title>
 
     <!-- Exibe o subtotal acima da lista -->
     <v-card-subtitle v-if="cartItems.length > 0">
       Subtotal: {{ subtotal.toFixed(2) }} €
     </v-card-subtitle>
 
-    <v-card-subtitle v-if="cartItems.length === 0">O carrinho está vazio</v-card-subtitle>
+    <v-card-subtitle v-if="cartItems.length === 0">Cart is empty</v-card-subtitle>
 
     <v-list v-else>
       <v-list-item v-for="(item, index) in cartItems" :key="index" class="cart-item">
         <v-list-item-title>{{ item.name }}</v-list-item-title>
         <v-list-item-subtitle>{{ item.price.toFixed(2) }} €</v-list-item-subtitle>
         <v-list-item-action>
-          <v-list-item-subtitle class="remove" @click="removeFromCart(item)">Remover item</v-list-item-subtitle>
+          <v-list-item-subtitle class="remove" @click="removeFromCart(item)">Remove item</v-list-item-subtitle>
         </v-list-item-action>
       </v-list-item>
     </v-list>
 
     <v-card-actions>
       <v-btn color="success" block :disabled="cartItems.length === 0">
-        Finalizar Compra
+        Checkout
       </v-btn>
     </v-card-actions>
   </v-card>

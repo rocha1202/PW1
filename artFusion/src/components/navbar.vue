@@ -11,16 +11,16 @@
       <!-- Links centrais -->
       <div class="navbar-center">
         <li class="navbar-item">
-          <router-link to="/museum">Museu</router-link>
+          <router-link to="/museum">Museum</router-link>
         </li>
         <li class="navbar-item">
           <router-link to="/workshop">Workshops</router-link>
         </li>
         <li class="navbar-item">
-          <router-link to="/store">Loja/Merch</router-link>
+          <router-link to="/store">Store</router-link>
         </li>
         <li v-if="showTickets" class="navbar-item">
-          <router-link to="/tickets">Tickets</router-link>
+          <router-link to="/tickets">My tickets</router-link>
         </li>
       </div>
 

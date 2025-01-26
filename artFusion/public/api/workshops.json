@@ -4,7 +4,7 @@
         "name": "Exploring Colors in Art",
         "description": "A hands-on workshop where participants will learn how to use color theory to express emotions and create visually striking artwork. Ideal for beginners and enthusiasts alike.",
         "price": 45,
-        "date":"20-10-2025",
+        "date":"20-10-2024",
         "quantity": 15,
         "artist": "Sophia Rivera"
     },
@@ -13,7 +13,7 @@
         "name": "Abstract Art: Beyond the Canvas",
         "description": "Dive into the world of abstract art and learn techniques to express your unique perspective. This workshop focuses on texture, movement, and creative freedom.",
         "price": 60,
-        "date":"28-02-2025",
+        "date":"28-02-2024",
         "quantity": 20,
         "artist": "James Kohler"
     },

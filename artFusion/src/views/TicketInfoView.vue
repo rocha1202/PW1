@@ -3,7 +3,7 @@
     <Navbar />
     <v-container class="fill-height d-flex align-center justify-center py-16">
       <div class="content">
-        <h1 class="text-center mb-2">Meus Bilhetes</h1>
+        <h1 class="text-center mb-2">My Tickets</h1>
 
         <v-row dense>
           <v-col v-for="ticket in purchasedTickets" :key="ticket.id" cols="12" md="6" lg="4">
@@ -12,34 +12,34 @@
               <v-card-title class="text-h6">{{ ticket.name }}</v-card-title>
               <v-card-subtitle>{{ ticket.description }}</v-card-subtitle>
               <v-card-text>
-                <p><strong>Preço:</strong> ${{ ticket.price }}</p>
-                <p><strong>Quantidade:</strong> {{ ticket.quantity }}</p>
+                <p><strong>Price:</strong> ${{ ticket.price }}</p>
+                <p><strong>Quantity:</strong> {{ ticket.quantity }}</p>
               </v-card-text>
               <v-card-actions>
                 <v-btn color="error" @click="deleteTicket(ticket.id)">
-                  Apagar
+                  Delete
                 </v-btn>
                 <v-btn color="primary" @click="openDialog(ticket)">
-                  Ver Mais
+                  View More
                 </v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
         </v-row>
 
-        <!-- Dialog para detalhes do evento -->
+        <!-- Dialog for event details -->
         <v-dialog v-model="dialog" max-width="600px">
           <v-card>
             <v-card-title class="text-h5">{{ selectedTicket?.name }}</v-card-title>
             <v-card-subtitle>{{ selectedTicket?.description }}</v-card-subtitle>
             <v-card-text>
-              <p><strong>Preço:</strong> ${{ selectedTicket?.price }}</p>
-              <p><strong>Quantidade:</strong> {{ selectedTicket?.quantity }}</p>
-              <p><strong>Mais informações:</strong> {{ selectedTicket?.extraInfo || "N/A" }}</p>
+              <p><strong>Price:</strong> ${{ selectedTicket?.price }}</p>
+              <p><strong>Quantity:</strong> {{ selectedTicket?.quantity }}</p>
+              <p><strong>More Information:</strong> {{ selectedTicket?.extraInfo || "N/A" }}</p>
             </v-card-text>
             <v-card-actions>
               <v-spacer />
-              <v-btn color="primary" text @click="dialog = false">Fechar</v-btn>
+              <v-btn color="primary" text @click="dialog = false">Close</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -61,25 +61,25 @@ export default {
   },
   data() {
     return {
-      dialog: false, // Controla o estado de abertura do dialog
-      selectedTicket: null, // Armazena o bilhete selecionado
+      dialog: false, // Controls the dialog's open state
+      selectedTicket: null, // Stores the selected ticket
     };
   },
   computed: {
     purchasedTickets() {
       const userStore = useUserStore();
-      return userStore.purchasedTickets; // Obtém os bilhetes comprados
+      return userStore.purchasedTickets; // Retrieves the purchased tickets
     },
   },
   methods: {
     deleteTicket(ticketId) {
       const userStore = useUserStore();
       userStore.removeTicket(ticketId);
-      this.$notify({ type: "success", text: "Bilhete apagado com sucesso!" });
+      this.$notify({ type: "success", text: "Ticket deleted successfully!" });
     },
     openDialog(ticket) {
-      this.selectedTicket = ticket; // Define o bilhete selecionado
-      this.dialog = true; // Abre o dialog
+      this.selectedTicket = ticket; // Sets the selected ticket
+      this.dialog = true; // Opens the dialog
     },
   },
 };
@@ -91,5 +91,4 @@ export default {
   max-width: 1200px;
   text-align: center;
 }
-
 </style>
