@@ -4,6 +4,7 @@
         "name": "Exploring Colors in Art",
         "description": "A hands-on workshop where participants will learn how to use color theory to express emotions and create visually striking artwork. Ideal for beginners and enthusiasts alike.",
         "price": 45,
+        "date":"20-10-2025",
         "quantity": 15,
         "artist": "Sophia Rivera"
     },
@@ -12,6 +13,7 @@
         "name": "Abstract Art: Beyond the Canvas",
         "description": "Dive into the world of abstract art and learn techniques to express your unique perspective. This workshop focuses on texture, movement, and creative freedom.",
         "price": 60,
+        "date":"28-02-2025",
         "quantity": 20,
         "artist": "James Kohler"
     },
@@ -20,6 +22,7 @@
         "name": "Anime Art: Drawing and Storytelling",
         "description": "Learn the essentials of creating anime-style characters and how to tell compelling stories through your artwork. Perfect for manga and anime enthusiasts!",
         "price": 50,
+        "date":"20-08-2025",
         "quantity": 25,
         "artist": "Haruka Tanaka"
     },
@@ -28,6 +31,7 @@
         "name": "Landscape Painting in Watercolors",
         "description": "Discover the beauty of nature through watercolor painting. Participants will explore techniques for capturing light, texture, and perspective in landscapes.",
         "price": 55,
+        "date":"12-06-2025",
         "quantity": 18,
         "artist": "Elena Garcia"
     },
@@ -36,6 +40,7 @@
         "name": "Portrait Drawing for Beginners",
         "description": "This workshop introduces participants to the fundamentals of portrait drawing, including proportions, shading, and capturing expressions.",
         "price": 40,
+        "date":"04-11-2025",
         "quantity": 20,
         "artist": "Michael Thompson"
     },
@@ -44,6 +49,7 @@
         "name": "Creative Collage and Mixed Media",
         "description": "Unleash your creativity by combining different materials and textures in this mixed media workshop. A great way to experiment and make unique art pieces.",
         "price": 35,
+        "date":"10-09-2025",
         "quantity": 25,
         "artist": "Amara Patel"
     },
@@ -52,6 +58,7 @@
         "name": "Clay Sculpting: From Basics to Mastery",
         "description": "Learn how to work with clay to create sculptures, figurines, and functional art pieces. Techniques for molding, shaping, and finishing will be covered.",
         "price": 65,
+        "date":"15-08-2025",
         "quantity": 12,
         "artist": "Liam O’Connor"
     },
@@ -60,6 +67,7 @@
         "name": "Urban Sketching: Capturing City Life",
         "description": "This workshop teaches techniques for quick and expressive sketching, focusing on urban scenes, architecture, and street life.",
         "price": 50,
+        "date":"04-08-2025",
         "quantity": 20,
         "artist": "Grace Miller"
     },
@@ -68,6 +76,7 @@
         "name": "Digital Art Essentials",
         "description": "A comprehensive introduction to digital art tools and techniques. Participants will explore drawing tablets, software, and digital painting workflows.",
         "price": 70,
+        "date":"06-10-2025",
         "quantity": 15,
         "artist": "Ethan Brooks"
     },
@@ -76,6 +85,7 @@
         "name": "Creative Writing and Illustration",
         "description": "Combine storytelling with art by learning to create illustrated stories. Perfect for aspiring children’s book creators and graphic novel enthusiasts.",
         "price": 55,
+        "date":"09-09-2025",
         "quantity": 18,
         "artist": "Isabella Huang"
     },
@@ -84,6 +94,7 @@
         "name": "Expressive Calligraphy and Lettering",
         "description": "Discover the art of beautiful writing. This workshop focuses on modern calligraphy techniques and creative lettering styles.",
         "price": 30,
+        "date":"23-12-2025",
         "quantity": 20,
         "artist": "Olivia Meyer"
     },
@@ -92,6 +103,7 @@
         "name": "Acrylic Painting for Beginners",
         "description": "A step-by-step guide to mastering acrylic paints. Participants will learn color blending, brush techniques, and composition basics.",
         "price": 45,
+        "date":"10-02-2025",
         "quantity": 22,
         "artist": "David Hernandez"
     },
@@ -100,6 +112,7 @@
         "name": "Introduction to Printmaking",
         "description": "This workshop introduces the fundamentals of printmaking, including linocut, etching, and block printing techniques.",
         "price": 60,
+        "date":"13-05-2025",
         "quantity": 15,
         "artist": "Charlotte Lee"
     },
@@ -108,6 +121,7 @@
         "name": "Botanical Illustration in Ink",
         "description": "Learn to create intricate and detailed botanical illustrations using ink. Focus on line work, textures, and realistic rendering of plants.",
         "price": 50,
+        "date":"13-07-2025",
         "quantity": 16,
         "artist": "Rachel Nguyen"
     },
@@ -116,6 +130,7 @@
         "name": "The Art of Mandala Creation",
         "description": "Explore the meditative process of creating mandalas. Learn about symmetry, patterns, and cultural significance in this calming workshop.",
         "price": 35,
+        "date":"14-10-2025",
         "quantity": 25,
         "artist": "Aanya Desai"
     },
@@ -124,6 +139,7 @@
         "name": "Advanced Oil Painting Techniques",
         "description": "Take your oil painting skills to the next level by exploring advanced techniques such as glazing, impasto, and alla prima.",
         "price": 80,
+        "date":"01-05-2025",
         "quantity": 10,
         "artist": "Leonard Martin"
     },
@@ -132,6 +148,7 @@
         "name": "Illustration for Comics and Graphic Novels",
         "description": "Learn to create compelling illustrations for comics and graphic novels. Focus on character design, panel composition, and dynamic storytelling.",
         "price": 65,
+        "date":"20-10-2026",
         "quantity": 20,
         "artist": "Nora Williamson"
     },
@@ -140,6 +157,7 @@
         "name": "Art Journaling for Self-Expression",
         "description": "A therapeutic workshop where participants use art journaling to explore emotions, set goals, and develop creative habits.",
         "price": 40,
+        "date":"30-06-2025",
         "quantity": 18,
         "artist": "Emma Carter"
     },
@@ -148,6 +166,7 @@
         "name": "Textile Art and Fabric Design",
         "description": "Explore the world of textile art by learning dyeing techniques, fabric painting, and surface embellishments in this creative workshop.",
         "price": 70,
+        "date":"20-01-2025",
         "quantity": 15,
         "artist": "Henry Zhao"
     },
@@ -156,6 +175,7 @@
         "name": "Art Therapy: Healing Through Creativity",
         "description": "A supportive environment where participants can use art as a tool for personal growth and emotional healing. No artistic experience needed.",
         "price": 50,
+        "date":"19-11-2025",
         "quantity": 20,
         "artist": "Isabel Torres"
     }
