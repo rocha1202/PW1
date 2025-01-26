@@ -21,7 +21,8 @@
                   Delete
                 </v-btn>
                 <!-- Botão de Compra só aparece se a data for posterior à data atual -->
-                <v-btn color="success" @click="handleBuyTicket(workshop)" v-if="isFutureWorkshop(workshop.date)">
+                <v-btn color="success" @click="handleBuyTicket(workshop)"
+                  v-if="isUserAuthenticated && isFutureWorkshop(workshop.date)">
                   Buy Tickets
                 </v-btn>
                 <v-btn color="primary" @click="openDialog(workshop)">
@@ -66,7 +67,8 @@
                   Delete
                 </v-btn>
                 <!-- Botão de Compra só aparece se a data for posterior à data atual -->
-                <v-btn color="success" @click="handleBuyTicket(workshop)" v-if="isFutureWorkshop(workshop.date)">
+                <v-btn color="success" @click="handleBuyTicket(workshop)"
+                  v-if="isUserAuthenticated && isFutureWorkshop(workshop.date)">
                   Buy Ticket
                 </v-btn>
                 <v-btn color="primary" @click="openDialog(workshop)">
@@ -104,6 +106,10 @@ export default {
       const userStore = useUserStore();
       return userStore.userRole === "admin" || userStore.userRole === "organizer";
     },
+    isUserAuthenticated() {
+      const userStore = useUserStore();
+      return userStore.isAuthenticated;
+    },
   },
   async mounted() {
     await this.fetchWorkshops(); // Carrega os dados dos workshops ao montar o componente
@@ -121,9 +127,6 @@ export default {
         console.error("Error loading workshops:", error.message);
       }
     },
-
-
-
     deleteWorkshop(workshopId) {
       this.workshops = this.workshops.filter((workshop) => workshop.id !== workshopId);
       console.log(`Workshop ${workshopId} deleted successfully!`);
@@ -133,60 +136,43 @@ export default {
       this.dialog = true; // Abre o dialog de detalhes
     },
     formatDate(dateString) {
-      // Caso a data seja uma string do formato 'DD-MM-YYYY', converta corretamente
-      const [day, month, year] = dateString.split('-');
-
-      // Se a data não estiver no formato correto, retorna uma string de erro
+      const [day, month, year] = dateString.split("-");
       if (!day || !month || !year) {
-        return 'Invalid Date';
+        return "Invalid Date";
       }
-
-      // Recria a data no formato 'YYYY-MM-DD' para garantir a interpretação correta
-      const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-
-      // Cria o objeto Date com a data formatada
+      const formattedDate = `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
       const date = new Date(formattedDate);
-
-      // Verifica se a data é válida
       if (isNaN(date)) {
-        return 'Invalid Date';  // Caso seja inválida, retorna uma mensagem
+        return "Invalid Date";
       }
-
-      // Formata a data para o formato 'MM/DD/YYYY'
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      return date.toLocaleDateString('en-US', options); // Retorna a data formatada
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      return date.toLocaleDateString("en-US", options);
     },
     isFutureWorkshop(workshopDate) {
-      const [day, month, year] = workshopDate.split('-');
-
-      // Se a data não estiver no formato correto, retorna false
+      const [day, month, year] = workshopDate.split("-");
       if (!day || !month || !year) {
         return false;
       }
-
-      const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+      const formattedDate = `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
       const workshopDateObj = new Date(formattedDate);
       const currentDate = new Date();
-
-      // Verifica se a data do workshop é posterior à data atual
       return workshopDateObj > currentDate;
     },
-    // Método para tratar a compra de um ticket
     handleBuyTicket(ticket) {
       const userStore = useUserStore();
       try {
-        userStore.buyTicket(ticket); // Chama o método de compra do usuário
+        userStore.buyTicket(ticket);
         alert(`Bilhete "${ticket.name}" comprado com sucesso!`);
       } catch (error) {
-        alert(error.message); // Em caso de erro, exibe a mensagem
+        alert(error.message);
       }
     },
   },
 };
 </script>
 
-<style scoped>
 
+<style scoped>
 .v-card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }

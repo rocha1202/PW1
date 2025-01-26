@@ -25,7 +25,7 @@
                     <div><strong>Price:</strong> ${{ ticket.price }}</div>
                     <div><strong>Artist:</strong> {{ ticket.artist }}</div>
                   </v-card-text>
-                  <v-btn class="buy-button" color="green" v-if="isFutureEvent(ticket.date)"
+                  <v-btn class="buy-button" color="green" v-if="isUserAuthenticated && isFutureEvent(ticket.date)"
                     @click="handleBuyTicket(ticket)">
                     Buy Ticket
                   </v-btn>
@@ -56,7 +56,7 @@
               </v-card-text>
 
               <!-- Lógica para não mostrar o botão "Comprar" se a data for passada ou igual -->
-              <v-btn class="buy-button" color="green" v-if="isFutureEvent(ticket.date)"
+              <v-btn class="buy-button" color="green" v-if="isUserAuthenticated && isFutureEvent(ticket.date)"
                 @click="handleBuyTicket(ticket)">
                 Buy Ticket
               </v-btn>
@@ -84,8 +84,8 @@
               <div><strong>Quantity:</strong> {{ selectedTicket.quantity }}</div>
               <div><strong>Description:</strong> {{ selectedTicket.description }}</div>
             </v-card-text>
-            
-            <v-btn class="buy-button" color="green" v-if="isFutureEvent(selectedTicket.date)"
+
+            <v-btn class="buy-button" color="green" v-if="isUserAuthenticated && isFutureEvent(selectedTicket.date)"
               @click="handleBuyTicket(selectedTicket)">
               Buy Ticket
             </v-btn>

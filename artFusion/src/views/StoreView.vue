@@ -12,7 +12,7 @@
           <p>{{ item.description }}</p>
           <p><strong>Price:</strong> ${{ item.price }}</p>
           <p><strong>Quantity:</strong> {{ item.quantity }}</p>
-          <button v-if="isUserAuthenticated && !isAdmin" @click="buyTicket(ticket)" class="buy-button">Comprar</button>
+          <button v-if="isUserAuthenticated && !isAdmin" @click="addToCart(item)" class="buy-button">Buy</button>
         </div>
       </div>
 
@@ -22,9 +22,14 @@
         <ul>
           <li v-for="item in cartItems" :key="item.id">
             {{ item.name }} - ${{ item.price }}
+            <button @click="removeFromCart(item)" class="remove-button">Remove</button>
           </li>
         </ul>
         <p v-if="cartItems.length === 0">Your cart is empty</p>
+        <div v-if="cartItems.length > 0">
+          <p><strong>Total:</strong> ${{ totalPrice }}</p>
+          <button @click="buyItems" class="buy-all-button">Buy All</button>
+        </div>
       </div>
     </div>
 
@@ -38,6 +43,7 @@ import Navbar from "@/components/navbar.vue";
 import Footer from "@/components/footer.vue";
 import { useCartStore } from "@/stores/cart";
 import { useMerchStore } from "@/stores/merchStore";
+import { useUserStore } from "@/stores/userStore"; // Importando o store de autenticação
 
 export default {
   name: "StoreView",
@@ -51,9 +57,20 @@ export default {
     };
   },
   computed: {
+    isUserAuthenticated() {
+      const authStore = useUserStore(); // Acesso ao store de autenticação
+      return authStore.isAuthenticated;
+    },
+    isAdmin() {
+      const authStore = useUserStore(); // Acesso ao store de autenticação
+      return authStore.userRole === 'admin'; // Verificando se o usuário é admin
+    },
     cartItems() {
       const cartStore = useCartStore();
       return cartStore.cartItems;
+    },
+    totalPrice() {
+      return this.cartItems.reduce((total, item) => total + item.price, 0);
     },
   },
   methods: {
@@ -71,13 +88,26 @@ export default {
       cartStore.addToCart(item);
       //alert(`${item.name} adicionado ao carrinho!`);
     },
+    removeFromCart(item) {
+      const cartStore = useCartStore();
+      cartStore.removeFromCart(item); // Remover item do carrinho
+    },
+    buyItems() {
+      const cartStore = useCartStore();
+      if (cartStore.cartItems.length > 0) {
+        // Lógica para processar a compra, por exemplo, limpar o carrinho
+        alert("Compra realizada com sucesso!");
+        cartStore.cartItems = []; // Limpar o carrinho após a compra
+      } else {
+        alert("Seu carrinho está vazio!");
+      }
+    },
   },
   mounted() {
     this.fetchItems();
   },
 };
 </script>
-
 <style>
 /* Container para alinhar loja e carrinho */
 .store-container {
@@ -146,5 +176,42 @@ export default {
 
 .cart-container li:last-child {
   border-bottom: none;
+}
+
+.remove-button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  background-color: #ff0000;
+}
+
+.buy-all-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+.buy-button {
+  margin-bottom: 5px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+.buy-all-button:hover {
+  background-color: #45a049;
 }
 </style>
