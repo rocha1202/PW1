@@ -6,27 +6,27 @@
       <v-row justify="center">
         <v-col cols="12" md="8">
           <v-card>
-            <v-card-title class="text-h5">Editar Perfil</v-card-title>
+            <v-card-title class="text-h5">Edit Profile</v-card-title>
             <v-card-text>
               <!-- Formulário de edição -->
               <v-form v-model="valid">
                 <!-- Nome -->
-                <v-text-field v-model="localProfile.name" label="Nome" :rules="[nameRule]" required />
+                <v-text-field v-model="localProfile.name" label="Name" :rules="[nameRule]" required />
 
                 <!-- Email -->
                 <v-text-field v-model="localProfile.email" label="Email" :rules="[emailRule]" required />
 
                 <!-- Data de Nascimento -->
-                <v-text-field v-model="localProfile.birthdate" label="Data de Nascimento" type="date"
+                <v-text-field v-model="localProfile.birthdate" label="Date of birth" type="date"
                   :rules="[birthdateRule]" required />
 
                 <!-- Senha -->
-                <v-text-field v-model="localProfile.password" label="Senha" type="password" :rules="[passwordRule]"
+                <v-text-field v-model="localProfile.password" label="Password" type="password" :rules="[passwordRule]"
                   required />
 
                 <!-- Botão de Salvar -->
                 <v-btn :disabled="!valid" color="primary" @click="saveProfile">
-                  Salvar
+                  Save
                 </v-btn>
               </v-form>
             </v-card-text>

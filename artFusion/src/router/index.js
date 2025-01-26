@@ -11,7 +11,7 @@ import ArtistDetails from "@/views/ArtistDetails.vue";
 import AboutView from "@/views/LearnMoreView.vue";
 import Users from "@/views/usersView.vue";
 import Feedback from "@/views/feedbackView.vue";
-import NotFoundView from "@/views/NotFoundView.vue";  // Importando a página de erro 404
+import NotFoundView from "@/views/NotFoundView.vue"; 
 
 import { useUserStore } from "@/stores/userStore";
 

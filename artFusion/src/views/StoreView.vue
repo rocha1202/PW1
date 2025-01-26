@@ -1,9 +1,7 @@
 <template>
   <div>
-    <!-- Navbar -->
     <Navbar />
 
-    <!-- Store Content -->
     <div class="store-container">
       <div class="store-grid">
         <div v-for="item in items" :key="item.id" class="store-item">
@@ -12,11 +10,13 @@
           <p>{{ item.description }}</p>
           <p><strong>Price:</strong> ${{ item.price }}</p>
           <p><strong>Quantity:</strong> {{ item.quantity }}</p>
-          <button v-if="isUserAuthenticated && !isAdmin" @click="addToCart(item)" class="buy-button">Buy</button>
+
+          <button v-if="isUserAuthenticated" @click="addToCart(item)" class="buy-button">Buy</button>
+
+          <button v-if="isUserAuthenticated && isAdmin" @click="removeItem(item)" class="remove-button">Remove</button>
         </div>
       </div>
 
-      <!-- Cart Sidebar -->
       <div class="cart-container">
         <h3>Your Cart</h3>
         <ul>
@@ -33,7 +33,6 @@
       </div>
     </div>
 
-    <!-- Footer -->
     <Footer />
   </div>
 </template>
@@ -43,7 +42,7 @@ import Navbar from "@/components/navbar.vue";
 import Footer from "@/components/footer.vue";
 import { useCartStore } from "@/stores/cart";
 import { useMerchStore } from "@/stores/merchStore";
-import { useUserStore } from "@/stores/userStore"; // Importando o store de autenticação
+import { useUserStore } from "@/stores/userStore"; 
 
 export default {
   name: "StoreView",
@@ -53,17 +52,17 @@ export default {
   },
   data() {
     return {
-      items: [], // Os itens carregados da API
+      items: [], 
     };
   },
   computed: {
     isUserAuthenticated() {
-      const authStore = useUserStore(); // Acesso ao store de autenticação
+      const authStore = useUserStore(); 
       return authStore.isAuthenticated;
     },
     isAdmin() {
-      const authStore = useUserStore(); // Acesso ao store de autenticação
-      return authStore.userRole === 'admin'; // Verificando se o usuário é admin
+      const authStore = useUserStore(); 
+      return authStore.userRole === 'admin'; 
     },
     cartItems() {
       const cartStore = useCartStore();
@@ -86,20 +85,21 @@ export default {
     addToCart(item) {
       const cartStore = useCartStore();
       cartStore.addToCart(item);
-      //alert(`${item.name} adicionado ao carrinho!`);
     },
     removeFromCart(item) {
       const cartStore = useCartStore();
-      cartStore.removeFromCart(item); // Remover item do carrinho
+      cartStore.removeFromCart(item); 
+    },
+    removeItem(item) {
+      this.items = this.items.filter(i => i.id !== item.id);
     },
     buyItems() {
       const cartStore = useCartStore();
       if (cartStore.cartItems.length > 0) {
-        // Lógica para processar a compra, por exemplo, limpar o carrinho
-        alert("Compra realizada com sucesso!");
-        cartStore.cartItems = []; // Limpar o carrinho após a compra
+        alert("Purchase completed successfully!");
+        cartStore.cartItems = []; 
       } else {
-        alert("Seu carrinho está vazio!");
+        alert("Your cart is empty!");
       }
     },
   },
@@ -108,6 +108,9 @@ export default {
   },
 };
 </script>
+
+
+
 <style>
 /* Container para alinhar loja e carrinho */
 .store-container {

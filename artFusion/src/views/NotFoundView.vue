@@ -4,10 +4,10 @@
             <v-card>
                 <v-card-title class="headline">Page Not Found (404)</v-card-title>
                 <v-card-text>
-                    Oops! A página que você está tentando acessar não existe.
+                    Oops! The page you are trying to access does not exist.
                 </v-card-text>
                 <v-card-actions>
-                    <v-btn to="/" color="primary">Voltar para a página inicial</v-btn>
+                    <v-btn to="/" color="primary">Back to home page</v-btn>
                 </v-card-actions>
             </v-card>
         </v-container>
