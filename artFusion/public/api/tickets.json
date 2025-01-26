@@ -6,177 +6,237 @@
         "price": 10,
         "quantity": 10,
         "image": "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/65/78ce0081ad11e681d7bb31b0a632ef/starry-night.jpg",
-        "artist": "Artist 1"
+        "artist": "Brian Chavez",
+        "artist_details": {
+            "birthdate": "1970-01-01",
+            "deathdate": null,
+            "type_of_art": "Abstract",
+            "age": 53,
+            "genre": "Male"
+        }
     },
     {
         "id": 2,
-        "name": "Ticket 2",
-        "description": "Description 2",
+        "name": "Where is the art?",
+        "description": "Art that challenges perception, questioning reality and its depiction.",
         "price": 20,
         "quantity": 20,
         "image": "https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcGR2YW5nb2doLXNlbGYtcG9ydHJhaXQtbTAxLWpvYjY2MV8yLWwxMDBvNmVmLmpwZw.jpg",
-        "artist": "Artist 2"
+        "artist": "Gustava Ectz",
+        "artist_details": {
+            "birthdate": "1985-05-15",
+            "deathdate": null,
+            "type_of_art": "Contemporary",
+            "age": 38,
+            "genre": "Female"
+        }
     },
     {
         "id": 3,
         "name": "Anime visual and artistic expression",
-        "description": "Description 3",
+        "description": "A vivid representation of anime culture and its artistic roots.",
         "price": 30,
         "quantity": 30,
         "image": "https://storage.googleapis.com/pod_public/1300/185638.jpg",
-        "artist": "Artist 3"
+        "artist": "Sakura Tanaka",
+        "artist_details": {
+            "birthdate": "1990-03-20",
+            "deathdate": null,
+            "type_of_art": "Anime",
+            "age": 33,
+            "genre": "Non-binary"
+        }
     },
     {
         "id": 4,
-        "name": "Ticket 4",
-        "description": "Description 4",
+        "name": "Cubist geometry in motion",
+        "description": "Exploring the fragmented and geometric beauty of cubism.",
         "price": 40,
-        "quantity": 40,
+        "quantity": 45,
         "image": "https://cdn.shopify.com/s/files/1/0625/3818/6989/files/2_5acf9bab-5dd3-4e04-b42c-d4985ccda17b.jpg?v=1676615530",
-        "artist": "Artist 4"
+        "artist": "Pablo Mendes",
+        "artist_details": {
+            "birthdate": "1960-11-11",
+            "deathdate": null,
+            "type_of_art": "Cubism",
+            "age": 63,
+            "genre": "Male"
+        }
     },
     {
         "id": 5,
-        "name": "Ticket 5",
-        "description": "Description 5",
+        "name": "Impressionist dawn",
+        "description": "A serene capture of light and emotion in impressionistic style.",
         "price": 50,
-        "quantity": 50,
+        "quantity": 30,
         "image": "https://cdn.pixabay.com/photo/2022/09/28/11/16/art-7484807_1280.jpg",
-        "artist": "Artist 5"
+        "artist": "Marie Dupont",
+        "artist_details": {
+            "birthdate": "1980-06-30",
+            "deathdate": null,
+            "type_of_art": "Impressionism",
+            "age": 43,
+            "genre": "Female"
+        }
     },
     {
         "id": 6,
-        "name": "Ticket 6",
-        "description": "Description 6",
+        "name": "Realist reflections",
+        "description": "A deep dive into realism, portraying the world as it is.",
         "price": 60,
         "quantity": 60,
-        "image": "https://via.placeholder.com/150",
-        "artist": "Artist 6"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Gustave_Courbet_-_Bonjour_Monsieur_Courbet_-_Mus%C3%A9e_Fabre.jpg/640px-Gustave_Courbet_-_Bonjour_Monsieur_Courbet_-_Mus%C3%A9e_Fabre.jpg",
+        "artist": "Ethan Moore",
+        "artist_details": {
+            "birthdate": "1975-09-18",
+            "deathdate": null,
+            "type_of_art": "Realism",
+            "age": 48,
+            "genre": "Male"
+        }
     },
     {
         "id": 7,
-        "name": "Ticket 7",
-        "description": "Description 7",
-        "price": 70,
+        "name": "Pop art burst",
+        "description": "Bright and bold, celebrating popular culture through art.",
+        "price": 15,
         "quantity": 70,
-        "image": "https://via.placeholder.com/150",
-        "artist": "Artist 7"
+        "image": "https://miro.medium.com/v2/resize:fit:1400/1*lGmJ7-p9cth71NQRIFMsLg.jpeg",
+        "artist": "Sophia Bell",
+        "artist_details": {
+            "birthdate": "1992-12-25",
+            "deathdate": null,
+            "type_of_art": "Pop Art",
+            "age": 31,
+            "genre": "Female"
+        }
     },
     {
         "id": 8,
-        "name": "Ticket 8",
-        "description": "Description 8",
-        "price": 80,
+        "name": "Surreal dreams",
+        "description": "Art that bends reality and immerses viewers into surreal worlds.",
+        "price": 40,
         "quantity": 80,
-        "image": "https://via.placeholder.com/150",
-        "artist": "Artist 8"
+        "image": "https://blog.artsper.com/wp-content/uploads/2021/01/me%CC%81moire-1-1.jpg",
+        "artist": "Julian Ortega",
+        "artist_details": {
+            "birthdate": "1965-04-10",
+            "deathdate": null,
+            "type_of_art": "Surrealism",
+            "age": 58,
+            "genre": "Male"
+        }
     },
     {
         "id": 9,
-        "name": "Ticket 9",
-        "description": "Description 9",
-        "price": 90,
+        "name": "Minimalist essence",
+        "description": "Simplicity at its finest, evoking deep thoughts with minimal elements.",
+        "price": 40,
         "quantity": 90,
-        "image": "https://via.placeholder.com/150",
-        "artist": "Artist 9"
+        "image": "https://media.tate.org.uk/aztate-prd-ew-dg-wgtail-st1-ctr-data/images/.width-600_dHvIXvb.jpg",
+        "artist": "Amelia Carter",
+        "artist_details": {
+            "birthdate": "1978-07-07",
+            "deathdate": null,
+            "type_of_art": "Minimalism",
+            "age": 45,
+            "genre": "Female"
+        }
     },
     {
         "id": 10,
-        "name": "Ticket 10",
-        "description": "Description 10",
-        "price": 100,
+        "name": "Urban street visions",
+        "description": "Graffiti and urban art capturing the pulse of city life.",
+        "price": 35,
         "quantity": 100,
-        "image": "https://via.placeholder.com/150",
-        "artist": "Artist 10"
+        "image": "https://images.stockcake.com/public/b/b/1/bb116f9a-6d0d-4aa6-b7a5-83a563f14a57_large/vibrant-urban-art-stockcake.jpg",
+        "artist": "Jordan Lee",
+        "artist_details": {
+            "birthdate": "1999-01-15",
+            "deathdate": null,
+            "type_of_art": "Street Art",
+            "age": 24,
+            "genre": "Non-binary"
+        }
     },
     {
         "id": 11,
-        "name": "Ticket 11",
-        "description": "Description 11",
-        "price": 110,
+        "name": "Geometric abstraction",
+        "description": "Abstract forms intertwining with geometric precision.",
+        "price": 35,
         "quantity": 110,
-        "image": "https://via.placeholder.com/150",
-        "artist": "Artist 11"
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS72OCTH4KFDMfZulC5hhn0p1GXPTAxVlqw5w&s",
+        "artist": "Daniela Cruz",
+        "artist_details": {
+            "birthdate": "1988-03-12",
+            "deathdate": null,
+            "type_of_art": "Abstract",
+            "age": 35,
+            "genre": "Female"
+        }
     },
     {
         "id": 12,
-        "name": "Ticket 12",
-        "description": "Description 12",
+        "name": "The baroque splendor",
+        "description": "Rich and ornate designs echoing the baroque period.",
         "price": 120,
         "quantity": 120,
-        "image": "https://via.placeholder.com/150",
-        "artist": "Artist 12"
+        "image": "https://cdn-ilbljnn.nitrocdn.com/TTAKoHBkGToXeiyBZSVOoWexbXGMYdgC/assets/images/optimized/rev-01a87ad/htdeco.fr/wp-content/uploads/img/cms/baroque/Epoque-baroque-.jpg",
+        "artist": "Elijah Romanov",
+        "artist_details": {
+            "birthdate": "1971-06-22",
+            "deathdate": null,
+            "type_of_art": "Baroque",
+            "age": 52,
+            "genre": "Male"
+        }
     },
     {
         "id": 13,
-        "name": "Ticket 13",
-        "description": "Description 13",
+        "name": "Romantic landscapes",
+        "description": "Capturing the romance and allure of untouched nature.",
         "price": 130,
         "quantity": 130,
-        "image": "https://via.placeholder.com/150",
-        "artist": "Artist 13"
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg/220px-Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg",
+        "artist": "Isabella Harper",
+        "artist_details": {
+            "birthdate": "1983-11-08",
+            "deathdate": null,
+            "type_of_art": "Romanticism",
+            "age": 40,
+            "genre": "Female"
+        }
     },
     {
         "id": 14,
-        "name": "Ticket 14",
-        "description": "Description 14",
+        "name": "Futurist velocity",
+        "description": "Dynamic forms embodying the speed and energy of futurism.",
         "price": 140,
         "quantity": 140,
-        "image": "https://via.placeholder.com/150",
-        "artist": "Artist 14"
+        "image": "https://cdn.britannica.com/22/181922-050-F14558F4/Knife-Grinder-Principle-Glittering-oil-canvas-Kazimir.jpg",
+        "artist": "Leon Vargas",
+        "artist_details": {
+            "birthdate": "1995-02-18",
+            "deathdate": null,
+            "type_of_art": "Futurism",
+            "age": 28,
+            "genre": "Male"
+        }
     },
     {
         "id": 15,
-        "name": "Ticket 15",
-        "description": "Description 15",
+        "name": "Expressionist turmoil",
+        "description": "Vivid emotions and raw energy expressed in every stroke.",
         "price": 150,
         "quantity": 150,
-        "image": "https://via.placeholder.com/150",
-        "artist": "Artist 15"
-    },
-    { 
-        "id": 16,
-        "name": "Ticket 16",
-        "description": "Description 16",
-        "price": 160,
-        "quantity": 160,
-        "image": "https://via.placeholder.com/150",
-        "artist": "Artist 16"
-    },
-    {
-        "id": 17,
-        "name": "Ticket 17",
-        "description": "Description 17",
-        "price": 170,
-        "quantity": 170,
-        "image": "https://via.placeholder.com/150",
-        "artist": "Artist 17"
-    },
-    {
-        "id": 18,
-        "name": "Ticket 18",
-        "description": "Description 18",
-        "price": 180,
-        "quantity": 180,
-        "image": "https://via.placeholder.com/150",
-        "artist": "Artist 18"
-    },
-    {
-        "id": 19,
-        "name": "Ticket 19",
-        "description": "Description 19",
-        "price": 190,
-        "quantity": 190,
-        "image": "https://via.placeholder.com/150",
-        "artist": "Artist 19"
-    },
-    {
-        "id": 20,
-        "name": "Ticket 20",
-        "description": "Description 20",
-        "price": 200,
-        "quantity": 200,
-        "image": "https://via.placeholder.com/150",
-        "artist": "Artist 20"
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvYud0IoUjOY_-fyFpCeta-DYikEEHR_Bvfg&s",
+        "artist": "Emma Walker",
+        "artist_details": {
+            "birthdate": "1997-04-05",
+            "deathdate": null,
+            "type_of_art": "Expressionism",
+            "age": 26,
+            "genre": "Female"
+        }
     }
 ]

@@ -1,162 +1,162 @@
 [
     {
         "id": 1,
-        "name": "Art is about colors",
-        "description": "Talking about art, is like using a color to define what state of mind you are in",
-        "price": 10,
-        "quantity": 10,
-        "artist": "Artist 1"
+        "name": "Exploring Colors in Art",
+        "description": "A hands-on workshop where participants will learn how to use color theory to express emotions and create visually striking artwork. Ideal for beginners and enthusiasts alike.",
+        "price": 45,
+        "quantity": 15,
+        "artist": "Sophia Rivera"
     },
     {
         "id": 2,
-        "name": "Ticket 2",
-        "description": "Description 2",
-        "price": 20,
+        "name": "Abstract Art: Beyond the Canvas",
+        "description": "Dive into the world of abstract art and learn techniques to express your unique perspective. This workshop focuses on texture, movement, and creative freedom.",
+        "price": 60,
         "quantity": 20,
-        "artist": "Artist 2"
+        "artist": "James Kohler"
     },
     {
         "id": 3,
-        "name": "Anime visual and artistic expression",
-        "description": "Description 3",
-        "price": 30,
-        "quantity": 30,
-        "artist": "Artist 3"
+        "name": "Anime Art: Drawing and Storytelling",
+        "description": "Learn the essentials of creating anime-style characters and how to tell compelling stories through your artwork. Perfect for manga and anime enthusiasts!",
+        "price": 50,
+        "quantity": 25,
+        "artist": "Haruka Tanaka"
     },
     {
         "id": 4,
-        "name": "Ticket 4",
-        "description": "Description 4",
-        "price": 40,
-        "quantity": 40,
-        "artist": "Artist 4"
+        "name": "Landscape Painting in Watercolors",
+        "description": "Discover the beauty of nature through watercolor painting. Participants will explore techniques for capturing light, texture, and perspective in landscapes.",
+        "price": 55,
+        "quantity": 18,
+        "artist": "Elena Garcia"
     },
     {
         "id": 5,
-        "name": "Ticket 5",
-        "description": "Description 5",
-        "price": 50,
-        "quantity": 50,
-        "artist": "Artist 5"
+        "name": "Portrait Drawing for Beginners",
+        "description": "This workshop introduces participants to the fundamentals of portrait drawing, including proportions, shading, and capturing expressions.",
+        "price": 40,
+        "quantity": 20,
+        "artist": "Michael Thompson"
     },
     {
         "id": 6,
-        "name": "Ticket 6",
-        "description": "Description 6",
-        "price": 60,
-        "quantity": 60,
-        "artist": "Artist 6"
+        "name": "Creative Collage and Mixed Media",
+        "description": "Unleash your creativity by combining different materials and textures in this mixed media workshop. A great way to experiment and make unique art pieces.",
+        "price": 35,
+        "quantity": 25,
+        "artist": "Amara Patel"
     },
     {
         "id": 7,
-        "name": "Ticket 7",
-        "description": "Description 7",
-        "price": 70,
-        "quantity": 70,
-        "artist": "Artist 7"
+        "name": "Clay Sculpting: From Basics to Mastery",
+        "description": "Learn how to work with clay to create sculptures, figurines, and functional art pieces. Techniques for molding, shaping, and finishing will be covered.",
+        "price": 65,
+        "quantity": 12,
+        "artist": "Liam O’Connor"
     },
     {
         "id": 8,
-        "name": "Ticket 8",
-        "description": "Description 8",
-        "price": 80,
-        "quantity": 80,
-        "artist": "Artist 8"
+        "name": "Urban Sketching: Capturing City Life",
+        "description": "This workshop teaches techniques for quick and expressive sketching, focusing on urban scenes, architecture, and street life.",
+        "price": 50,
+        "quantity": 20,
+        "artist": "Grace Miller"
     },
     {
         "id": 9,
-        "name": "Ticket 9",
-        "description": "Description 9",
-        "price": 90,
-        "quantity": 90,
-        "artist": "Artist 9"
+        "name": "Digital Art Essentials",
+        "description": "A comprehensive introduction to digital art tools and techniques. Participants will explore drawing tablets, software, and digital painting workflows.",
+        "price": 70,
+        "quantity": 15,
+        "artist": "Ethan Brooks"
     },
     {
         "id": 10,
-        "name": "Ticket 10",
-        "description": "Description 10",
-        "price": 100,
-        "quantity": 100,
-        "artist": "Artist 10"
+        "name": "Creative Writing and Illustration",
+        "description": "Combine storytelling with art by learning to create illustrated stories. Perfect for aspiring children’s book creators and graphic novel enthusiasts.",
+        "price": 55,
+        "quantity": 18,
+        "artist": "Isabella Huang"
     },
     {
         "id": 11,
-        "name": "Ticket 11",
-        "description": "Description 11",
-        "price": 110,
-        "quantity": 110,
-        "artist": "Artist 11"
+        "name": "Expressive Calligraphy and Lettering",
+        "description": "Discover the art of beautiful writing. This workshop focuses on modern calligraphy techniques and creative lettering styles.",
+        "price": 30,
+        "quantity": 20,
+        "artist": "Olivia Meyer"
     },
     {
         "id": 12,
-        "name": "Ticket 12",
-        "description": "Description 12",
-        "price": 120,
-        "quantity": 120,
-        "artist": "Artist 12"
+        "name": "Acrylic Painting for Beginners",
+        "description": "A step-by-step guide to mastering acrylic paints. Participants will learn color blending, brush techniques, and composition basics.",
+        "price": 45,
+        "quantity": 22,
+        "artist": "David Hernandez"
     },
     {
         "id": 13,
-        "name": "Ticket 13",
-        "description": "Description 13",
-        "price": 130,
-        "quantity": 130,
-        "artist": "Artist 13"
+        "name": "Introduction to Printmaking",
+        "description": "This workshop introduces the fundamentals of printmaking, including linocut, etching, and block printing techniques.",
+        "price": 60,
+        "quantity": 15,
+        "artist": "Charlotte Lee"
     },
     {
         "id": 14,
-        "name": "Ticket 14",
-        "description": "Description 14",
-        "price": 140,
-        "quantity": 140,
-        "artist": "Artist 14"
+        "name": "Botanical Illustration in Ink",
+        "description": "Learn to create intricate and detailed botanical illustrations using ink. Focus on line work, textures, and realistic rendering of plants.",
+        "price": 50,
+        "quantity": 16,
+        "artist": "Rachel Nguyen"
     },
     {
         "id": 15,
-        "name": "Ticket 15",
-        "description": "Description 15",
-        "price": 150,
-        "quantity": 150,
-        "artist": "Artist 15"
+        "name": "The Art of Mandala Creation",
+        "description": "Explore the meditative process of creating mandalas. Learn about symmetry, patterns, and cultural significance in this calming workshop.",
+        "price": 35,
+        "quantity": 25,
+        "artist": "Aanya Desai"
     },
-    { 
+    {
         "id": 16,
-        "name": "Ticket 16",
-        "description": "Description 16",
-        "price": 160,
-        "quantity": 160,
-        "artist": "Artist 16"
+        "name": "Advanced Oil Painting Techniques",
+        "description": "Take your oil painting skills to the next level by exploring advanced techniques such as glazing, impasto, and alla prima.",
+        "price": 80,
+        "quantity": 10,
+        "artist": "Leonard Martin"
     },
     {
         "id": 17,
-        "name": "Ticket 17",
-        "description": "Description 17",
-        "price": 170,
-        "quantity": 170,
-        "artist": "Artist 17"
+        "name": "Illustration for Comics and Graphic Novels",
+        "description": "Learn to create compelling illustrations for comics and graphic novels. Focus on character design, panel composition, and dynamic storytelling.",
+        "price": 65,
+        "quantity": 20,
+        "artist": "Nora Williamson"
     },
     {
         "id": 18,
-        "name": "Ticket 18",
-        "description": "Description 18",
-        "price": 180,
-        "quantity": 180,
-        "artist": "Artist 18"
+        "name": "Art Journaling for Self-Expression",
+        "description": "A therapeutic workshop where participants use art journaling to explore emotions, set goals, and develop creative habits.",
+        "price": 40,
+        "quantity": 18,
+        "artist": "Emma Carter"
     },
     {
         "id": 19,
-        "name": "Ticket 19",
-        "description": "Description 19",
-        "price": 190,
-        "quantity": 190,
-        "artist": "Artist 19"
+        "name": "Textile Art and Fabric Design",
+        "description": "Explore the world of textile art by learning dyeing techniques, fabric painting, and surface embellishments in this creative workshop.",
+        "price": 70,
+        "quantity": 15,
+        "artist": "Henry Zhao"
     },
     {
         "id": 20,
-        "name": "Ticket 20",
-        "description": "Description 20",
-        "price": 200,
-        "quantity": 200,
-        "artist": "Artist 20"
+        "name": "Art Therapy: Healing Through Creativity",
+        "description": "A supportive environment where participants can use art as a tool for personal growth and emotional healing. No artistic experience needed.",
+        "price": 50,
+        "quantity": 20,
+        "artist": "Isabel Torres"
     }
 ]
