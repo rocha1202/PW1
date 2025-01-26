@@ -114,13 +114,19 @@ export default {
     },
     methods: {
         editUser(user) {
-            this.editedUser = { ...user };
-            this.dialog = true;
+            this.editedUser = { ...user }; // Cria uma cópia dos dados do usuário para editar
+            this.dialog = true; // Abre o diálogo para editar
         },
         saveUser() {
             const userStore = useUserStore();
-            userStore.updateProfile(this.editedUser);
-            this.dialog = false;
+            try {
+                // Chama o método da store para atualizar o usuário
+                userStore.updateUser(this.editedUser.id, this.editedUser);
+                this.dialog = false; // Fecha o diálogo após salvar
+                alert('User updated successfully.');
+            } catch (error) {
+                alert('Error updating user: ' + error.message);
+            }
         },
         deleteUser(userId) {
             const userStore = useUserStore();
@@ -141,7 +147,8 @@ export default {
                 );
             }
         },
-    },
+    }
+
 };
 </script>
 

@@ -11,20 +11,18 @@
               <!-- Formulário de edição -->
               <v-form v-model="valid">
                 <!-- Nome -->
-                <v-text-field v-model="profile.name" label="Nome" :rules="[nameRule]" required />
+                <v-text-field v-model="localProfile.name" label="Nome" :rules="[nameRule]" required />
 
                 <!-- Email -->
-                <v-text-field v-model="profile.email" label="Email" :rules="[emailRule]" required />
+                <v-text-field v-model="localProfile.email" label="Email" :rules="[emailRule]" required />
 
                 <!-- Data de Nascimento -->
-                <v-text-field v-model="profile.birthdate" label="Data de Nascimento" type="date"
+                <v-text-field v-model="localProfile.birthdate" label="Data de Nascimento" type="date"
                   :rules="[birthdateRule]" required />
 
                 <!-- Senha -->
-                <v-text-field v-model="profile.password" label="Senha" type="password" :rules="[passwordRule]"
+                <v-text-field v-model="localProfile.password" label="Senha" type="password" :rules="[passwordRule]"
                   required />
-
-                
 
                 <!-- Botão de Salvar -->
                 <v-btn :disabled="!valid" color="primary" @click="saveProfile">
@@ -37,14 +35,14 @@
       </v-row>
     </v-container>
     <Footer />
-
   </v-app>
 </template>
 
 <script>
-import { useUserStore } from '@/stores/userStore.js'; // Importando o store
+import { useUserStore } from "@/stores/userStore.js"; // Importando o store
 import Navbar from "@/components/navbar.vue";
 import Footer from "@/components/footer.vue";
+import { reactive, ref } from "vue";
 
 export default {
   components: {
@@ -53,37 +51,35 @@ export default {
   },
   setup() {
     const userStore = useUserStore(); // Usando o store do Pinia
-    const profile = userStore.profile; // Acessando os dados do perfil
-    const valid = userStore.isValid; // Estado de validade do perfil
+    const localProfile = reactive({ ...userStore.profile }); // Cria uma cópia reativa do perfil
+    const valid = ref(false); // Estado de validade do formulário
 
     const emailRule = [
-      v => /.+@.+\..+/.test(v) || 'O email deve ser válido',
+      (v) => /.+@.+\..+/.test(v) || "O email deve ser válido",
     ];
     const passwordRule = [
-      v => v.length >= 6 || 'A senha deve ter pelo menos 6 caracteres',
+      (v) => v.length >= 6 || "A senha deve ter pelo menos 6 caracteres",
     ];
     const nameRule = [
-      v => !!v || 'O nome é obrigatório',
+      (v) => !!v || "O nome é obrigatório",
     ];
     const birthdateRule = [
-      v => !!v || 'A data de nascimento é obrigatória',
+      (v) => !!v || "A data de nascimento é obrigatória",
     ];
 
-    // Atualiza o perfil com os dados do formulário
-    function updateProfile() {
-      userStore.updateProfile(profile);
-      userStore.validateProfile(); // Valida os dados
-    }
-
+    // Atualiza o perfil no store
     function saveProfile() {
-      updateProfile();
-      if (valid) {
-        userStore.saveProfile();
+      try {
+        // Aqui o ID é implicitamente o do usuário logado, porque 'userStore.profile' já tem o ID do usuário logado
+        userStore.updateProfile(localProfile); // Passa os dados atualizados para o store
+        alert("Perfil atualizado com sucesso!");
+      } catch (error) {
+        alert("Erro ao atualizar o perfil: " + error.message);
       }
     }
 
     return {
-      profile,
+      localProfile,
       valid,
       emailRule,
       passwordRule,
@@ -91,7 +87,8 @@ export default {
       birthdateRule,
       saveProfile,
     };
-  },
+  }
+
 };
 </script>
 
