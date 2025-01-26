@@ -5,9 +5,22 @@
       <div class="content">
         <h1 class="text-center mb-2">Workshops</h1>
 
-        <!-- Carousel com slides de Workshops -->
+        <!-- Botões de ordenação -->
+        <v-row class="mb-4">
+          <v-col cols="12" sm="4" md="3">
+            <v-btn @click="sortWorkshops('name')" color="primary" full-width>Sort by Name</v-btn>
+          </v-col>
+          <v-col cols="12" sm="4" md="3">
+            <v-btn @click="sortWorkshops('date')" color="primary" full-width>Sort by Date</v-btn>
+          </v-col>
+          <v-col cols="12" sm="4" md="3">
+            <v-btn @click="sortWorkshops('price')" color="primary" full-width>Sort by Price</v-btn>
+          </v-col>
+        </v-row>
+
+        <!-- Workshops em uma grid de 3 colunas -->
         <v-row dense>
-          <v-col v-for="(workshop, index) in workshops.slice(0, 3)" :key="index" cols="12" md="6" lg="4">
+          <v-col v-for="(workshop, index) in workshops" :key="index" cols="12" md="6" lg="4">
             <v-card class="elevation-2 card-size">
               <v-card-title class="text-h6">{{ workshop.name }}</v-card-title>
               <v-card-subtitle>{{ workshop.artist }}</v-card-subtitle>
@@ -16,19 +29,17 @@
                 <p><strong>Quantity:</strong> {{ workshop.quantity }}</p>
                 <p><strong>Date:</strong> {{ formatDate(workshop.date) }}</p> <!-- Adicionando a data -->
               </v-card-text>
-              <v-card-actions>
-                <v-btn color="error" v-if="canDeleteWorkshop" @click="deleteWorkshop(workshop.id)">
-                  Delete
-                </v-btn>
-                <!-- Botão de Compra só aparece se a data for posterior à data atual -->
-                <v-btn color="success" @click="handleBuyTicket(workshop)"
-                  v-if="isUserAuthenticated && isFutureWorkshop(workshop.date)">
-                  Buy Tickets
-                </v-btn>
-                <v-btn color="primary" @click="openDialog(workshop)">
-                  Learn More
-                </v-btn>
-              </v-card-actions>
+
+              <v-btn color="success" @click="handleBuyTicket(workshop)"
+                v-if="isUserAuthenticated && isFutureWorkshop(workshop.date)">
+                Buy Tickets
+              </v-btn>
+              <v-btn color="error" v-if="canDeleteWorkshop" @click="deleteWorkshop(workshop.id)">
+                Delete
+              </v-btn>
+              <v-btn class="read-more-btn" color="blue" @click="openDialog(workshop)">
+                Learn More
+              </v-btn>
             </v-card>
           </v-col>
         </v-row>
@@ -45,37 +56,9 @@
               <p><strong>Description:</strong> {{ selectedWorkshop?.description }}</p>
             </v-card-text>
 
-              <v-btn color="blue" @click="dialog = false">Close</v-btn>
+            <v-btn color="blue" @click="dialog = false">Close</v-btn>
           </v-card>
         </v-dialog>
-
-        <!-- Workshops restantes em uma grid de 4 colunas -->
-        <v-row dense>
-          <v-col v-for="(workshop, index) in workshops.slice(3)" :key="index" cols="12" md="6" lg="4">
-            <v-card class="elevation-2 card-size">
-              <v-card-title class="text-h6">{{ workshop.name }}</v-card-title>
-              <v-card-subtitle>{{ workshop.artist }}</v-card-subtitle>
-              <v-card-text>
-                <p><strong>Price:</strong> ${{ workshop.price }}</p>
-                <p><strong>Quantity:</strong> {{ workshop.quantity }}</p>
-                <p><strong>Date:</strong> {{ formatDate(workshop.date) }}</p>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn color="error" v-if="canDeleteWorkshop" @click="deleteWorkshop(workshop.id)">
-                  Delete
-                </v-btn>
-                <!-- Botão de Compra só aparece se a data for posterior à data atual -->
-                <v-btn color="success" @click="handleBuyTicket(workshop)"
-                  v-if="isUserAuthenticated && isFutureWorkshop(workshop.date)">
-                  Buy Ticket
-                </v-btn>
-                <v-btn color="primary" @click="openDialog(workshop)">
-                  Learn More
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
       </div>
     </v-container>
     <Footer />
@@ -160,40 +143,27 @@ export default {
       const userStore = useUserStore();
       try {
         userStore.buyTicket(ticket);
-        alert(`Bilhete "${ticket.name}" comprado com sucesso!`);
+        alert(`Ticket "${ticket.name}" purchased successfully!`);
       } catch (error) {
         alert(error.message);
       }
     },
+    sortWorkshops(criteria) {
+      if (criteria === 'name') {
+        this.workshops = [...this.workshops].sort((a, b) => a.name.localeCompare(b.name));
+      } else if (criteria === 'date') {
+        this.workshops = [...this.workshops].sort((a, b) => new Date(a.date) - new Date(b.date));
+      } else if (criteria === 'price') {
+        this.workshops = [...this.workshops].sort((a, b) => a.price - b.price);
+      }
+    }
+
   },
 };
 </script>
 
-
 <style scoped>
-.v-card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
 
-.v-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.v-img {
-  border-radius: 8px;
-}
-
-.v-btn {
-  font-size: 16px;
-  margin: 10px;
-}
-
-.v-btn:hover {
-  background-color: #00695c;
-}
-
-/* Grid de workshops */
 .v-row {
   margin-top: 30px;
 }
@@ -202,17 +172,6 @@ export default {
   padding: 15px;
 }
 
-.v-card-title {
-  color: #003366;
-}
-
-.v-card-subtitle {
-  color: #555;
-}
-
-.v-card-text {
-  color: #333;
-}
 
 .v-card-actions {
   display: flex;
@@ -220,7 +179,7 @@ export default {
 }
 
 .card-size {
-  height: 250px;
+  height: 290px;
   /* Altura fixa para os cards */
   display: flex;
   flex-direction: column;

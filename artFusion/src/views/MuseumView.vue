@@ -26,21 +26,28 @@
                     <div><strong>Artist:</strong> {{ ticket.artist }}</div>
                   </v-card-text>
                   <v-btn class="buy-button" color="green" v-if="isUserAuthenticated && isFutureEvent(ticket.date)"
-                    @click="handleBuyTicket(ticket)">
-                    Buy Ticket
-                  </v-btn>
-
-                  <v-btn class="read-more-btn" color="blue" @click="openDialog(ticket)">
-                    Learn More
-                  </v-btn>
-                  <v-btn v-if="canDeleteTicket" color="red" @click="deleteTicket(ticket.id)">
-                    Delete
-                  </v-btn>
+                    @click="handleBuyTicket(ticket)"> Buy Ticket </v-btn>
+                  <v-btn v-if="canDeleteTicket" class="read-more-btn" color="red" @click="deleteTicket(ticket.id)">
+                    Delete </v-btn>
+                  <v-btn class="read-more-btn" color="blue" @click="openDialog(ticket)"> Learn More </v-btn>
                 </v-card>
               </v-col>
             </v-row>
           </v-carousel-item>
         </v-carousel>
+
+        <v-row class="mb-4">
+          <v-col cols="12" sm="4" md="3">
+            <v-btn @click="sortTickets('name')" color="primary" full-width>Sort by Name</v-btn>
+          </v-col>
+          <v-col cols="12" sm="4" md="3">
+            <v-btn @click="sortTickets('date')" color="primary" full-width>Sort by Date</v-btn>
+          </v-col>
+          <v-col cols="12" sm="4" md="3">
+            <v-btn @click="sortTickets('price')" color="primary" full-width>Sort by Price</v-btn>
+          </v-col>
+        </v-row>
+
 
         <!-- Todos os tickets em uma grid de 4 colunas -->
         <v-row justify="center" class="mt-4">
@@ -55,17 +62,16 @@
                 <div><strong>Quantity:</strong> {{ ticket.quantity }}</div>
               </v-card-text>
 
-              <!-- Lógica para não mostrar o botão "Comprar" se a data for passada ou igual -->
               <v-btn class="buy-button" color="green" v-if="isUserAuthenticated && isFutureEvent(ticket.date)"
                 @click="handleBuyTicket(ticket)">
                 Buy Ticket
               </v-btn>
 
-              <v-btn class="read-more-btn" color="blue" @click="openDialog(ticket)">
-                Learn More
-              </v-btn>
-              <v-btn v-if="canDeleteTicket" color="red" @click="deleteTicket(ticket.id)">
+              <v-btn v-if="canDeleteTicket" class="buy-button" color="red" @click="deleteTicket(ticket.id)">
                 Delete
+              </v-btn>
+              <v-btn class="buy-button" color="blue" @click="openDialog(ticket)">
+                Learn More
               </v-btn>
             </v-card>
           </v-col>
@@ -89,7 +95,9 @@
               @click="handleBuyTicket(selectedTicket)">
               Buy Ticket
             </v-btn>
-
+            <v-btn v-if="canDeleteTicket" class="buy-button" color="red" @click="deleteTicket(ticket.id)">
+              Delete
+            </v-btn>
             <v-btn color="blue" @click="dialog = false">Close</v-btn>
           </v-card>
         </v-dialog>
@@ -182,29 +190,16 @@ export default {
       // O mês em JavaScript é baseado em zero, então subtraímos 1 do mês
       return new Date(year, month - 1, day);
     },
+
+    sortTickets(criteria) {
+      if (criteria === 'name') {
+        this.tickets = [...this.tickets].sort((a, b) => a.name.localeCompare(b.name));
+      } else if (criteria === 'date') {
+        this.tickets = [...this.tickets].sort((a, b) => new Date(a.date) - new Date(b.date));
+      } else if (criteria === 'price') {
+        this.tickets = [...this.tickets].sort((a, b) => a.price - b.price);
+      }
+    },
   },
 };
 </script>
-
-<style scoped>
-/* Estilos personalizados para os botões */
-.v-btn {
-  font-size: 14px;
-  padding: 8px;
-}
-
-.v-btn:hover {
-  background-color: #388e3c;
-}
-
-.buy-button {
-  margin-bottom: 10px;
-}
-
-.read-more-btn {
-  margin-bottom: 10px;
-  background-color: #1976d2;
-}
-
-
-</style>

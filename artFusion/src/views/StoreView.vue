@@ -11,9 +11,9 @@
           <p><strong>Price:</strong> ${{ item.price }}</p>
           <p><strong>Quantity:</strong> {{ item.quantity }}</p>
 
-          <button v-if="isUserAuthenticated" @click="addToCart(item)" class="buy-button">Buy</button>
+          <v-btn v-if="isUserAuthenticated" @click="addToCart(item)" class="buy-button" color="green">Buy</v-btn>
 
-          <button v-if="isUserAuthenticated && isAdmin" @click="removeItem(item)" class="remove-button">Remove</button>
+          <v-btn v-if="isUserAuthenticated && isAdmin" @click="removeItem(item)" class="buy-button" color="red">Remove</v-btn>
         </div>
       </div>
 
@@ -22,13 +22,13 @@
         <ul>
           <li v-for="item in cartItems" :key="item.id">
             {{ item.name }} - ${{ item.price }}
-            <button @click="removeFromCart(item)" class="remove-button">Remove</button>
+            <v-btn @click="removeFromCart(item)" class="buy-button-cart" color="red">X</v-btn>
           </li>
         </ul>
         <p v-if="cartItems.length === 0">Your cart is empty</p>
         <div v-if="cartItems.length > 0">
           <p><strong>Total:</strong> ${{ totalPrice }}</p>
-          <button @click="buyItems" class="buy-all-button">Buy All</button>
+          <v-btn @click="buyItems" class="buy-all-button" color="green">Buy All</v-btn>
         </div>
       </div>
     </div>
