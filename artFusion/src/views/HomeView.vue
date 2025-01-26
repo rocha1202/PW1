@@ -38,7 +38,7 @@
             <v-img :src="event2" alt="Arte Contemporânea" class="rounded-lg" contain></v-img>
           </v-col>
           <v-col cols="12" md="6" class="d-flex flex-column justify-center">
-            <h1 class="display-1"style="color: #F1F9FC;">About the Event</h1>
+            <h1 class="display-1" style="color: #F1F9FC;">About the Event</h1>
             <p class="subheading">
               The Contemporary Art Festival brings together renowned and emerging artists
               in a celebration that transcends cultural and aesthetic boundaries.
@@ -50,7 +50,7 @@
         </v-row>
 
         <!-- Sponsors Section -->
-        <h1 class="display-1"style="color: #F1F9FC;">Support and Sponsors</h1>
+        <h1 class="display-1" style="color: #F1F9FC;">Support and Sponsors</h1>
         <v-row class="values-section py-12" justify="center" align="center">
           <v-col cols="12" md="4" align="center">
             <v-icon color="primary" large>mdi-palette</v-icon>
@@ -65,6 +65,19 @@
           </v-col>
         </v-row>
       </v-container>
+      <v-dialog v-model="showModal" persistent max-width="600px">
+        <v-card>
+          <v-card-title class="headline">Notificações</v-card-title>
+          <v-card-text>
+            <p><strong>Alerta:</strong> Foi adiciona um novo workshop que talvez irá gostar.</p>
+            <p><strong>Atenção:</strong> Passou a data de um workshop que você adicionou anteriormente.</p>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" text @click="showModal = false">Fechar</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-main>
     <!-- Footer -->
     <Footer />
@@ -78,6 +91,7 @@ import event2 from "@/assets/event2.jpg";
 import Patrocinador1 from "@/assets/Sponsors1.png";
 import Patrocinador2 from "@/assets/Sponsors2.png";
 import Patrocinador3 from "@/assets/Sponsors3.png";
+import { useUserStore } from "@/stores/userStore";
 
 
 export default {
@@ -92,10 +106,19 @@ export default {
       Patrocinador1,
       Patrocinador2,
       Patrocinador3,
-
+      showModal: false, // Controla a exibição da modal
     };
   },
-};
+  mounted() {
+  const userStore = useUserStore(); // Acesse a store de usuário
+  const user = userStore.user; // Acesse diretamente o 'user' no estado
+
+
+  if (user && user.id === 4) {
+    this.showModal = true; // Exibe o modal para o usuário com id 4
+  }
+},
+}
 </script>
 
 <style scoped>
@@ -112,13 +135,13 @@ export default {
 }
 
 .text-primary {
- color: #F1F9FC;
-}
-.values-section {
-    text-align: center;
-    border-radius: 8px;
-    display: flex;
-    flex-wrap: nowrap; 
+  color: #F1F9FC;
 }
 
+.values-section {
+  text-align: center;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: nowrap;
+}
 </style>

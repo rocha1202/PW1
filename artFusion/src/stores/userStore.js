@@ -4,7 +4,7 @@ import defaultAvatar from '@/assets/Account.png';
 export const useUserStore = defineStore('user', {
   state: () => ({
     isAuthenticated: false,
-    user: null,
+    user: null,  // Aqui armazena o usuário autenticado
     token: null,
     userRole: null,
     accounts: [
@@ -48,26 +48,29 @@ export const useUserStore = defineStore('user', {
 
       const token = `mock-token-${user.id}`; // Simula um token gerado
       this.isAuthenticated = true;
-      this.user = user;
+      this.user = user;  // Armazena o usuário logado
       this.userRole = user.role;
       this.token = token;
       this.profile = { ...user }; // Preenche o perfil
       return true;
     },
-
+    logout() {
+      this.isAuthenticated = false;
+      this.user = null;
+      this.token = null;
+      this.userRole = null;
+      this.profile = { name: '', email: '', birthdate: '', password: '', avatar: defaultAvatar };
+    },
     updateProfile(updatedUserData) {
       if (this.user) {
-        // Verifica se é o admin ou usuário padrão
         const userId = this.user.id;
 
-        // Se for admin, o 'updatedUserData' vem com o ID do usuário sendo editado
         const userIndex = this.accounts.findIndex(account => account.id === updatedUserData.id);
 
         if (userIndex !== -1) {
-          // Se for o usuário padrão, verificamos se o ID do usuário padrão corresponde ao usuário logado
           if (updatedUserData.id === userId || this.userRole === 'admin') {
             this.accounts[userIndex] = { ...this.accounts[userIndex], ...updatedUserData };
-            this.profile = { ...this.accounts[userIndex] }; // Atualiza o perfil do usuário na store
+            this.profile = { ...this.accounts[userIndex] };
           } else {
             throw new Error("Você não tem permissão para editar este perfil.");
           }
@@ -78,41 +81,6 @@ export const useUserStore = defineStore('user', {
         throw new Error("Usuário não autenticado.");
       }
     },
-
-    updateUser(userId, updatedUserData) {
-      const userIndex = this.accounts.findIndex(account => account.id === userId);
-      if (userIndex !== -1) {
-        // Se for o admin, ele pode editar qualquer usuário
-        // Se for um usuário comum, ele só pode editar o próprio perfil
-        if (this.userRole === 'admin' || this.user.id === updatedUserData.id) {
-          this.accounts[userIndex] = { ...this.accounts[userIndex], ...updatedUserData };
-          this.profile = { ...this.accounts[userIndex] }; // Atualiza o perfil na store, caso necessário
-        } else {
-          throw new Error('You do not have permission to edit this user.');
-        }
-      } else {
-        throw new Error('User not found.');
-      }
-    },
-    deleteUser(userId) {
-      this.accounts = this.accounts.filter((u) => u.id !== userId);
-    },
-
-    blockUser(userId) {
-      const user = this.getUserById(userId);
-      if (user) {
-        user.isBlocked = !user.isBlocked;
-      }
-    },
-
-    logout() {
-      this.isAuthenticated = false;
-      this.user = null;
-      this.token = null;
-      this.userRole = null;
-      this.profile = { name: '', email: '', birthdate: '', password: '', avatar: defaultAvatar };
-    },
-
     buyTicket(ticket) {
       if (!this.purchasedTickets.find((t) => t.id === ticket.id)) {
         this.purchasedTickets.push(ticket);
@@ -120,11 +88,9 @@ export const useUserStore = defineStore('user', {
         throw new Error("Você já comprou este bilhete.");
       }
     },
-
     removeTicket(ticketId) {
       this.purchasedTickets = this.purchasedTickets.filter(ticket => ticket.id !== ticketId);
     },
-
     createAccount(email, password, role = 'user', name = '', birthdate = '', avatar) {
       const emailExists = this.accounts.some((account) => account.email === email);
       if (emailExists) {
@@ -138,7 +104,7 @@ export const useUserStore = defineStore('user', {
         role,
         name,
         birthdate,
-        avatar: avatar || defaultAvatar, // Se avatar não for passado, usa o avatar padrão
+        avatar: avatar || defaultAvatar,
       };
       this.accounts.push(newAccount);
       console.log('Conta criada:', newAccount);

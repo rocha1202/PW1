@@ -206,13 +206,5 @@ export default {
   background-color: #1976d2;
 }
 
-/* Estilo do dialog */
-.v-dialog .v-card {
-  background-color: #0f0a30;
-  color: #f1f9fc;
-}
 
-.v-dialog .v-card-title {
-  color: #fff;
-}
 </style>

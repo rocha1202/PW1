@@ -44,10 +44,8 @@
               <p><strong>Quantity:</strong> {{ selectedWorkshop?.quantity }}</p>
               <p><strong>Description:</strong> {{ selectedWorkshop?.description }}</p>
             </v-card-text>
-            <v-card-actions>
-              <v-spacer />
-              <v-btn color="primary" text @click="dialog = false">Close</v-btn>
-            </v-card-actions>
+
+              <v-btn color="blue" @click="dialog = false">Close</v-btn>
           </v-card>
         </v-dialog>
 

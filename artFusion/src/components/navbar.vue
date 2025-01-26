@@ -41,9 +41,6 @@
           <li class="navbar-item" v-if="isAdmin">
             <router-link to="/users" class="button">Users</router-link>
           </li>
-          <li v-else class="navbar-item">
-            <img src="../assets/notification.png" alt="Notifications" class="navbar-icon" />
-          </li>
           <!-- Avatar com dropdown -->
           <li class="navbar-item dropdown" ref="dropdownRef">
             <img src="../assets/Account.png" alt="Profile" class="navbar-avatar" @click="toggleDropdown" />
