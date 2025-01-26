@@ -4,6 +4,7 @@
 
     <div class="content">
 
+
       <!-- Carrossel com 4 dos tickets -->
       <div class="carousel-container">
         <Carousel :slideCount="4">
