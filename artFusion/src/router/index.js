@@ -10,6 +10,7 @@ import Profile from "@/views/ProfileView.vue";
 import ArtistDetails from "@/views/ArtistDetails.vue";
 import AboutView from "@/views/LearnMoreView.vue";
 import Users from "@/views/usersView.vue";
+import Feedback from "@/views/feedbackView.vue";
 import NotFoundView from "@/views/NotFoundView.vue";  // Importando a página de erro 404
 
 import { useUserStore } from "@/stores/userStore";
@@ -39,6 +40,11 @@ const router = createRouter({
       path: "/profile",
       name: "Profile",
       component: Profile,
+      meta: { requiresAuth: true },
+    },    {
+      path: "/feedback",
+      name: "Feedback",
+      component: Feedback,
       meta: { requiresAuth: true },
     },
     {

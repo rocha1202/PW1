@@ -22,6 +22,9 @@
         <li v-if="showTickets" class="navbar-item">
           <router-link to="/tickets">My tickets</router-link>
         </li>
+        <li v-if="showTickets" class="navbar-item">
+          <router-link to="/feedback">Feedback </router-link>
+        </li>
       </div>
 
       <!-- Sign In e Sign Up à direita, ou avatar e notificações/usuários se logado -->
