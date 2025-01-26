@@ -3,7 +3,6 @@
     <Navbar />
 
     <div class="content">
-      <h1>Tickets</h1>
 
       <!-- Carrossel com 4 dos tickets -->
       <div class="carousel-container">
@@ -177,45 +176,82 @@ button.delete:hover {
   justify-content: center;
 }
 
+
+
 .ticket-card {
+  width: 100%;
+  max-width: 240px; /* Largura máxima reduzida */
+  height: 360px; /* Altura mais compacta */
   border: 1px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   text-align: center;
+  background-color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ticket-card:hover {
+  transform: scale(1.05); /* Leve efeito de zoom ao passar o mouse */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .ticket-image {
   width: 100%;
-  height: auto;
+  height: 120px; /* Imagens menores */
   object-fit: cover;
+  border-bottom: 1px solid #eee;
 }
 
 .ticket-info {
   padding: 10px;
-  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px; /* Espaçamento entre os elementos */
+  text-align: left; /* Texto alinhado à esquerda */
+  font-size: 14px; /* Reduz tamanho da fonte */
 }
+
 
 .ticket-info h2 {
-  font-size: 1.2em;
-  margin-bottom: 10px;
-  color: #003366;
-}
-
-.ticket-info p {
   font-size: 1em;
   margin: 5px 0;
   color: #003366;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; /* Texto longo é cortado com reticências */
 }
 
+.ticket-info p {
+  margin: 3px 0;
+  color: #333;
+}
+
+.ticket-info strong {
+  color: #555;
+}
+
+
+.ticket-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+
 button {
-  background-color: red;
+  background-color: green;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 4px 4px; /* Botões menores */
   cursor: pointer;
-  border-radius: 5px;
-  font-size: 14px;
+  border-radius: 4px;
+  font-size: 12px;
 }
 
 button:hover {
@@ -227,11 +263,11 @@ button:hover {
   background-color: green;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 8px 8px;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 16px;
-  margin-right: 10px;
+  font-size: 14px;
+  
 }
 
 .buy-button:hover {
