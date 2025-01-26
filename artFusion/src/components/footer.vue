@@ -4,9 +4,10 @@
   <footer>
     <p>&copy; {{ new Date().getFullYear() }} ArtFusion. All rights reserved.</p>
     <div class="footer-links">
-      <p><a href="#">Terms of Service</a></p>
-      <p><a href="#">Privacy Policy</a></p>
-      <p><a href="#">Contact Us</a></p>
+      <router-link to="/404">Terms of Service</router-link>
+      <router-link to="/404">Privacy Policy</router-link>
+      <router-link to="/404">Contact Us</router-link>
+
     </div>
   </footer>
 </div>
@@ -51,10 +52,7 @@ footer p a {
   transition: color 0.3s ease; /* Suavidade no hover */
 }
 
-footer p a:hover {
-  color: #FFD700; /* Cor dourada para destaque ao passar o mouse */
-  text-decoration: underline;
-}
+
 
 footer p {
   margin: 5px 0; /* Espaçamento vertical */

@@ -72,9 +72,9 @@ export default {
       try {
         // Aqui o ID é implicitamente o do usuário logado, porque 'userStore.profile' já tem o ID do usuário logado
         userStore.updateProfile(localProfile); // Passa os dados atualizados para o store
-        alert("Perfil atualizado com sucesso!");
+        alert("Profile updated successfully!");
       } catch (error) {
-        alert("Erro ao atualizar o perfil: " + error.message);
+        alert("Error updating profile: " + error.message);
       }
     }
 

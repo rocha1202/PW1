@@ -44,12 +44,9 @@ export default {
 
     const handleSignUp = async () => {
       try {
-        // Executa o login e redireciona se bem-sucedido
         await accountStore.login(email.value, password.value);
-        console.log("Login bem-sucedido");
         router.push("/");
       } catch (error) {
-        console.error("Erro durante o login:", error.message);
         alert(error.message);
       }
     };

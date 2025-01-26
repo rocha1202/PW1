@@ -10,8 +10,8 @@
                     <v-data-table :items="users" :headers="headers" item-value="id" class="elevation-1" :search="search"
                         show-select :footer-props="{ itemsPerPageText: '', showCurrentPage: false, itemsPerPage: 0 }">
                         <template v-slot:top>
-                            <v-text-field v-model="search" label="Search for users" class="mx-4" clearable
-                                prepend-icon="mdi-magnify"></v-text-field>
+                            <v-text-field v-model="search" label="Search for users" class="mx-4"
+                                clearable></v-text-field>
                         </template>
                         <template v-slot:item.actions="{ item }">
                             <span class="action-text" @click="editUser(item)" @mouseover="hoveredAction = 'edit'"
@@ -42,7 +42,7 @@
                     </v-data-table>
 
                     <!-- Controles de paginação -->
-                    <v-pagination v-model="page" :length="pageCount" total-visible="5" color="primary"
+                    <v-pagination v-model="page" :length="pageCount" total-visible="10" color="primary"
                         class="mt-4"></v-pagination>
                 </v-card-text>
             </v-card>
@@ -120,8 +120,8 @@ export default {
         saveUser() {
             const userStore = useUserStore();
             try {
-                // Chama o método da store para atualizar o usuário
-                userStore.updateUser(this.editedUser.id, this.editedUser);
+                // Chama o método da store para atualizar o perfil do usuário
+                userStore.updateProfile(this.editedUser);
                 this.dialog = false; // Fecha o diálogo após salvar
                 alert('User updated successfully.');
             } catch (error) {

@@ -50,14 +50,12 @@ export default {
       if (password.value === confirmPassword.value) {
         try {
           accountStore.createAccount(email.value, password.value);
-          console.log("Account created successfully:", email.value);
           router.push("/login");
         } catch (error) {
           console.error(error.message);
           alert(error.message);
         }
       } else {
-        console.log("Passwords do not match");
         alert("Passwords must match.");
       }
     };

@@ -4,7 +4,7 @@ import defaultAvatar from '@/assets/Account.png';
 export const useUserStore = defineStore('user', {
   state: () => ({
     isAuthenticated: false,
-    user: null,  // Aqui armazena o usuário autenticado
+    user: null,  
     token: null,
     userRole: null,
     accounts: [
@@ -72,20 +72,21 @@ export const useUserStore = defineStore('user', {
             this.accounts[userIndex] = { ...this.accounts[userIndex], ...updatedUserData };
             this.profile = { ...this.accounts[userIndex] };
           } else {
-            throw new Error("Você não tem permissão para editar este perfil.");
+            throw new Error("You do not have permission to edit this profile..");
           }
         } else {
-          throw new Error("Usuário não encontrado.");
+          throw new Error("User not found.");
         }
       } else {
-        throw new Error("Usuário não autenticado.");
+        throw new Error("Unauthenticated user.");
       }
     },
+
     buyTicket(ticket) {
       if (!this.purchasedTickets.find((t) => t.id === ticket.id)) {
         this.purchasedTickets.push(ticket);
       } else {
-        throw new Error("Você já comprou este bilhete.");
+        throw new Error("You have already purchased this ticket.");
       }
     },
     removeTicket(ticketId) {
@@ -94,7 +95,7 @@ export const useUserStore = defineStore('user', {
     createAccount(email, password, role = 'user', name = '', birthdate = '', avatar) {
       const emailExists = this.accounts.some((account) => account.email === email);
       if (emailExists) {
-        throw new Error('O email já está em uso. Tente outro.');
+        throw new Error('Email is already in use. Try another one.');
       }
 
       const newAccount = {
@@ -107,7 +108,6 @@ export const useUserStore = defineStore('user', {
         avatar: avatar || defaultAvatar,
       };
       this.accounts.push(newAccount);
-      console.log('Conta criada:', newAccount);
     },
   },
 });

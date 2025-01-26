@@ -18,10 +18,10 @@ export const useFeedbackStore = defineStore('feedback', {
     // Adiciona um feedback (string) se o utilizador estiver autenticado
     addFeedback(feedbackText) {
       if (!this.isAuthenticated) {
-        throw new Error('Apenas utilizadores autenticados podem adicionar feedback.');
+        throw new Error('Only authenticated users can add feedback..');
       }
       if (typeof feedbackText !== 'string' || !feedbackText.trim()) {
-        throw new Error('O feedback deve ser um texto válido.');
+        throw new Error('Feedback must be valid text.');
       }
       this.feedbacks.push(feedbackText.trim()); // Adiciona o feedback à lista
     },

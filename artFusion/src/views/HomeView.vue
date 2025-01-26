@@ -67,14 +67,14 @@
       </v-container>
       <v-dialog v-model="showModal" persistent max-width="600px">
         <v-card>
-          <v-card-title class="headline">Notificações</v-card-title>
+          <v-card-title class="headline">Notifications</v-card-title>
           <v-card-text>
-            <p><strong>Alerta:</strong> Foi adiciona um novo workshop que talvez irá gostar.</p>
-            <p><strong>Atenção:</strong> Passou a data de um workshop que você adicionou anteriormente.</p>
+            <p><strong>Alert:</strong> A new workshop has been added that you might like.</p>
+            <p><strong>Attention:</strong> The date of a workshop you previously added has passed.</p>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="showModal = false">Fechar</v-btn>
+            <v-btn color="primary" text @click="showModal = false">Close</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -110,14 +110,14 @@ export default {
     };
   },
   mounted() {
-  const userStore = useUserStore(); // Acesse a store de usuário
-  const user = userStore.user; // Acesse diretamente o 'user' no estado
+    const userStore = useUserStore(); // Acesse a store de usuário
+    const user = userStore.user; // Acesse diretamente o 'user' no estado
 
 
-  if (user && user.id === 4) {
-    this.showModal = true; // Exibe o modal para o usuário com id 4
-  }
-},
+    if (user && user.id === 4) {
+      this.showModal = true; // Exibe o modal para o usuário com id 4
+    }
+  },
 }
 </script>
 

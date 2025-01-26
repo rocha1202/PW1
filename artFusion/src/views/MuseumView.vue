@@ -157,7 +157,6 @@ export default {
     // Método para excluir um ticket
     deleteTicket(ticketId) {
       this.tickets = this.tickets.filter((ticket) => ticket.id !== ticketId);
-      console.log(`Ticket ${ticketId} apagado com sucesso!`);
     },
 
     // Método para simular a compra de um ticket
@@ -165,7 +164,7 @@ export default {
       const userStore = useUserStore();
       try {
         userStore.buyTicket(ticket);
-        alert(`Bilhete "${ticket.name}" comprado com sucesso!`);
+        alert(`Ticket "${ticket.name}" purchased successfully!`);
       } catch (error) {
         alert(error.message);
       }
