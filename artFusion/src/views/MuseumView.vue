@@ -35,7 +35,7 @@
             <p><strong>Price:</strong> ${{ ticket.price }}</p>
             <p><strong>Artist:</strong> {{ ticket.artist }}</p>
             <p><strong>Quantity:</strong> {{ ticket.quantity }}</p>
-
+            <button class="buy-button" @click="handleBuyTicket(ticket)"> Comprar </button>
             <!-- Botão de apagar visível apenas para admins ou organizers -->
             <button v-if="canDeleteTicket" @click="deleteTicket(ticket.id)">Delete</button>
           </div>
@@ -109,6 +109,15 @@ export default {
       alert(`Você comprou o ticket: ${ticket.name}`);
       // Lógica adicional para a compra do ticket pode ser implementada aqui
     },
+    handleBuyTicket(ticket) {
+      const userStore = useUserStore();
+      try {
+        userStore.buyTicket(ticket);
+        alert(`Bilhete "${ticket.name}" comprado com sucesso!`);
+      } catch (error) {
+        alert(error.message);
+      }
+    },
   },
 };
 </script>
@@ -147,9 +156,12 @@ button.delete:hover {
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centraliza o conteúdo verticalmente */
-  align-items: center; /* Centraliza o conteúdo horizontalmente */
-  min-height: 100vh; /* Garante que a altura mínima ocupe a tela inteira */
+  justify-content: center;
+  /* Centraliza o conteúdo verticalmente */
+  align-items: center;
+  /* Centraliza o conteúdo horizontalmente */
+  min-height: 100vh;
+  /* Garante que a altura mínima ocupe a tela inteira */
 }
 
 .carousel-container {
@@ -244,21 +256,25 @@ button:hover {
 /* Responsividade */
 @media (max-width: 768px) {
   .tickets-container {
-    grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas menores */
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 colunas em telas menores */
   }
 
   .ticket-card {
-    width: 90%; /* Reduz a largura dos cards para 90% em telas menores */
+    width: 90%;
+    /* Reduz a largura dos cards para 90% em telas menores */
   }
 }
 
 @media (max-width: 480px) {
   .tickets-container {
-    grid-template-columns: 1fr; /* 1 coluna em telas muito pequenas */
+    grid-template-columns: 1fr;
+    /* 1 coluna em telas muito pequenas */
   }
 
   .ticket-card {
-    width: 100%; /* Card ocupa toda a largura da tela */
+    width: 100%;
+    /* Card ocupa toda a largura da tela */
   }
 }
 </style>

@@ -22,6 +22,8 @@ export const useUserStore = defineStore('user', {
       password: '',
       avatar: defaultAvatar,
     },
+    purchasedTickets: [], // Armazena tickets comprado
+
   }),
 
   getters: {
@@ -81,6 +83,16 @@ export const useUserStore = defineStore('user', {
       this.token = null;
       this.userRole = null;
       this.profile = { name: '', email: '', birthdate: '', password: '', avatar: defaultAvatar };
+    },
+    buyTicket(ticket) {
+      if (!this.purchasedTickets.find((t) => t.id === ticket.id)) {
+        this.purchasedTickets.push(ticket);
+      } else {
+        throw new Error("Você já comprou este bilhete.");
+      }
+    },
+    removeTicket(ticketId) {
+      this.purchasedTickets = this.purchasedTickets.filter(ticket => ticket.id !== ticketId);
     },
   },
 });
