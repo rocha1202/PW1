@@ -109,5 +109,13 @@ export const useUserStore = defineStore('user', {
       };
       this.accounts.push(newAccount);
     },
+    blockUser(userId) {
+      const userIndex = this.accounts.findIndex((user) => user.id === userId);
+      if (userIndex !== -1) {
+        this.accounts[userIndex].isBlocked = !this.accounts[userIndex].isBlocked;
+      } else {
+        throw new Error("User not found.");
+      }
+    }
   },
 });

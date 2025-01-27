@@ -139,14 +139,15 @@ export default {
         },
         blockUser(userId) {
             const userStore = useUserStore();
-            const user = userStore.getUserById(userId);
-            if (user) {
-                userStore.blockUser(userId);
-                alert(
-                    `User ${user.name} was ${user.isBlocked ? "blocked" : "unblocked"}.`
-                );
+            try {
+                userStore.blockUser(userId); // Call the store action
+                const user = userStore.getUserById(userId); // Fetch updated user
+                alert(`User ${user.name} was ${user.isBlocked ? "blocked" : "unblocked"}.`);
+            } catch (error) {
+                alert(`Error: ${error.message}`);
             }
         },
+
     }
 
 };
